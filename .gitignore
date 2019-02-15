@@ -3,5 +3,5 @@ mvnw.cmd
 target/
 .settings
 .classpath
-.projet
+.project
 bin/
