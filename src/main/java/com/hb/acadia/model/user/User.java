@@ -5,15 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Adress;
 
 @Entity
-public class User {
+public abstract class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	protected long id;
 	
 	@Column(unique = true)
@@ -31,6 +32,7 @@ public class User {
 	@Column(unique = true)
 	protected String mail;
 	@NotNull
+	@OneToOne
 	protected Adress adress;
 	
 	protected boolean isActif;
