@@ -6,7 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+
 @Entity
+@Getter
+@Setter
+@Builder
 public class Adress {
 
 	@Id
@@ -26,48 +34,7 @@ public class Adress {
 	private String country;
 	
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public int getNumber() {
-		return number;
-	}
-	public void setNumber(int number) {
-		this.number = number;
-	}
-	public String getRoad() {
-		return road;
-	}
-	public void setRoad(String road) {
-		this.road = road;
-	}
-	public String getRoadType() {
-		return roadType;
-	}
-	public void setRoadType(String roadType) {
-		this.roadType = roadType;
-	}
-	public String getCp() {
-		return cp;
-	}
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
+	
 	@Override
 	public String toString() {
 		return "Adress [id=" + id + ", number=" + number + ", road=" + road + ", roadType=" + roadType + ", cp=" + cp
