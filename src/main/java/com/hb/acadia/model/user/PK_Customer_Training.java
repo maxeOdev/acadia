@@ -13,16 +13,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Embeddable
-<<<<<<< HEAD
-public class PK_Customer_Training  implements Serializable {
-
-	private static final long serialVersionUID = -4999675871252402122L;
-=======
 @Getter
 @Setter
 @Builder
-public class PK_Customer_Training {
->>>>>>> Add lombok lib
+public class PK_Customer_Training  implements Serializable {
+
+	private static final long serialVersionUID = -4999675871252402122L;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
