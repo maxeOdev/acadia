@@ -2,9 +2,11 @@ package com.hb.acadia.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.user.User;
@@ -23,8 +25,11 @@ public class Bill {
 	private long date;
 	
 	@NotNull
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Address billAddress;
 	
+	@NotNull
+	@ManyToOne(fetch=FetchType.EAGER)
 	private User buyer;
 		
 	public Bill() {}

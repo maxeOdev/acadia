@@ -13,8 +13,8 @@ import com.hb.acadia.model.Video;
 
 @Entity
 @AssociationOverrides({
-		@AssociationOverride(name = "items.user", joinColumns = @JoinColumn(name = "id")),
-		@AssociationOverride(name = "items.training", joinColumns = @JoinColumn(name = "id")),})
+		@AssociationOverride(name = "items.user", joinColumns = @JoinColumn(name = "idUser")),
+		@AssociationOverride(name = "items.training", joinColumns = @JoinColumn(name = "idTraining"))})
 public class UserMetadata {
 
 	@EmbeddedId
