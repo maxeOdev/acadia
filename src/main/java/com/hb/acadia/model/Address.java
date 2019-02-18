@@ -19,7 +19,7 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull 
-	private int nomber;
+	private int number;
 	@NotNull 
 	private String road;
 	@NotNull 
@@ -30,6 +30,8 @@ public class Address {
 	private String city;
 	@NotNull 
 	private String country;
+	
+	
 	
 	
 	
