@@ -1,6 +1,6 @@
 package com.hb.acadia.model.user;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +44,7 @@ public class Training {
 	private Category category;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	private List<Video> videos;
+	private Set<Video> videos;
 	
 	private boolean isActive;
 

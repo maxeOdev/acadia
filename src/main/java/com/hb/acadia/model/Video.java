@@ -1,6 +1,6 @@
 package com.hb.acadia.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.hb.acadia.model.user.Training;
 
@@ -27,20 +25,16 @@ public class Video {
 	@Column(unique=true, nullable=false)
 	private String path;
 	@ManyToMany(mappedBy="videos",fetch=FetchType.LAZY)
-	private List<Training> trainings;
+	private Set<Training> trainings;
 	
 	public Video() {
 		
 	}
 
-	public Video(String uuid, String path, List<Training> trainings) {
+	public Video(String uuid, String path, Set<Training> trainings) {
 		this.uuid = uuid;
 		this.path = path;
 		this.trainings = trainings;
-	}
-	
-	public static void main(String[] args) {
-		Video video = new Video();
 	}
 
 	public long getId() {
@@ -67,11 +61,11 @@ public class Video {
 		this.path = path;
 	}
 
-	public List<Training> getTrainings() {
+	public Set<Training> getTrainings() {
 		return trainings;
 	}
 
-	public void setTrainings(List<Training> trainings) {
+	public void setTrainings(Set<Training> trainings) {
 		this.trainings = trainings;
 	}
 

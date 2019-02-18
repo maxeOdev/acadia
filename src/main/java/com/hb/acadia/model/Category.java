@@ -1,6 +1,6 @@
 package com.hb.acadia.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,13 +23,13 @@ public class Category {
 	private String name;
 	
 	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
-	private List<Training> trainings;
+	private Set<Training> trainings;
 	
 	public Category() {
 		
 	}
 
-	public Category(String name, List<Training> trainings) {
+	public Category(String name, Set<Training> trainings) {
 		this.name = name;
 		this.trainings = trainings;
 	}
@@ -50,11 +50,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public List<Training> getTrainings() {
+	public Set<Training> getTrainings() {
 		return trainings;
 	}
 
-	public void setTrainings(List<Training> trainings) {
+	public void setTrainings(Set<Training> trainings) {
 		this.trainings = trainings;
 	}
 

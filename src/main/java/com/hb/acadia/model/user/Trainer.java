@@ -1,6 +1,6 @@
 package com.hb.acadia.model.user;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class Trainer extends User {
 	@NotNull
 	private boolean isCertified;
 	@OneToMany(mappedBy="trainer",fetch=FetchType.LAZY)
-	private List<Training> trainings;
+	private Set<Training> trainings;
 
 	@Override
 	public String toString() {
