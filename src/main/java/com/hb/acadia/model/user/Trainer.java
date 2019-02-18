@@ -8,11 +8,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Training;
-<<<<<<< HEAD
-
-@Entity
-=======
->>>>>>> Continue model implementation
 
 @Entity
 public class Trainer extends User {
@@ -32,14 +27,8 @@ public class Trainer extends User {
 	// auto-publish
 	@NotNull
 	private boolean isCertified;
-<<<<<<< HEAD
 	@OneToMany(mappedBy="trainer",fetch=FetchType.LAZY)
 	private Set<Training> trainings;
-=======
-
-	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
-	private List<Training> trainings;
->>>>>>> Continue model implementation
 
 	@Override
 	public String toString() {
