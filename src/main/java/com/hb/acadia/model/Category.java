@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.hb.acadia.model.user.Training;
-
 @Entity
 public class Category {
 	

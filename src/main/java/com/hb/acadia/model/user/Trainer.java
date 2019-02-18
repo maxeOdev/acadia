@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.hb.acadia.model.Training;
+
 @Entity
 
 public class Trainer extends User {

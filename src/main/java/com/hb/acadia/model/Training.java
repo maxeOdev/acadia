@@ -1,4 +1,4 @@
-package com.hb.acadia.model.user;
+package com.hb.acadia.model;
 
 import java.util.Set;
 
@@ -11,8 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.hb.acadia.model.Category;
-import com.hb.acadia.model.Video;
+import com.hb.acadia.model.user.Trainer;
 
 import lombok.Builder;
 import lombok.Getter;
