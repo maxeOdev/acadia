@@ -8,44 +8,31 @@ import javax.persistence.ManyToOne;
 
 import com.hb.acadia.model.Training;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Embeddable
+<<<<<<< HEAD
 public class PK_Customer_Training  implements Serializable {
 
 	private static final long serialVersionUID = -4999675871252402122L;
+=======
+@Getter
+@Setter
+@Builder
+public class PK_Customer_Training {
+>>>>>>> Add lombok lib
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Training training;
-
-	public PK_Customer_Training() {}
-	
-	public PK_Customer_Training(User user, Training training) {
-		this.user = user;
-		this.training = training;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Training getTraining() {
-		return training;
-	}
-
-	public void setTraining(Training training) {
-		this.training = training;
-	}
 
 	@Override
 	public String toString() {
-		return "PK_Customer_Training [user=" + user + ", training=" + training
-				+ "]";
+		return "PK_Customer_Training [user=" + user + ", training=" + training + "]";
 	}
-	
+
 }

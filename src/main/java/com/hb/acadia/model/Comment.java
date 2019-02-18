@@ -8,7 +8,14 @@ import javax.persistence.ManyToOne;
 
 import com.hb.acadia.model.user.User;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@Builder
 public class Comment {
 
 	@Id
@@ -26,7 +33,7 @@ public class Comment {
 
 	@ManyToOne
 	private Training training;
-	
+
 	@ManyToOne
 	private User user;
 
@@ -35,9 +42,5 @@ public class Comment {
 		return "Comment [id=" + id + ", content=" + content + ", date=" + date + ", stars=" + stars + ", parentComment="
 				+ parentComment + ", training=" + training + ", user=" + user + "]";
 	}
-
-
-
-	
 
 }

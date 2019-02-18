@@ -9,7 +9,14 @@ import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Training;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@Builder
 public class Trainer extends User {
 
 	// nombre d'année d'experience
@@ -27,7 +34,7 @@ public class Trainer extends User {
 	// auto-publish
 	@NotNull
 	private boolean isCertified;
-	@OneToMany(mappedBy="trainer",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	private Set<Training> trainings;
 
 	@Override

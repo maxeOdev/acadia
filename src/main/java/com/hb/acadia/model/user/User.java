@@ -17,7 +17,12 @@ import javax.validation.constraints.NotNull;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Comment;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public abstract class User {
@@ -56,5 +61,4 @@ public abstract class User {
 				+ isActif + "]";
 	}
 
-			
 }

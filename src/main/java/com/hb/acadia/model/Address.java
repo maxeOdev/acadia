@@ -10,37 +10,32 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
-
+@Setter
+@Getter
+@Builder
 public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotNull 
+	@NotNull
 	private int number;
-	@NotNull 
+	@NotNull
 	private String road;
-	@NotNull 
+	@NotNull
 	private String roadType;
-	@NotNull 
+	@NotNull
 	private String cp;
-	@NotNull 
+	@NotNull
 	private String city;
-	@NotNull 
+	@NotNull
 	private String country;
-	
-	
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "Adress [id=" + id + ", number=" + number + ", road=" + road + ", roadType=" + roadType + ", cp=" + cp
 				+ ", city=" + city + ", country=" + country + "]";
 	}
-	
-	
-	
+
 }
