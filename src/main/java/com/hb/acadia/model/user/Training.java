@@ -1,10 +1,18 @@
 package com.hb.acadia.model.user;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import com.hb.acadia.model.Category;
+import com.hb.acadia.model.Video;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +38,12 @@ public class Training {
 	private String duration;
 	@NotNull
 	private String price;
-
+	@NotNull
+	private Category category;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<Video> videos;
+	
 	private boolean isActive;
 
 	@Override

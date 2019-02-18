@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import com.hb.acadia.model.Adress;
+import com.hb.acadia.model.Address;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +17,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Builder
 public abstract class User {
 
 	@Id
@@ -40,7 +39,7 @@ public abstract class User {
 	protected String mail;
 	@NotNull
 	@OneToOne
-	protected Adress adress;
+	protected Address adress;
 	
 	protected boolean isActif;
 
