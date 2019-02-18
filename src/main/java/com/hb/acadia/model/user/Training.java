@@ -38,7 +38,8 @@ public class Training {
 	private String duration;
 	@NotNull
 	private String price;
-	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Trainer trainer;
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Category category;
 	
