@@ -2,25 +2,25 @@ package com.hb.acadia.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Address;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Inheritance(strategy=InheritanceType.JOINED)
+
 public abstract class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected long id;
 	
 	@Column(unique = true)
@@ -38,8 +38,8 @@ public abstract class User {
 	@Column(unique = true)
 	protected String mail;
 	@NotNull
-	@OneToOne
-	protected Address adress;
+	@OneToOne(fetch=FetchType.EAGER)
+	protected Address address;
 	
 	protected boolean isActif;
 
@@ -48,7 +48,7 @@ public abstract class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", uuid=" + uuid + ", password=" + password + ", name=" + name + ", firstName="
-				+ firstName + ", mail=" + mail + ", adress=" + adress + ", isActif=" + isActif + "]";
+				+ firstName + ", mail=" + mail + ", adress=" + address + ", isActif=" + isActif + "]";
 	}
 
 

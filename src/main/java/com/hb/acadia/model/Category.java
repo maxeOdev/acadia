@@ -22,7 +22,7 @@ public class Category {
 	@Column(nullable=false, unique=true)
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
 	private List<Training> trainings;
 	
 	public Category() {

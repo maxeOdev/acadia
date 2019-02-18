@@ -26,7 +26,7 @@ public class Video {
 	
 	@Column(unique=true, nullable=false)
 	private String path;
-	
+	@ManyToMany(mappedBy="videos",fetch=FetchType.LAZY)
 	private List<Training> trainings;
 	
 	public Video() {

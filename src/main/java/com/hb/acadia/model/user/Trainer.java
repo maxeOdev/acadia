@@ -3,14 +3,10 @@ package com.hb.acadia.model.user;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
-@Getter
-@Setter
-@Builder
+
 public class Trainer extends User {
 
 	
@@ -20,7 +16,7 @@ public class Trainer extends User {
 	
 	//pour le payement
 	@NotNull
-	private String idStrip;
+	private String idStripe;
 
 	//diplôme
 	@NotNull
@@ -34,7 +30,7 @@ public class Trainer extends User {
 
 	@Override
 	public String toString() {
-		return "Trainer [experience=" + experience + ", idStrip=" + idStrip + ", qualification=" + qualification
+		return "Trainer [experience=" + experience + ", idStrip=" + idStripe + ", qualification=" + qualification
 				+ ", isCertified=" + isCertified + "]";
 	}
 	
