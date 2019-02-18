@@ -9,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hb.acadia.model.Video;
+import com.hb.acadia.repository.BillRepository;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -40,5 +43,7 @@ public class UserMetadata {
 		return "UserMetadata [items=" + items + ", uuid=" + uuid + ", currentTime=" + currentTime + ", currentVideo="
 				+ currentVideo + "]";
 	}
+
+
 
 }
