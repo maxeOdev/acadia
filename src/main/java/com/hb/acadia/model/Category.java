@@ -19,8 +19,17 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Category {
-	
-	
+
+	public Category() {
+		super();
+	}
+
+	public Category(long id, String name, Set<Training> trainings) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.trainings = trainings;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
