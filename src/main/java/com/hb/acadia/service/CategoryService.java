@@ -15,10 +15,11 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional
-	public void createCategory(String categoryName) {
+	public Category createCategory(String categoryName) {
 	 Category category = Category.builder().name(categoryName).build();
-	 categoryRepository.save(category);
+	 return categoryRepository.save(category);
 	 
+
 	}
 
 }
