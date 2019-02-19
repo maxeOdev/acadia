@@ -27,4 +27,7 @@ public class AbstractApplicationTest {
 	//DI of Services
 	@Autowired
 	protected CategoryService categoryService;
+	
+	
+	
 }
