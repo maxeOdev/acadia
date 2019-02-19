@@ -1,6 +1,4 @@
-package com.hb.acadia.model.user;
-
-import java.util.Set;
+package com.hb.acadia.model.bill;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,24 +6,22 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Address;
-import com.hb.acadia.model.Comment;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
-
-public abstract class User {
+@Builder
+@ToString
+public class UserForBill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,9 +30,6 @@ public abstract class User {
 	@Column(unique = true)
 	@NotNull
 	protected String uuid;
-
-	@NotNull
-	protected String password;
 
 	@NotNull
 	protected String name;
@@ -48,17 +41,5 @@ public abstract class User {
 	@NotNull
 	@OneToOne(fetch = FetchType.EAGER)
 	protected Address address;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	protected Set<Comment> comments;
-
-	protected boolean isActif;
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", uuid=" + uuid + ", password=" + password + ", name=" + name + ", firstName="
-				+ firstName + ", mail=" + mail + ", address=" + address + ", comments=" + comments + ", isActif="
-				+ isActif + "]";
-	}
 
 }
