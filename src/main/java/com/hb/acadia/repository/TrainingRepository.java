@@ -1,6 +1,6 @@
 package com.hb.acadia.repository;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -25,12 +25,12 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 	 * @param category
 	 * @return Corresponding Trainings
 	 */
-	Set<Training> findByCategory(Category category);
+	List<Training> findByCategory(Category category);
 	
 	/**
 	 * @param trainer
 	 * @return Corresponding Trainings
 	 */
-	Set<Training> findByTrainer(Trainer trainer);
+	List<Training> findByTrainer(Trainer trainer);
 	
 }
