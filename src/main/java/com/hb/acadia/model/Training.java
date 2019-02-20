@@ -17,44 +17,61 @@ import com.hb.acadia.model.user.Trainer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @Builder
+@ToString
 public class Training {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	@NotNull
 	private String uuid;
+	
 	@NotNull
-	private String description;
-	@NotNull
-	private String difficulty;
-	@NotNull
-	private String duration;
-	@NotNull
-	private String price;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Trainer trainer;
+	
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
 	
+	@NotNull
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Video> videos;
 	
 	@OneToMany(mappedBy="training",fetch=FetchType.EAGER)
 	private Set<Comment> comments;
-
+	
+	@NotNull
+	private String description;
+	
+	@NotNull
+	private Level difficulty;
+	
+	@NotNull
+	private int duration;
+	
+	@NotNull
+	private double price;
+	
 	private boolean isActive;
 
-	@Override
-	public String toString() {
-		return "Training [id=" + id + ", uuid=" + uuid + ", description=" + description + ", difficulty=" + difficulty
-				+ ", duration=" + duration + ", price=" + price + ", trainer=" + trainer + ", category=" + category
-				+ ", videos=" + videos + ", isActive=" + isActive + "]";
+	
+	/**
+	 * 
+	 * @author anis
+	 * 
+	 * Level of training difficulty.
+	 *
+	 */
+	public static enum Level {
+		BEGINNER, INTERMEDIATE, CONFIRMED
 	}
-
+	
 }

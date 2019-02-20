@@ -12,11 +12,13 @@ import com.hb.acadia.model.Training;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @Builder
+@ToString
 public class Trainer extends User {
 
 	// nombre d'année d'experience
@@ -25,22 +27,17 @@ public class Trainer extends User {
 
 	// pour le payement
 	@NotNull
-	private String idStripe;
+	private long idStripe;
 
 	// diplôme
 	@NotNull
-	private String qualification;
+	private String qualifications;
 
 	// auto-publish
 	@NotNull
 	private boolean isCertified;
+	
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	private Set<Training> trainings;
-
-	@Override
-	public String toString() {
-		return "Trainer [experience=" + experience + ", idStripe=" + idStripe + ", qualification=" + qualification
-				+ ", isCertified=" + isCertified + ", trainings=" + trainings + "]";
-	}
 
 }
