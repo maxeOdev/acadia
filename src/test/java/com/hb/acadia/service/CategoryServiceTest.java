@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 import com.hb.acadia.model.Category;
 
@@ -28,42 +27,32 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 		categoryRepository.deleteAll();
 	}
 
-	public void create2categories() {
+	public void TestAll() {
+		
+		/* DATAS */
 		String categoryName = "Java";
-		Category category = categoryService.createCategory(categoryName);
-
 		String categoryName2 = "C++";
-		Category category2 = categoryService.createCategory(categoryName2);
-	}
-
-	@Test
-	public void test_createCategory() {
-
-		String categoryName = "Java";
+		
+		/* CREATION */
 		Category category = categoryService.createCategory(categoryName);
-
-		String categoryName2 = "C++";
 		Category category2 = categoryService.createCategory(categoryName2);
-
-		// assertions
+		
+		/* TESTS */
 		assertThat(category.getId(), notNullValue());
 		assertEquals(categoryName, category.getName());
 		assertThat(category2.getId(), notNullValue());
 		assertEquals(categoryName2, category2.getName());
 		assertEquals(2, categoryRepository.count());
-	}
+		
+		/* GET ALL */
+		List<Category> categories = categoryService.getAllCategories();
 
-	@Test
-	public void test_findAllCategories() {
-		create2categories();
-		List<Category> categories = categoryService.findAllCategories();
-
-		// assertions
+		/* TESTS */
 		assertEquals(2, categories.size());
-		assertEquals("Java", categories.get(0).getName());
-		assertEquals("C++", categories.get(1).getName());
+		assertEquals(categoryName, categories.get(0).getName());
+		assertEquals(categoryName2, categories.get(1).getName());
 		assertThat(categories.get(0).getId(), notNullValue());
 		assertThat(categories.get(1).getId(), notNullValue());
+		
 	}
-
 }
