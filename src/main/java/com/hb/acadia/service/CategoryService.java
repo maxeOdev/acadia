@@ -39,10 +39,19 @@ public class CategoryService {
 	 * Méthode permettant de récupérer la liste de toutes les catégories en bdd
 	 * @return la liste des catégories existant en bdd
 	 */
-	public List<Category> findAllCategories() {
+	public List<Category> getAllCategories() {
 		List<Category> categories = new LinkedList<>();
 		categories = categoryRepository.findAll();
 		return categories;
+	}
+	
+	/**
+	 * Search the Category which's corresponding to a given name.
+	 * @param name
+	 * @return The corresponding Category.
+	 */
+	public Category getByName(String name) {
+		return categoryRepository.findByName(name);
 	}
 
 }
