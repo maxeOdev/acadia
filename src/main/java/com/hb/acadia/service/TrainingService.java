@@ -1,5 +1,6 @@
 package com.hb.acadia.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class TrainingService {
 	 * @return
 	 * 	The corresponding Trainings if exist or null.
 	 */
-	public Set<Training> getByTrainer(Trainer trainer) {
+	public List<Training> getByTrainer(Trainer trainer) {
 		return trainingRepo.findByTrainer(trainer);
 	}
 	
@@ -90,7 +91,7 @@ public class TrainingService {
 	 * @return
 	 * 	The corresponding Trainings if exist or null.
 	 */
-	public Set<Training> getByCategory(Category category) {
+	public List<Training> getByCategory(Category category) {
 		return trainingRepo.findByCategory(category);
 	}
 	
