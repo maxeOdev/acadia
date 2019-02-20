@@ -9,23 +9,17 @@ import com.hb.acadia.repository.BillRepository;
 import com.hb.acadia.repository.CategoryRepository;
 import com.hb.acadia.repository.TrainingRepository;
 import com.hb.acadia.repository.UserRepository;
+import com.hb.acadia.repository.VideoRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AbstractApplicationTest {
 
-	//DI of repositories
-	@Autowired
-	protected BillRepository billRepository;
-	@Autowired
-	protected CategoryRepository categoryRepository;
-	@Autowired
-	protected TrainingRepository trainingRepository;
-	@Autowired
-	protected UserRepository userRepository;
-
 	//DI of Services
 	@Autowired
 	protected CategoryService categoryService;
+	
+	@Autowired
+	protected VideoService videoService;
 
 }

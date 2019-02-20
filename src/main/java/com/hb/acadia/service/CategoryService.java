@@ -54,4 +54,20 @@ public class CategoryService {
 		return categoryRepository.findByName(name);
 	}
 
+	/**
+	 * Count categories stored in the database.
+	 * @return number of existing categories
+	 */
+	public long countCategories() {
+		return categoryRepository.count();
+	}
+	
+	/**
+	 * Delete all categories stored in the database.
+	 */
+	@Transactional
+	public void deleteAllCategories() {
+		categoryRepository.deleteAll();
+	}
+	
 }

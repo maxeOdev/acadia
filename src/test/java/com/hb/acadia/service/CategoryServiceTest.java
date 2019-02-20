@@ -24,7 +24,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	@After
 	public void deleteDataAfterTest() {
 		log.info("************************************ DELETING DATAS ***************************************");
-		categoryRepository.deleteAll();
+		categoryService.deleteAllCategories();
 	}
 
 	public void TestAll() {
@@ -42,7 +42,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 		assertEquals(categoryName, category.getName());
 		assertThat(category2.getId(), notNullValue());
 		assertEquals(categoryName2, category2.getName());
-		assertEquals(2, categoryRepository.count());
+		assertEquals(2, categoryService.countCategories());
 		
 		/* GET ALL */
 		List<Category> categories = categoryService.getAllCategories();
