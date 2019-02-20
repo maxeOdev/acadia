@@ -20,6 +20,32 @@ public class VideoService {
 	private VideoRepository videoRepo;
 	
 	/**
+	 * Make a video saved in the database.
+	 * @param video to save.
+	 * @return Video saved with its id set.
+	 */
+	public Video createVideo(Video video) {
+		return videoRepo.saveAndFlush(video);
+	}
+	
+	/**
+	 * Update a video saved in the database.
+	 * @param video to update.
+	 * @return Video saved with its id set.
+	 */
+	public Video updateVideo(Video video) {
+		return videoRepo.saveAndFlush(video);
+	}
+	
+	/**
+	 * Delete a video in the database.
+	 * @param video to delete.
+	 */
+	public void deleteVideo(Video video) {
+		videoRepo.delete(video);
+	}
+	
+	/**
 	 * Search the Video corresponding to an uuid in the database.
 	 * @param uuid
 	 * @return the correponding Video.
@@ -27,5 +53,25 @@ public class VideoService {
 	public Video getByUuid(String uuid) {
 		return videoRepo.findByUuid(uuid);
 	}
+
+	/**
+	 * Get all video existing in the database.
+	 */
+	public long count() {
+		return videoRepo.count();
+	}
 	
+	/**
+	 * Get all video existing in the database.
+	 */
+	public void getAllVideos() {
+		videoRepo.findAll();
+	}
+	
+	/**
+	 * Delete all video existing in the database.
+	 */
+	public void deleteAllVideos() {
+		videoRepo.deleteAll();
+	}
 }
