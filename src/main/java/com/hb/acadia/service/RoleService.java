@@ -20,6 +20,17 @@ public class RoleService {
 	@Autowired
 	RoleRepository roleRepository;
 
+	
+	/**
+	 * Method to get a Role by Id
+	 * @param id
+	 * @return the given role
+	 */
+	public Role getRoleById(long id) {
+		return roleRepository.findById(id);
+
+	}
+
 	/**
 	 * Method to get all roles
 	 * 
@@ -33,13 +44,15 @@ public class RoleService {
 	 * Method to create role
 	 * 
 	 * @param role
+	 * @return the created Role
 	 */
 	public Role createRole(Role role) {
 		return roleRepository.save(role);
 	}
 
 	/**
-	 * Delete a role 
+	 * Delete a role
+	 * 
 	 * @param role
 	 */
 	public void deleteRole(Role role) {
@@ -47,8 +60,8 @@ public class RoleService {
 	}
 
 	/**
-	 * Delete all roles. 
-	 *  **** WARNINGS **** Be shure that no user are connected to the roles
+	 * Delete all roles. **** WARNINGS **** Be shure that no user are connected to
+	 * the roles
 	 */
 	public void deleteAll() {
 		roleRepository.deleteAll();
