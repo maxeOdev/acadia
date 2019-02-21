@@ -12,8 +12,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
+import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.Role;
+import com.hb.acadia.model.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -92,11 +95,11 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	public void test_getRoleByRoleName() {
 		String roleName1 = "ROLE_CUSTOMER";
 		String roleName2 = "ROLE_ADMIN";
-		
+
 		assertThat((roleService.getRoleByRoleName(roleName1)).getRoleName(), equalTo(roleName1));
-		assertThat((roleService.getRoleByRoleName(roleName2)).getRoleName(), equalTo(roleName2));		
+		assertThat((roleService.getRoleByRoleName(roleName2)).getRoleName(), equalTo(roleName2));
 	}
-	
+
 	/**
 	 * Test method getting all roles
 	 */
@@ -113,9 +116,46 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_deleteRole() {
+
+		/* Create User in database */
+		Address address = new Address();
+		address.setCity("Toulouse");
+		address.setCountry("France");
+		address.setCp("31000");
+		address.setNumber(24);
+		address.setRoad("République");
+		address.setRoadType("Avenue");
+		User user1 = new User();
+		user1.setActif(true);
+		user1.setFirstName("Simon");
+		user1.setName("Aliotti");
+		user1.setEmail("simone.aliot@gmail.com");
+		user1.setPassword("toto");
+		user1.setAddress(address);
+		user1.setComments(null);
+		userService.createUser(user1);
+
+		/* Create User in database */
+		Address address2 = new Address();
+		address2.setCity("Clermont");
+		address2.setCountry("France");
+		address2.setCp("63000");
+		address2.setNumber(67);
+		address2.setRoad("Dupont");
+		address2.setRoadType("rue");
+		User user2 = new User();
+		user2.setActif(true);
+		user2.setFirstName("Anis");
+		user2.setName("Lalami");
+		user2.setEmail("alalami@gmail.com");
+		user2.setPassword("titi");
+		user2.setAddress(address2);
+		user1.setComments(null);
+		userService.createUser(user2);
+
 		int numberOfRoleBeforeDelete = (int) roleRepository.count();
-		List<Role> roles = roleService.getRoles();
-		roleService.deleteRole(roles.get(0));
+		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
+		roleService.deleteRole(role1);
 		int numberOfRoleAfterDelete = (int) roleRepository.count();
 
 		assertTrue(numberOfRoleAfterDelete == (numberOfRoleBeforeDelete - 1));
