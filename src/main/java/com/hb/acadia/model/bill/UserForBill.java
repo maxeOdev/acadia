@@ -10,8 +10,9 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Address;
+import com.hb.acadia.model.user.User;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +20,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Builder
+@EqualsAndHashCode
 @ToString
 public class UserForBill {
 
@@ -39,7 +40,24 @@ public class UserForBill {
 	@Column(unique = true)
 	protected String mail;
 	@NotNull
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	protected Address address;
-
+	
+	public UserForBill() {}
+	
+	/**
+	 * @param name
+	 * @param firstName
+	 * @param mail
+	 * @param address
+	 */
+	public UserForBill(User user) {
+		this.uuid = user.getUuid();
+		this.name = user.getName();
+		this.firstName = user.getFirstName();
+		this.mail = user.getEmail();
+		this.address = user.getAddress();
+	}
+	
 }

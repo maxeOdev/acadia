@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Comment;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,8 +28,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
-
 public class User {
 
 	@Id
@@ -61,16 +61,23 @@ public class User {
 	protected Role role;
 
 	protected boolean isActif;
-
+	
 	public User() {
-	this.uuid = UUID.randomUUID().toString();
-	}
-
-	public User(long id, @NotNull String uuid, @NotNull String password, @NotNull String name,
-			@NotNull String firstName, String mail, @NotNull Address address, Set<Comment> comments, boolean isActif) {
-		super();
-		this.id = id;
 		this.uuid = UUID.randomUUID().toString();
+	}
+	
+	/**
+	 * @param password
+	 * @param name
+	 * @param firstName
+	 * @param mail
+	 * @param address
+	 * @param comments
+	 * @param isActif
+	 */
+	public User(@NotNull String password, @NotNull String name, @NotNull String firstName, String mail,
+			@NotNull Address address, Set<Comment> comments, boolean isActif) {
+		this();
 		this.password = password;
 		this.name = name;
 		this.firstName = firstName;
@@ -79,5 +86,5 @@ public class User {
 		this.comments = comments;
 		this.isActif = isActif;
 	}
-
+	
 }
