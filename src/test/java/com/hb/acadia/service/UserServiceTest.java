@@ -1,7 +1,10 @@
 package com.hb.acadia.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -346,6 +349,9 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 	}
 
+	/**
+	 * Test method deleting a user
+	 */
 	@Test
 	public void test_deleteUser() {
 
@@ -360,6 +366,9 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 	}
 
+	/**
+	 * Test method updating a user
+	 */
 	@Test
 	public void test_updateUser() {
 		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
@@ -394,6 +403,9 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 	}
 
+	/**
+	 * Test method updating a user's password
+	 */
 	@Test
 	public void test_updatePasswordUser() {
 		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
@@ -404,11 +416,21 @@ public class UserServiceTest extends AbstractApplicationTest {
 		assertTrue(bCryptPasswordEncoder.matches(saltKey + "testPasswordUpdate" + saltKey, updatedUser.getPassword()));
 
 	}
-// à continuer
+
+	/**
+	 * Test method getting users by role 
+	 */
 	@Test
 	public void test_getUserByRole() {
-		List<Role> roles = roleService.getRoles();
-		List<User> users = userService.getUserByRole(roles.get(0));
+		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
+		List<User> users1 = userService.getUserByRole(role1);
+		assertThat(users1.size(), equalTo(2));
+		
+		
+		Role role2 = roleService.getRoleByRoleName("ROLE_ADMIN");
+		List<User> users2 = userService.getUserByRole(role2);
+		assertThat(users2.size(), equalTo(0));
 
+		
 	}
 }
