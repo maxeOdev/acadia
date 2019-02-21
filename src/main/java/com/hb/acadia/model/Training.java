@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.user.Trainer;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,7 +23,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class Training {
 
 	@Id
@@ -103,6 +101,57 @@ public class Training {
 		this.duration = duration;
 		this.price = price;
 		this.isActive = isActive;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
+		result = prime * result + duration;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Training other = (Training) obj;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (difficulty != other.difficulty)
+			return false;
+		if (duration != other.duration)
+			return false;
+		if (id != other.id)
+			return false;
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+			return false;
+		if (trainer == null) {
+			if (other.trainer != null)
+				return false;
+		} else if (!trainer.equals(other.trainer))
+			return false;
+		if (uuid == null) {
+			if (other.uuid != null)
+				return false;
+		} else if (!uuid.equals(other.uuid))
+			return false;
+		return true;
 	}
 	
 }
