@@ -9,11 +9,12 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Setter
 @Getter
-@Builder
+@ToString
 public class Address {
 
 	@Id
@@ -32,10 +33,5 @@ public class Address {
 	@NotNull
 	private String country;
 
-	@Override
-	public String toString() {
-		return "Adress [id=" + id + ", number=" + number + ", road=" + road + ", roadType=" + roadType + ", cp=" + cp
-				+ ", city=" + city + ", country=" + country + "]";
-	}
 
 }
