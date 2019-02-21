@@ -16,7 +16,7 @@ import com.hb.acadia.repository.VideoRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AbstractApplicationTest {
+public abstract class AbstractApplicationTest {
 
 	// DI of repositories
 	@Autowired
@@ -39,5 +39,7 @@ public class AbstractApplicationTest {
 	protected UserService userService;
 	@Autowired
 	protected RoleService roleService;
+	@Autowired
+	protected VideoService videoService;
 
 }
