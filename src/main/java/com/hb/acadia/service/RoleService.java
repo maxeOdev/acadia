@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hb.acadia.model.user.Role;
+import com.hb.acadia.model.user.User;
 import com.hb.acadia.repository.RoleRepository;
 
 /**
@@ -22,6 +22,8 @@ public class RoleService {
 
 	@Autowired
 	RoleRepository roleRepository;
+	@Autowired
+	UserService userService;
 
 	
 	/**
@@ -55,20 +57,22 @@ public class RoleService {
 
 	/**
 	 * Delete a role
-	 * Delete all roles. **** WARNINGS **** Be shure that no user are linked 
+	 * Delete all roles. Set users's role to null before deleting role 
 	 * @param role
 	 */
 	@Transactional
 	public void deleteRole(Role role) {
+		List<User> users = userService.getUserByRole(role);
+		users.forEach(user -> user.setRole(null));
 		roleRepository.delete(role);
 	}
 
 	/**
-	 * Delete all roles. **** WARNINGS **** Be shure that no user are linked 
+	 * Delete all roles. 
 	 * the roles
 	 */
 	@Transactional
 	public void deleteAll() {
-		roleRepository.deleteAll();
+		getRoles().forEach(role -> deleteRole(role));
 	}
 }
