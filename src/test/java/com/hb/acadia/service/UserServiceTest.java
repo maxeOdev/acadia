@@ -3,7 +3,6 @@ package com.hb.acadia.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import java.util.List;
 
@@ -380,7 +379,7 @@ public class UserServiceTest extends AbstractApplicationTest {
 		userToUpdate.setComments(null);
 
 		userToUpdate = userService.updateUser(userToUpdate);
-		
+
 		assertEquals("Toulouse-updated", userToUpdate.getAddress().getCity());
 		assertEquals("France-updated", userToUpdate.getAddress().getCountry());
 		assertEquals("31000-updated", userToUpdate.getAddress().getCp());
@@ -393,12 +392,21 @@ public class UserServiceTest extends AbstractApplicationTest {
 		assertEquals("simone.aliot@gmail.com-updated", userToUpdate.getEmail());
 		assertEquals(null, userToUpdate.getComments());
 
+	}
+	
+	@Test
+	public void test_updatePasswordUser() {
+		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
 		
+		userToUpdate.setPassword("testPasswordUpdate");
+		User updatedUser = userService.updatePasswordUser(userToUpdate);
 		
+		assertTrue(bCryptPasswordEncoder.matches(saltKey+"testPasswordUpdate"+saltKey, updatedUser.getPassword()));
 		
 		
 		
 		
 		
 	}
+
 }

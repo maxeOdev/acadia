@@ -114,8 +114,7 @@ public class UserService {
 	public void deleteUser(User user) {
 		// Delete user
 		userRepository.delete(user);
-		log.info(user.getAddress().getCity());
-		// Delete the his address
+		// Delete his address
 		addressService.deleteAddress(user.getAddress());
 	}
 
@@ -130,7 +129,7 @@ public class UserService {
 	}
 
 	/**
-	 * Update an object /  WARNING *** Do no use for update password *** WARNING
+	 * Update an object / *** WARNING *** Do no use for update password *** WARNING ***
 	 * @param user to update
 	 * @return the updated user
 	 */
@@ -140,5 +139,17 @@ public class UserService {
 		user.setAddress(addressService.updateAddress(user.getAddress()));
 		return userRepository.save(user);
 		
+	}
+	
+	/**
+	 * Update a user's password
+	 * @param user to update
+	 * @return the updated user
+	 */
+	@Transactional 
+	public User updatePasswordUser(User user) {
+		String password = saltKey + user.getPassword() + saltKey;
+		user.setPassword(bCryptPasswordEncoder.encode(password));
+		return updateUser(user);
 	}
 }
