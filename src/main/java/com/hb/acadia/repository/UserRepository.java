@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hb.acadia.model.Comment;
+import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -37,4 +38,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 */
 	public User findByEmail(String email);
 
+	/**
+	 * 
+	 * @param role
+	 * @return list of the given Users
+	 */
+	public List<User> findByRole(Role role);
 }

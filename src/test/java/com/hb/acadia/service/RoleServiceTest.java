@@ -86,6 +86,18 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	}
 
 	/**
+	 * Test method getting role by roleName
+	 */
+	@Test
+	public void test_getRoleByRoleName() {
+		String roleName1 = "ROLE_CUSTOMER";
+		String roleName2 = "ROLE_ADMIN";
+		
+		assertThat((roleService.getRoleByRoleName(roleName1)).getRoleName(), equalTo(roleName1));
+		assertThat((roleService.getRoleByRoleName(roleName2)).getRoleName(), equalTo(roleName2));		
+	}
+	
+	/**
 	 * Test method getting all roles
 	 */
 	@Test

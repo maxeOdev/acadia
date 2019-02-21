@@ -393,20 +393,22 @@ public class UserServiceTest extends AbstractApplicationTest {
 		assertEquals(null, userToUpdate.getComments());
 
 	}
-	
+
 	@Test
 	public void test_updatePasswordUser() {
 		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
-		
+
 		userToUpdate.setPassword("testPasswordUpdate");
 		User updatedUser = userService.updatePasswordUser(userToUpdate);
-		
-		assertTrue(bCryptPasswordEncoder.matches(saltKey+"testPasswordUpdate"+saltKey, updatedUser.getPassword()));
-		
-		
-		
-		
-		
-	}
 
+		assertTrue(bCryptPasswordEncoder.matches(saltKey + "testPasswordUpdate" + saltKey, updatedUser.getPassword()));
+
+	}
+// à continuer
+	@Test
+	public void test_getUserByRole() {
+		List<Role> roles = roleService.getRoles();
+		List<User> users = userService.getUserByRole(roles.get(0));
+
+	}
 }

@@ -79,6 +79,15 @@ public class UserService {
 	}
 
 	/**
+	 * Get a list of Users by role 
+	 * @param role
+	 * @return a list of Users
+	 */
+	public List<User> getUserByRole(Role role){
+		return userRepository.findByRole(role);
+	}
+	
+	/**
 	 * Create a user
 	 * 
 	 * @param user
