@@ -1,6 +1,7 @@
 package com.hb.acadia.model;
 
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.user.Trainer;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,8 +23,8 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Builder
 @ToString
+@EqualsAndHashCode
 public class Training {
 
 	@Id
@@ -72,6 +73,36 @@ public class Training {
 	 */
 	public static enum Level {
 		BEGINNER, INTERMEDIATE, CONFIRMED
+	}
+	
+	public Training() {
+		this.uuid = UUID.randomUUID().toString();
+	}
+
+	/**
+	 * @param trainer
+	 * @param category
+	 * @param videos
+	 * @param comments
+	 * @param description
+	 * @param difficulty
+	 * @param duration
+	 * @param price
+	 * @param isActive
+	 */
+	public Training(@NotNull Trainer trainer, @NotNull Category category, @NotNull Set<Video> videos,
+			Set<Comment> comments, @NotNull String description, @NotNull Level difficulty, @NotNull int duration,
+			@NotNull double price, boolean isActive) {
+		this();
+		this.trainer = trainer;
+		this.category = category;
+		this.videos = videos;
+		this.comments = comments;
+		this.description = description;
+		this.difficulty = difficulty;
+		this.duration = duration;
+		this.price = price;
+		this.isActive = isActive;
 	}
 	
 }

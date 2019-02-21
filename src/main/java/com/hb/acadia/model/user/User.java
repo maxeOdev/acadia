@@ -1,6 +1,7 @@
 package com.hb.acadia.model.user;
 
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +18,18 @@ import javax.validation.constraints.NotNull;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Comment;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
-
-public abstract class User {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,12 +57,30 @@ public abstract class User {
 	protected Set<Comment> comments;
 
 	protected boolean isActif;
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", uuid=" + uuid + ", password=" + password + ", name=" + name + ", firstName="
-				+ firstName + ", mail=" + mail + ", address=" + address + ", comments=" + comments + ", isActif="
-				+ isActif + "]";
+	
+	public User() {
+		this.uuid = UUID.randomUUID().toString();
 	}
-
+	
+	/**
+	 * @param password
+	 * @param name
+	 * @param firstName
+	 * @param mail
+	 * @param address
+	 * @param comments
+	 * @param isActif
+	 */
+	public User(@NotNull String password, @NotNull String name, @NotNull String firstName, String mail,
+			@NotNull Address address, Set<Comment> comments, boolean isActif) {
+		this();
+		this.password = password;
+		this.name = name;
+		this.firstName = firstName;
+		this.mail = mail;
+		this.address = address;
+		this.comments = comments;
+		this.isActif = isActif;
+	}
+	
 }

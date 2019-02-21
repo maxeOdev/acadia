@@ -1,6 +1,7 @@
 package com.hb.acadia.model.bill;
 
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,19 +11,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Address;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
-@Builder
+@EqualsAndHashCode
+@ToString
 public class Bill {
 
 	@Id
@@ -45,10 +47,22 @@ public class Bill {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<TrainingForBill> training;
 
-	@Override
-	public String toString() {
-		return "Bill [id=" + id + ", uuid=" + uuid + ", date=" + date + ", billAddress=" + billAddress + ", buyer="
-				+ buyer + ", training=" + training + "]";
+	public Bill() {
+		this.uuid = UUID.randomUUID().toString();
+	}
+
+	/**
+	 * @param date
+	 * @param billAddress
+	 * @param buyer
+	 * @param training
+	 */
+	public Bill(@NotNull long date, @NotNull Address billAddress, UserForBill buyer, Set<TrainingForBill> training) {
+		this();
+		this.date = date;
+		this.billAddress = billAddress;
+		this.buyer = buyer;
+		this.training = training;
 	}
 
 }

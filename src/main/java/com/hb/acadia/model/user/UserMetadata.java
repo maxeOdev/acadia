@@ -9,15 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.hb.acadia.model.Training;
 import com.hb.acadia.model.Video;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
+@ToString
+@EqualsAndHashCode
 @Entity
 @AssociationOverrides({
 		@AssociationOverride(name = "items.user", joinColumns = @JoinColumn(name = "idUser")),
@@ -35,12 +38,17 @@ public class UserMetadata {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Video currentVideo;
 
-	@Override
-	public String toString() {
-		return "UserMetadata [items=" + items + ", uuid=" + uuid + ", currentTime=" + currentTimeVideo + ", currentVideo="
-				+ currentVideo + "]";
+	public UserMetadata() {}
+	
+	/**
+	 * @param items
+	 * @param currentTimeVideo
+	 * @param currentVideo
+	 */
+	public UserMetadata(User customer, Training training, int currentTimeVideo, Video currentVideo) {
+		this.items = new PK_Customer_Training(customer, training);
+		this.currentTimeVideo = currentTimeVideo;
+		this.currentVideo = currentVideo;
 	}
-
-
-
+	
 }

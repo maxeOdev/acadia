@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Training;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Builder
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Trainer extends User {
 
@@ -40,4 +40,20 @@ public class Trainer extends User {
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	private Set<Training> trainings;
 
+	public Trainer() {}
+
+	/**
+	 * @param experience
+	 * @param qualifications
+	 * @param isCertified
+	 * @param trainings
+	 */
+	public Trainer(@NotNull int experience, @NotNull String qualifications, @NotNull boolean isCertified,
+			Set<Training> trainings) {
+		this.experience = experience;
+		this.qualifications = qualifications;
+		this.isCertified = isCertified;
+		this.trainings = trainings;
+	}
+	
 }

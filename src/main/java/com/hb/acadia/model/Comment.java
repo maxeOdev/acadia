@@ -8,14 +8,16 @@ import javax.persistence.ManyToOne;
 
 import com.hb.acadia.model.user.User;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
-@Builder
+@EqualsAndHashCode
+@ToString
 public class Comment {
 
 	@Id
@@ -37,10 +39,25 @@ public class Comment {
 	@ManyToOne
 	private User user;
 
-	@Override
-	public String toString() {
-		return "Comment [id=" + id + ", content=" + content + ", date=" + date + ", stars=" + stars + ", parentComment="
-				+ parentComment + ", training=" + training + ", user=" + user + "]";
+	public Comment() {
+		
 	}
 
+	/**
+	 * @param content
+	 * @param date
+	 * @param stars
+	 * @param parentComment
+	 * @param training
+	 * @param user
+	 */
+	public Comment(String content, long date, int stars, Comment parentComment, Training training, User user) {
+		this.content = content;
+		this.date = date;
+		this.stars = stars;
+		this.parentComment = parentComment;
+		this.training = training;
+		this.user = user;
+	}
+	
 }
