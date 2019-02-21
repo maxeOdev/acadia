@@ -126,10 +126,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	@Test
 	public void test_getUserByUuid() {
 
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByUuid ***************************************");
-		log.debug("");
+		log.info("");
 		// test getUserbByUuid
 		User userFromGet = userService.getUserByUuid(this.user1.getUuid());
 		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -169,10 +169,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	@Test
 	public void test_getUserByFirstName() {
 
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByFirstName ***************************************");
-		log.debug("");
+		log.info("");
 		List<User> usersFromGet = userService.getUserByFirstName(this.user1.getFirstName());
 		for (User userFromGet : usersFromGet) {
 			assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -213,10 +213,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_getUserByName() {
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByName ***************************************");
-		log.debug("");
+		log.info("");
 		List<User> usersFromGet = userService.getUserByName(this.user1.getName());
 		for (User userFromGet : usersFromGet) {
 			assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -257,10 +257,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_getUserByMail() {
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByMail ***************************************");
-		log.debug("");
+		log.info("");
 		User userFromGet = userService.getUserByEmail(this.user1.getEmail());
 		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
 		assertEquals(this.user1.getAddress().getCountry(), userFromGet.getAddress().getCountry());

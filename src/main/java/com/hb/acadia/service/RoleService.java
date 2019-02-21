@@ -2,6 +2,7 @@ package com.hb.acadia.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +23,6 @@ public class RoleService {
 
 	
 	/**
-	 * Method to get a Role by Id
-	 * @param id
-	 * @return the given role
-	 */
-	public Role getRoleById(long id) {
-		return roleRepository.findById(id);
-
-	}
-
-	/**
 	 * Method to get all roles
 	 * 
 	 * @return a list of roles
@@ -48,11 +39,12 @@ public class RoleService {
 	 */
 	public Role createRole(Role role) {
 		return roleRepository.save(role);
+		
 	}
 
 	/**
 	 * Delete a role
-	 * 
+	 * Delete all roles. **** WARNINGS **** Be shure that no user are linked 
 	 * @param role
 	 */
 	public void deleteRole(Role role) {
@@ -60,7 +52,7 @@ public class RoleService {
 	}
 
 	/**
-	 * Delete all roles. **** WARNINGS **** Be shure that no user are connected to
+	 * Delete all roles. **** WARNINGS **** Be shure that no user are linked 
 	 * the roles
 	 */
 	public void deleteAll() {

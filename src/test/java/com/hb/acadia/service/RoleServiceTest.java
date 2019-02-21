@@ -1,6 +1,9 @@
 package com.hb.acadia.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -58,6 +61,27 @@ public class RoleServiceTest extends AbstractApplicationTest {
 
 	@Test
 	public void test_createRole() {
+		/* delete roles already created */
+		roleService.deleteAll();
+		assertEquals(0, roleRepository.count());
+
+		/* create roles */
+		Role role1 = new Role();
+		role1.setRoleName("ROLE_CUSTOMER");
+		roleService.createRole(role1);
+
+		Role role2 = new Role();
+		role2.setRoleName("ROLE_ADMIN");
+		roleService.createRole(role2);
+
+		/* assertions */
+		assertThat(roleService.getRoles().size(), equalTo(2));
+		assertThat(roleService.getRoles().get(0), notNullValue());
+		assertThat(roleService.getRoles().get(1), notNullValue());
+		assertThat(roleService.getRoles().get(0).getRoleName(), equalTo("ROLE_CUSTOMER"));
+		assertThat(roleService.getRoles().get(0).getId(), notNullValue());
+		assertThat(roleService.getRoles().get(1).getRoleName(), equalTo("ROLE_ADMIN"));
+		assertThat(roleService.getRoles().get(1).getId(), notNullValue());
 
 	}
 
@@ -66,10 +90,10 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_getRoles() {
-		
-			assertEquals("ROLE_CUSTOMER", roleService.getRoles().get(0).getRoleName());
-			assertEquals("ROLE_ADMIN", roleService.getRoles().get(1).getRoleName());
-		
+
+		assertEquals("ROLE_CUSTOMER", roleService.getRoles().get(0).getRoleName());
+		assertEquals("ROLE_ADMIN", roleService.getRoles().get(1).getRoleName());
+
 	}
 
 	/**
@@ -77,14 +101,13 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_deleteRole() {
-		int numberOfRoleBeforeDelete = (int)roleRepository.count();
+		int numberOfRoleBeforeDelete = (int) roleRepository.count();
 		List<Role> roles = roleService.getRoles();
 		roleService.deleteRole(roles.get(0));
-		int numberOfRoleAfterDelete = (int)roleRepository.count();
-		
-		assertTrue(numberOfRoleAfterDelete==(numberOfRoleBeforeDelete-1));
-		
-		
+		int numberOfRoleAfterDelete = (int) roleRepository.count();
+
+		assertTrue(numberOfRoleAfterDelete == (numberOfRoleBeforeDelete - 1));
+
 	}
 
 	/**
@@ -92,11 +115,11 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_deleteRoles() {
-		int numberOfRoleBeforeDelete = (int)roleRepository.count();
+		int numberOfRoleBeforeDelete = (int) roleRepository.count();
 		roleService.deleteAll();
-		int numberOfRoleAfterDelete = (int)roleRepository.count();
-		
-		assertTrue(numberOfRoleAfterDelete!=numberOfRoleBeforeDelete);
-		assertTrue(numberOfRoleAfterDelete==0);
+		int numberOfRoleAfterDelete = (int) roleRepository.count();
+
+		assertTrue(numberOfRoleAfterDelete != numberOfRoleBeforeDelete);
+		assertTrue(numberOfRoleAfterDelete == 0);
 	}
 }
