@@ -31,7 +31,7 @@ public class CategoryService {
 	 */
 	@Transactional
 	public Category createCategory(String categoryName) {
-		Category category = Category.builder().name(categoryName).build();
+		Category category = new Category(categoryName.toLowerCase(), null);
 		return categoryRepository.save(category);
 	}
 
@@ -39,10 +39,53 @@ public class CategoryService {
 	 * Méthode permettant de récupérer la liste de toutes les catégories en bdd
 	 * @return la liste des catégories existant en bdd
 	 */
-	public List<Category> findAllCategories() {
+	public List<Category> getAllCategories() {
 		List<Category> categories = new LinkedList<>();
 		categories = categoryRepository.findAll();
 		return categories;
 	}
+	
+	/**
+	 * Search the Category which's corresponding to a given name.
+	 * @param name of the Category.
+	 * @return The corresponding Category.
+	 */
+	public Category getByName(String name) {
+		return categoryRepository.findByName(name);
+	}
 
+	/**
+	 * Count categories stored in the database.
+	 * @return number of existing categories.
+	 */
+	public long countCategories() {
+		return categoryRepository.count();
+	}
+	
+	/**
+	 * Update a categorie stored in the database.
+	 * @param Category to update.
+	 */
+	@Transactional
+	public Category updateCategory(Category category) {
+		return categoryRepository.save(category);
+	}
+	
+	/**
+	 * Delete a categorie stored in the database.
+	 * @param Category to delete.
+	 */
+	@Transactional
+	public void deleteCategory(Category category) {
+		categoryRepository.delete(category);
+	}
+	
+	/**
+	 * Delete all categories stored in the database.
+	 */
+	@Transactional
+	public void deleteAllCategories() {
+		categoryRepository.deleteAll();
+	}
+	
 }
