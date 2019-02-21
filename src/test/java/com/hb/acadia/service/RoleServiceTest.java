@@ -6,13 +6,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.BeanUtils;
 
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.Role;
@@ -160,6 +157,8 @@ public class RoleServiceTest extends AbstractApplicationTest {
 
 		assertTrue(numberOfRoleAfterDelete == (numberOfRoleBeforeDelete - 1));
 
+		userService.deleteAll();
+		
 	}
 
 	/**
