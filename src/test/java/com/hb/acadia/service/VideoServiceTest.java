@@ -1,5 +1,6 @@
 package com.hb.acadia.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
@@ -33,7 +34,7 @@ public class VideoServiceTest extends AbstractApplicationTest {
 	@AfterClass
 	public static void ending() {
 		
-		log.info("************************************ DELETING DATAS ***************************************");
+		log.info("************************************ THE END ***************************************");
 	
 	}
 
@@ -140,6 +141,17 @@ public class VideoServiceTest extends AbstractApplicationTest {
 		/* DELETE */
 		videoService.deleteVideo(video1);
 		assertEquals(0, videoService.count());
+		
+	}
+	
+	@Test
+	public void deleteAllVideos() {
+		
+		Video video = new Video("Test testing tested", "/data/videos/tests.mp4", null);
+		video = videoService.createVideo(video);
+		assertThat(videoService.count(), equalTo(2L));
+		videoService.deleteAllVideos();
+		assertThat(videoService.count(), equalTo(0L));
 		
 	}
 	
