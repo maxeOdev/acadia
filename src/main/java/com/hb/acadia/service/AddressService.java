@@ -29,5 +29,12 @@ public class AddressService {
 		addressRepository.delete(address);
 	}
 
-	
+	/**
+	 * Update the address
+	 * @param address
+	 * @return the updated Address
+	 */
+	public Address updateAddress(Address address) {
+		return addressRepository.save(address);
+	}
 }

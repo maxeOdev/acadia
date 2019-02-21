@@ -100,21 +100,22 @@ public class UserService {
 				user.setRole(role);
 			}
 		}
-		//save the user
+		// save the user
 		return userRepository.save(user);
 	}
-	
+
 	/**
-	 * Delete user. First delete the user and then his address. 
-	 * ********** Will have to be aware to delete comment first when needed *************
+	 * Delete user. First delete the user and then his address. ********** Will have
+	 * to be aware to delete comment first when needed *************
+	 * 
 	 * @param user
 	 */
 	@Transactional
 	public void deleteUser(User user) {
-		//Delete user
+		// Delete user
 		userRepository.delete(user);
 		log.info(user.getAddress().getCity());
-		//Delete the his address
+		// Delete the his address
 		addressService.deleteAddress(user.getAddress());
 	}
 
@@ -126,5 +127,18 @@ public class UserService {
 		for (User user : userRepository.findAll()) {
 			deleteUser(user);
 		}
+	}
+
+	/**
+	 * Update an object /  WARNING *** Do no use for update password *** WARNING
+	 * @param user to update
+	 * @return the updated user
+	 */
+	@Transactional
+	public User updateUser(User user) {
+		// save the address in database before saving the user
+		user.setAddress(addressService.updateAddress(user.getAddress()));
+		return userRepository.save(user);
+		
 	}
 }

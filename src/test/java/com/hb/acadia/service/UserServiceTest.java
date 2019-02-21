@@ -3,6 +3,7 @@ package com.hb.acadia.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 		// deleteAllUsers
 
-		userService.deleteAll();	
+		userService.deleteAll();
 		roleService.deleteAll();
 
 		this.user1 = null;
@@ -358,5 +359,46 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 		assertEquals((numberOfUserBeforeDelete - 1), numberOfUserAfterDelete);
 
+	}
+
+	@Test
+	public void test_updateUser() {
+		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
+
+		Address addressToUpdate = new Address();
+		addressToUpdate.setCity("Toulouse-updated");
+		addressToUpdate.setCountry("France-updated");
+		addressToUpdate.setCp("31000-updated");
+		addressToUpdate.setNumber(99);
+		addressToUpdate.setRoad("République-updated");
+		addressToUpdate.setRoadType("Avenue-updated");
+		userToUpdate.setActif(false);
+		userToUpdate.setFirstName("Simon-updated");
+		userToUpdate.setName("Aliotti-updated");
+		userToUpdate.setEmail("simone.aliot@gmail.com-updated");
+		userToUpdate.setAddress(addressToUpdate);
+		userToUpdate.setComments(null);
+
+		userToUpdate = userService.updateUser(userToUpdate);
+		
+		assertEquals("Toulouse-updated", userToUpdate.getAddress().getCity());
+		assertEquals("France-updated", userToUpdate.getAddress().getCountry());
+		assertEquals("31000-updated", userToUpdate.getAddress().getCp());
+		assertEquals(99, userToUpdate.getAddress().getNumber());
+		assertEquals("République-updated", userToUpdate.getAddress().getRoad());
+		assertEquals("Avenue-updated", userToUpdate.getAddress().getRoadType());
+		assertEquals(false, userToUpdate.isActif());
+		assertEquals("Simon-updated", userToUpdate.getFirstName());
+		assertEquals("Aliotti-updated", userToUpdate.getName());
+		assertEquals("simone.aliot@gmail.com-updated", userToUpdate.getEmail());
+		assertEquals(null, userToUpdate.getComments());
+
+		
+		
+		
+		
+		
+		
+		
 	}
 }
