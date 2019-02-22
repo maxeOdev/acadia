@@ -1,10 +1,13 @@
 package com.hb.acadia.repository;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.Trainer;
+import com.hb.acadia.model.user.User;
 import com.hb.acadia.utils.Utils;
 
 /**
@@ -29,6 +32,7 @@ public class TrainerService {
 	 * @param the trainer to create
 	 * @return the created trainer
 	 */
+	@Transactional
 	public Trainer createTrainer(Trainer trainer) {
 		// salt and hash password
 		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
@@ -47,6 +51,7 @@ public class TrainerService {
 	 * @param trainer to update
 	 * @return the updated trainer
 	 */
+	@Transactional
 	public Trainer updateTrainer(Trainer trainer) {
 		// save the address in database before saving the tainer
 		trainer.setAddress(addressRepository.save(trainer.getAddress()));
@@ -58,9 +63,21 @@ public class TrainerService {
 	 * 	This method disable a trainer. Training and address not deleted 
 	 * @param the trainer to delete
 	 */
+	@Transactional
 	public void deleteTrainer(Trainer trainer) {
 		trainer.setActif(false);
 		
+	}
+	
+	/**
+	 * Update a trainer's password
+	 * @param trainer
+	 * @return the updated trainer
+	 */
+	@Transactional 
+	public Trainer updatePasswordTrainer(Trainer trainer) {
+		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
+		return trainer;
 	}
 	
 
