@@ -13,7 +13,6 @@ import lombok.ToString;
 @Entity
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 public class Address {
 
