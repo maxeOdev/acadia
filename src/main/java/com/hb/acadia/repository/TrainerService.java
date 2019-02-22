@@ -11,6 +11,7 @@ import com.hb.acadia.utils.Utils;
 
 /**
  * Service class allowing operations on trainer
+ * 
  * @author simonaliotti
  *
  */
@@ -24,14 +25,14 @@ public class TrainerService {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	
 	/**
 	 * Method to create a trainer
+	 * 
 	 * @param the trainer to create
 	 * @return the created trainer
 	 */
 	public Trainer createTrainer(Trainer trainer) {
-		//salt and hash password
+		// salt and hash password
 		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
 		// save the address in database before saving the trainer
 		trainer.setAddress(addressRepository.save(trainer.getAddress()));
@@ -40,6 +41,19 @@ public class TrainerService {
 		trainer.setRole(role);
 		return trainerRepository.save(trainer);
 	}
-	
+
+	/**
+	 * Update a trainer/ *** WARNING *** Do no use for update password *** WARNING
+	 * ***
+	 * 
+	 * @param trainer to update
+	 * @return the updated trainer
+	 */
+	public Trainer updateTrainer(Trainer trainer) {
+		// save the address in database before saving the tainer
+		trainer.setAddress(addressRepository.save(trainer.getAddress()));
+		return trainerRepository.save(trainer);
+
+	}
 
 }

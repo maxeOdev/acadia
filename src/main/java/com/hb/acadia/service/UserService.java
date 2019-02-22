@@ -150,7 +150,7 @@ public class UserService {
 	}
 
 	/**
-	 * Update an object / *** WARNING *** Do no use for update password *** WARNING ***
+	 * Update a user / *** WARNING *** Do no use for update password *** WARNING ***
 	 * @param user to update
 	 * @return the updated user
 	 */
