@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.User;
+import com.hb.acadia.repository.AddressRepository;
 import com.hb.acadia.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +28,13 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	@Autowired
-	AddressService addressService;
+	private AddressService addressService;
 	@Autowired
-	RoleService roleService;
+	private RoleService roleService;
+	@Autowired
+	private AddressRepository addressRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -79,6 +83,23 @@ public class UserService {
 	}
 
 	/**
+	 * Get a list of Users by role 
+	 * @param role
+	 * @return a list of Users
+	 */
+	public List<User> getUserByRole(Role role){
+		return userRepository.findByRole(role);
+	}
+	
+	/**
+	 * Get a user by address
+	 * @param address
+	 * @return the given user
+	 */
+	public User getUserByAddress(Address address) {
+		return userRepository.findByAddress(address); 
+	}
+	/**
 	 * Create a user
 	 * 
 	 * @param user
@@ -100,21 +121,21 @@ public class UserService {
 				user.setRole(role);
 			}
 		}
-		//save the user
+		// save the user
 		return userRepository.save(user);
 	}
-	
+
 	/**
-	 * Delete user. First delete the user and then his address. 
-	 * ********** Will have to be aware to delete comment first when needed *************
+	 * Delete user. First delete the user and then his address. ********** Will have
+	 * to be aware to delete comment first when needed *************
+	 * 
 	 * @param user
 	 */
 	@Transactional
 	public void deleteUser(User user) {
-		//Delete user
+		// Delete user
 		userRepository.delete(user);
-		log.info(user.getAddress().getCity());
-		//Delete the his address
+		// Delete his address
 		addressService.deleteAddress(user.getAddress());
 	}
 
@@ -126,5 +147,30 @@ public class UserService {
 		for (User user : userRepository.findAll()) {
 			deleteUser(user);
 		}
+	}
+
+	/**
+	 * Update an object / *** WARNING *** Do no use for update password *** WARNING ***
+	 * @param user to update
+	 * @return the updated user
+	 */
+	@Transactional
+	public User updateUser(User user) {
+		// save the address in database before saving the user
+		user.setAddress(addressRepository.save(user.getAddress()));
+		return userRepository.save(user);
+		
+	}
+	
+	/**
+	 * Update a user's password
+	 * @param user to update
+	 * @return the updated user
+	 */
+	@Transactional 
+	public User updatePasswordUser(User user) {
+		String password = saltKey + user.getPassword() + saltKey;
+		user.setPassword(bCryptPasswordEncoder.encode(password));
+		return updateUser(user);
 	}
 }

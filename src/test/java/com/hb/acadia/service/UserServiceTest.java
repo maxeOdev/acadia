@@ -1,7 +1,9 @@
 package com.hb.acadia.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -80,7 +82,7 @@ public class UserServiceTest extends AbstractApplicationTest {
 		user1.setAddress(address);
 		user1.setComments(null);
 		BeanUtils.copyProperties(user1, (this.user1 = new User()));
-		userService.createUser(user1);
+		userService.createUser(user1);	
 
 		/* Create User in database */
 		Address address2 = new Address();
@@ -112,8 +114,12 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 		// deleteAllUsers
 
-		userService.deleteAll();	
-		roleService.deleteAll();
+		userService.deleteAll();
+		try {
+			roleService.deleteAll();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 		this.user1 = null;
 		this.user2 = null;
@@ -126,10 +132,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	@Test
 	public void test_getUserByUuid() {
 
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByUuid ***************************************");
-		log.debug("");
+		log.info("");
 		// test getUserbByUuid
 		User userFromGet = userService.getUserByUuid(this.user1.getUuid());
 		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -169,10 +175,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	@Test
 	public void test_getUserByFirstName() {
 
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByFirstName ***************************************");
-		log.debug("");
+		log.info("");
 		List<User> usersFromGet = userService.getUserByFirstName(this.user1.getFirstName());
 		for (User userFromGet : usersFromGet) {
 			assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -213,10 +219,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_getUserByName() {
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByName ***************************************");
-		log.debug("");
+		log.info("");
 		List<User> usersFromGet = userService.getUserByName(this.user1.getName());
 		for (User userFromGet : usersFromGet) {
 			assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
@@ -257,10 +263,10 @@ public class UserServiceTest extends AbstractApplicationTest {
 	 */
 	@Test
 	public void test_getUserByMail() {
-		log.debug("");
-		log.debug(
+		log.info("");
+		log.info(
 				"******************************************************** Testing getUserByMail ***************************************");
-		log.debug("");
+		log.info("");
 		User userFromGet = userService.getUserByEmail(this.user1.getEmail());
 		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
 		assertEquals(this.user1.getAddress().getCountry(), userFromGet.getAddress().getCountry());
@@ -346,6 +352,9 @@ public class UserServiceTest extends AbstractApplicationTest {
 
 	}
 
+	/**
+	 * Test method deleting a user
+	 */
 	@Test
 	public void test_deleteUser() {
 
@@ -359,4 +368,92 @@ public class UserServiceTest extends AbstractApplicationTest {
 		assertEquals((numberOfUserBeforeDelete - 1), numberOfUserAfterDelete);
 
 	}
+
+	/**
+	 * Test method updating a user
+	 */
+	@Test
+	public void test_updateUser() {
+		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
+
+		Address addressToUpdate = new Address();
+		addressToUpdate.setCity("Toulouse-updated");
+		addressToUpdate.setCountry("France-updated");
+		addressToUpdate.setCp("31000-updated");
+		addressToUpdate.setNumber(99);
+		addressToUpdate.setRoad("République-updated");
+		addressToUpdate.setRoadType("Avenue-updated");
+		userToUpdate.setActif(false);
+		userToUpdate.setFirstName("Simon-updated");
+		userToUpdate.setName("Aliotti-updated");
+		userToUpdate.setEmail("simone.aliot@gmail.com-updated");
+		userToUpdate.setAddress(addressToUpdate);
+		userToUpdate.setComments(null);
+
+		userToUpdate = userService.updateUser(userToUpdate);
+
+		assertEquals("Toulouse-updated", userToUpdate.getAddress().getCity());
+		assertEquals("France-updated", userToUpdate.getAddress().getCountry());
+		assertEquals("31000-updated", userToUpdate.getAddress().getCp());
+		assertEquals(99, userToUpdate.getAddress().getNumber());
+		assertEquals("République-updated", userToUpdate.getAddress().getRoad());
+		assertEquals("Avenue-updated", userToUpdate.getAddress().getRoadType());
+		assertEquals(false, userToUpdate.isActif());
+		assertEquals("Simon-updated", userToUpdate.getFirstName());
+		assertEquals("Aliotti-updated", userToUpdate.getName());
+		assertEquals("simone.aliot@gmail.com-updated", userToUpdate.getEmail());
+		assertEquals(null, userToUpdate.getComments());
+
+	}
+
+	/**
+	 * Test method updating a user's password
+	 */
+	@Test
+	public void test_updatePasswordUser() {
+		User userToUpdate = userService.getUserByUuid(this.user1.getUuid());
+
+		userToUpdate.setPassword("testPasswordUpdate");
+		User updatedUser = userService.updatePasswordUser(userToUpdate);
+
+		assertTrue(bCryptPasswordEncoder.matches(saltKey + "testPasswordUpdate" + saltKey, updatedUser.getPassword()));
+
+	}
+
+	/**
+	 * Test method getting users by role
+	 */
+	@Test
+	public void test_getUserByRole() {
+		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
+		List<User> users1 = userService.getUserByRole(role1);
+		assertThat(users1.size(), equalTo(2));
+
+		Role role2 = roleService.getRoleByRoleName("ROLE_ADMIN");
+		List<User> users2 = userService.getUserByRole(role2);
+		assertThat(users2.size(), equalTo(0));
+
+	}
+
+	@Test
+	public void test_getUserByAddress() {
+	 User userFromGet = userService.getUserByAddress(this.user1.getAddress());
+	 
+		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
+		assertEquals(this.user1.getAddress().getCountry(), userFromGet.getAddress().getCountry());
+		assertEquals(this.user1.getAddress().getCp(), userFromGet.getAddress().getCp());
+		assertEquals(this.user1.getAddress().getId(), userFromGet.getAddress().getId());
+		assertEquals(this.user1.getAddress().getNumber(), userFromGet.getAddress().getNumber());
+		assertEquals(this.user1.getAddress().getRoad(), userFromGet.getAddress().getRoad());
+		assertEquals(this.user1.getAddress().getRoadType(), userFromGet.getAddress().getRoadType());
+		assertEquals(this.user1.getFirstName(), userFromGet.getFirstName());
+		assertEquals(this.user1.getName(), userFromGet.getName());
+		assertEquals(this.user1.getEmail(), userFromGet.getEmail());
+		assertEquals(this.user1.getUuid(), userFromGet.getUuid());
+		assertEquals("ROLE_CUSTOMER", userFromGet.getRole().getRoleName());
+		assertNotNull(userFromGet.getUuid());
+		assertTrue(bCryptPasswordEncoder.matches((saltKey + "toto" + saltKey), userFromGet.getPassword()));
+	 
+	}
+
 }
