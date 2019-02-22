@@ -66,6 +66,7 @@ public class TrainerService {
 	@Transactional
 	public void deleteTrainer(Trainer trainer) {
 		trainer.setActif(false);
+		trainerRepository.save(trainer);
 
 	}
 

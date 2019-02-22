@@ -9,6 +9,7 @@ import com.hb.acadia.repository.AddressRepository;
 import com.hb.acadia.repository.BillRepository;
 import com.hb.acadia.repository.CategoryRepository;
 import com.hb.acadia.repository.RoleRepository;
+import com.hb.acadia.repository.TrainerRepository;
 import com.hb.acadia.repository.TrainerService;
 import com.hb.acadia.repository.TrainingRepository;
 import com.hb.acadia.repository.UserRepository;
@@ -31,6 +32,8 @@ public abstract class AbstractApplicationTest {
 	protected AddressRepository addressRepository;
 	@Autowired
 	protected RoleRepository roleRepository;
+	@Autowired
+	protected TrainerRepository trainerRepository;
 
 	// DI of Services
 	@Autowired

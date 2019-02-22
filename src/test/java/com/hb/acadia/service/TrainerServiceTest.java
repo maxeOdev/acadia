@@ -177,4 +177,16 @@ public class TrainerServiceTest extends AbstractApplicationTest {
 
 	}
 
+	/**
+	 * Test method deleting trainer *** this method set isActif to false ONLY ***
+	 */
+	@Test
+	public void test_deleteTrainer() {
+		Trainer trainerToDelete = (Trainer)userService.getUserByUuid(this.trainer1.getUuid());
+		trainerService.deleteTrainer(trainerToDelete);
+		Trainer trainerToDeleteAfterDelete = (Trainer)userService.getUserByUuid(this.trainer1.getUuid());
+		assertThat(trainerToDeleteAfterDelete.isActif(), equalTo(false));
+		
+		
+	}
 }
