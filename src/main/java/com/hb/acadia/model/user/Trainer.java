@@ -28,7 +28,7 @@ public class Trainer extends User {
 
 	// pour le payement
 	@NotNull
-	private long idStripe;
+	private String idStripe;
 
 	// diplôme
 	@NotNull

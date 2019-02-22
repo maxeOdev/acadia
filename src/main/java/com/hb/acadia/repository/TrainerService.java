@@ -80,5 +80,13 @@ public class TrainerService {
 		return trainer;
 	}
 	
+	/**
+	 * Get a trainer by idStripe
+	 * @param idStripe
+	 * @return the given trainer
+	 */
+	public Trainer getTrainerByIdStripe(String idStripe) {
+		return trainerRepository.findByIdStripe(idStripe);
+	}
 
 }
