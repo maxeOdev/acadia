@@ -1,8 +1,6 @@
 package com.hb.acadia.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hb.acadia.model.user.Role;
@@ -55,5 +53,15 @@ public class TrainerService {
 		return trainerRepository.save(trainer);
 
 	}
+
+	/**
+	 * 	This method disable a trainer. Training and address not deleted 
+	 * @param the trainer to delete
+	 */
+	public void deleteTrainer(Trainer trainer) {
+		trainer.setActif(false);
+		
+	}
+	
 
 }
