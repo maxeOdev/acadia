@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.User;
+import com.hb.acadia.repository.AddressRepository;
 import com.hb.acadia.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +28,13 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	@Autowired
-	AddressService addressService;
+	private AddressService addressService;
 	@Autowired
-	RoleService roleService;
+	private RoleService roleService;
+	@Autowired
+	private AddressRepository addressRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -87,6 +91,14 @@ public class UserService {
 		return userRepository.findByRole(role);
 	}
 	
+	/**
+	 * Get a user by address
+	 * @param address
+	 * @return the given user
+	 */
+	public User getUserByAddress(Address address) {
+		return userRepository.findByAddress(address); 
+	}
 	/**
 	 * Create a user
 	 * 
@@ -145,7 +157,7 @@ public class UserService {
 	@Transactional
 	public User updateUser(User user) {
 		// save the address in database before saving the user
-		user.setAddress(addressService.updateAddress(user.getAddress()));
+		user.setAddress(addressRepository.save(user.getAddress()));
 		return userRepository.save(user);
 		
 	}

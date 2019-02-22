@@ -54,15 +54,27 @@ public class RoleServiceTest extends AbstractApplicationTest {
 				"********************************************************* DELETING DATAS ***************************************");
 		log.info("");
 
+		if (userRepository.count() != 0) {
+			userService.deleteAll();
+		}
+
 		// delete all roles
-		roleService.deleteAll();
+		try {
+			roleService.deleteAll();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Test
 	public void test_createRole() {
 		/* delete roles already created */
-		roleService.deleteAll();
+		try {
+			roleService.deleteAll();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		assertEquals(0, roleRepository.count());
 
 		/* create roles */
@@ -150,28 +162,79 @@ public class RoleServiceTest extends AbstractApplicationTest {
 		user1.setComments(null);
 		userService.createUser(user2);
 
+		userService.deleteAll();
+
 		int numberOfRoleBeforeDelete = (int) roleRepository.count();
 		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
-		roleService.deleteRole(role1);
+		try {
+			roleService.deleteRole(role1);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		int numberOfRoleAfterDelete = (int) roleRepository.count();
-		
+
 		/* verify that role "ROLE_CUSTOMER" has been deleted */
 		assertTrue(numberOfRoleAfterDelete == (numberOfRoleBeforeDelete - 1));
-		
-		/* verify that users's role set are null */
-		assertEquals(userService.getUserByEmail("simone.aliot@gmail.com").getRole(), null);
-		assertEquals(userService.getUserByEmail("alalami@gmail.com").getRole(), null);
-		
-		
-		userService.deleteAll();
-		
+
+	}
+
+	/**
+	 * Test method deleting a role
+	 * 
+	 * @throws IllegalAccessException
+	 */
+	@Test(expected = IllegalAccessException.class)
+	public void test_deleteRole2() throws IllegalAccessException {
+
+		/* Create User in database */
+		Address address = new Address();
+		address.setCity("Toulouse");
+		address.setCountry("France");
+		address.setCp("31000");
+		address.setNumber(24);
+		address.setRoad("République");
+		address.setRoadType("Avenue");
+		User user1 = new User();
+		user1.setActif(true);
+		user1.setFirstName("Simon");
+		user1.setName("Aliotti");
+		user1.setEmail("simone.aliot@gmail.com");
+		user1.setPassword("toto");
+		user1.setAddress(address);
+		user1.setComments(null);
+		userService.createUser(user1);
+
+		/* Create User in database */
+		Address address2 = new Address();
+		address2.setCity("Clermont");
+		address2.setCountry("France");
+		address2.setCp("63000");
+		address2.setNumber(67);
+		address2.setRoad("Dupont");
+		address2.setRoadType("rue");
+		User user2 = new User();
+		user2.setActif(true);
+		user2.setFirstName("Anis");
+		user2.setName("Lalami");
+		user2.setEmail("alalami@gmail.com");
+		user2.setPassword("titi");
+		user2.setAddress(address2);
+		user1.setComments(null);
+		userService.createUser(user2);
+
+		int numberOfRoleBeforeDelete = (int) roleRepository.count();
+		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
+
+		roleService.deleteRole(role1);
+
 	}
 
 	/**
 	 * Test method deleting all roles
+	 * @throws IllegalAccessException 
 	 */
 	@Test
-	public void test_deleteRoles() {
+	public void test_deleteRoles() throws IllegalAccessException {
 		int numberOfRoleBeforeDelete = (int) roleRepository.count();
 		roleService.deleteAll();
 		int numberOfRoleAfterDelete = (int) roleRepository.count();

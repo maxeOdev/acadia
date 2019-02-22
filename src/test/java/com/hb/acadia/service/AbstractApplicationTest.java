@@ -40,5 +40,7 @@ public abstract class AbstractApplicationTest {
 	protected RoleService roleService;
 	@Autowired
 	protected VideoService videoService;
+	@Autowired
+	protected AddressService addressService;
 
 }

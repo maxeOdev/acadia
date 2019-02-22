@@ -82,7 +82,7 @@ public class UserServiceTest extends AbstractApplicationTest {
 		user1.setAddress(address);
 		user1.setComments(null);
 		BeanUtils.copyProperties(user1, (this.user1 = new User()));
-		userService.createUser(user1);
+		userService.createUser(user1);	
 
 		/* Create User in database */
 		Address address2 = new Address();
@@ -115,7 +115,11 @@ public class UserServiceTest extends AbstractApplicationTest {
 		// deleteAllUsers
 
 		userService.deleteAll();
-		roleService.deleteAll();
+		try {
+			roleService.deleteAll();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 		this.user1 = null;
 		this.user2 = null;
@@ -417,19 +421,39 @@ public class UserServiceTest extends AbstractApplicationTest {
 	}
 
 	/**
-	 * Test method getting users by role 
+	 * Test method getting users by role
 	 */
 	@Test
 	public void test_getUserByRole() {
 		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
 		List<User> users1 = userService.getUserByRole(role1);
 		assertThat(users1.size(), equalTo(2));
-		
-		
+
 		Role role2 = roleService.getRoleByRoleName("ROLE_ADMIN");
 		List<User> users2 = userService.getUserByRole(role2);
 		assertThat(users2.size(), equalTo(0));
 
-		
 	}
+
+	@Test
+	public void test_getUserByAddress() {
+	 User userFromGet = userService.getUserByAddress(this.user1.getAddress());
+	 
+		assertEquals(this.user1.getAddress().getCity(), userFromGet.getAddress().getCity());
+		assertEquals(this.user1.getAddress().getCountry(), userFromGet.getAddress().getCountry());
+		assertEquals(this.user1.getAddress().getCp(), userFromGet.getAddress().getCp());
+		assertEquals(this.user1.getAddress().getId(), userFromGet.getAddress().getId());
+		assertEquals(this.user1.getAddress().getNumber(), userFromGet.getAddress().getNumber());
+		assertEquals(this.user1.getAddress().getRoad(), userFromGet.getAddress().getRoad());
+		assertEquals(this.user1.getAddress().getRoadType(), userFromGet.getAddress().getRoadType());
+		assertEquals(this.user1.getFirstName(), userFromGet.getFirstName());
+		assertEquals(this.user1.getName(), userFromGet.getName());
+		assertEquals(this.user1.getEmail(), userFromGet.getEmail());
+		assertEquals(this.user1.getUuid(), userFromGet.getUuid());
+		assertEquals("ROLE_CUSTOMER", userFromGet.getRole().getRoleName());
+		assertNotNull(userFromGet.getUuid());
+		assertTrue(bCryptPasswordEncoder.matches((saltKey + "toto" + saltKey), userFromGet.getPassword()));
+	 
+	}
+
 }

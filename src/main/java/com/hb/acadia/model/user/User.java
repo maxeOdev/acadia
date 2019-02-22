@@ -48,7 +48,7 @@ public class User {
 
 	@Column(unique = true)
 	protected String email;
-	@NotNull
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	protected Address address;
 
