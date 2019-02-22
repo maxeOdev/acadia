@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.Trainer;
-import com.hb.acadia.model.user.User;
 import com.hb.acadia.utils.Utils;
 
 /**
