@@ -63,7 +63,10 @@ public class RoleService {
 	@Transactional
 	public void deleteRole(Role role) {
 		List<User> users = userService.getUserByRole(role);
-		users.forEach(user -> user.setRole(null));
+		users.forEach(user -> {
+			user.setRole(null);
+			userService.updateUser(user);
+		});
 		roleRepository.delete(role);
 	}
 

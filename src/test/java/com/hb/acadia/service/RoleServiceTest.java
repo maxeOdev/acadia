@@ -154,9 +154,15 @@ public class RoleServiceTest extends AbstractApplicationTest {
 		Role role1 = roleService.getRoleByRoleName("ROLE_CUSTOMER");
 		roleService.deleteRole(role1);
 		int numberOfRoleAfterDelete = (int) roleRepository.count();
-
+		
+		/* verify that role "ROLE_CUSTOMER" has been deleted */
 		assertTrue(numberOfRoleAfterDelete == (numberOfRoleBeforeDelete - 1));
-
+		
+		/* verify that users's role set are null */
+		assertEquals(userService.getUserByEmail("simone.aliot@gmail.com").getRole(), null);
+		assertEquals(userService.getUserByEmail("alalami@gmail.com").getRole(), null);
+		
+		
 		userService.deleteAll();
 		
 	}
