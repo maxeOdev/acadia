@@ -51,12 +51,12 @@ public class Trainer extends User {
 	 */
 	public Trainer(@NotNull String password, @NotNull String name, @NotNull String firstName, String mail,
 			@NotNull Address address, Set<Comment> comments, boolean isActif,
-			@NotNull int experience, @NotNull String qualifications, @NotNull boolean isCertified,
+			@NotNull int experience, @NotNull String qualifications,
 			Set<Training> trainings) {
 		super(password, name, firstName, mail, address, comments, isActif);
 		this.experience = experience;
 		this.qualifications = qualifications;
-		this.isCertified = isCertified;
+		this.isCertified = false;
 		this.trainings = trainings;
 	}
 

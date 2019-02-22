@@ -59,28 +59,31 @@ public class TrainerService {
 	}
 
 	/**
-	 * 	This method disable a trainer. Training and address not deleted 
+	 * This method disable a trainer. Training and address not deleted
+	 * 
 	 * @param the trainer to delete
 	 */
 	@Transactional
 	public void deleteTrainer(Trainer trainer) {
 		trainer.setActif(false);
-		
+
 	}
-	
+
 	/**
 	 * Update a trainer's password
+	 * 
 	 * @param trainer
 	 * @return the updated trainer
 	 */
-	@Transactional 
+	@Transactional
 	public Trainer updatePasswordTrainer(Trainer trainer) {
 		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
 		return trainer;
 	}
-	
+
 	/**
 	 * Get a trainer by idStripe
+	 * 
 	 * @param idStripe
 	 * @return the given trainer
 	 */
