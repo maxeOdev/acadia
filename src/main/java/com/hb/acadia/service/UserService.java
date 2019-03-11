@@ -75,7 +75,7 @@ public class UserService {
 	/**
 	 * Get User by Eemail
 	 * 
-	 * @param eemail
+	 * @param email
 	 * @return the User
 	 */
 	public User getUserByEmail(String email) {

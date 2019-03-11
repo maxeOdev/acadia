@@ -44,9 +44,16 @@ public class Trainer extends User {
 	public Trainer() {}
 
 	/**
+	 *
+	 * @param password
+	 * @param name
+	 * @param firstName
+	 * @param mail
+	 * @param address
+	 * @param comments
+	 * @param isActif
 	 * @param experience
 	 * @param qualifications
-	 * @param isCertified
 	 * @param trainings
 	 */
 	public Trainer(@NotNull String password, @NotNull String name, @NotNull String firstName, String mail,
