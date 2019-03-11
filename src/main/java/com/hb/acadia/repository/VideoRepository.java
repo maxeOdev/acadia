@@ -12,8 +12,8 @@ import com.hb.acadia.model.Video;
 public interface VideoRepository extends JpaRepository<Video, Long>{
 
 	/**
-	 * @param uuid
-	 * @return Corresponding Video
+	 * @param uuid : of the Video.
+	 * @return Corresponding {@linkplain Video}.
 	 */
 	Video findByUuid(String uuid);
 	

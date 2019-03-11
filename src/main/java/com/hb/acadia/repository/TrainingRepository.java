@@ -16,10 +16,10 @@ import com.hb.acadia.model.user.Trainer;
 public interface TrainingRepository extends JpaRepository<Training, Long> {
 
 	/**
-	 * @param id
+	 * @param uuid : of the training.
 	 * @return Corresponding Training
 	 */
-	Training findById(long id);
+	Training findByUuid(String uuid);
 	
 	/**
 	 * @param category

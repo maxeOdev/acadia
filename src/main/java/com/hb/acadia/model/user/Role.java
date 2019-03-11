@@ -18,7 +18,7 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "user_roles")
+	@Column(name = "user_roles", unique=true)
 	private String roleName;
 
 	@Override

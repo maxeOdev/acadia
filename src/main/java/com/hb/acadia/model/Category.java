@@ -32,6 +32,10 @@ public class Category {
 
 	public Category() {	}
 
+	public Category(String name) {
+		this.name = name;
+	}
+	
 	public Category(String name, Set<Training> trainings) {
 		this.name = name.toLowerCase();
 		this.trainings = trainings;
