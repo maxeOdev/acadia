@@ -326,10 +326,6 @@ public class UserServiceTest extends AbstractApplicationTest {
 		user1.setAddress(address);
 		user1.setComments(null);
 
-		// * Create Roles in database
-		Role role = new Role();
-		role.setRoleName("ROLE_CUSTOMER");
-		roleService.createRole(role);
 
 		BeanUtils.copyProperties(user1, (this.user1 = new User()));
 		User createdUser = userService.createUser(user1);
