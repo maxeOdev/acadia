@@ -33,6 +33,8 @@ public abstract class AbstractApplicationTest {
 	protected RoleRepository roleRepository;
 	@Autowired
 	protected TrainerRepository trainerRepository;
+	@Autowired
+	protected VideoRepository videoRepository;
 
 	// DI of Services
 	@Autowired
@@ -47,5 +49,7 @@ public abstract class AbstractApplicationTest {
 	protected AddressService addressService;
 	@Autowired
 	protected TrainerService trainerService;
+	@Autowired
+	protected TrainingService trainingService;
 
 }

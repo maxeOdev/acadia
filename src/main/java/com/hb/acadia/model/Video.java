@@ -35,7 +35,7 @@ public class Video {
 	@Column(length=255)
 	private String name;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = false, nullable = false)
 	private String path;
 	
 	@ManyToMany(mappedBy = "videos", fetch = FetchType.LAZY)
