@@ -58,5 +58,60 @@ public class Address {
 		this.city = city;
 		this.country = country;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((cp == null) ? 0 : cp.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + number;
+		result = prime * result + ((road == null) ? 0 : road.hashCode());
+		result = prime * result + ((roadType == null) ? 0 : roadType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (cp == null) {
+			if (other.cp != null)
+				return false;
+		} else if (!cp.equals(other.cp))
+			return false;
+		if (id != other.id)
+			return false;
+		if (number != other.number)
+			return false;
+		if (road == null) {
+			if (other.road != null)
+				return false;
+		} else if (!road.equals(other.road))
+			return false;
+		if (roadType == null) {
+			if (other.roadType != null)
+				return false;
+		} else if (!roadType.equals(other.roadType))
+			return false;
+		return true;
+	}
 	
 }
