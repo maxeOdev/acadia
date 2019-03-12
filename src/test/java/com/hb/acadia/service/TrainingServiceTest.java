@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
@@ -13,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hb.acadia.model.Address;
+import com.hb.acadia.model.Category;
 import com.hb.acadia.model.Training;
 import com.hb.acadia.model.Video;
 import com.hb.acadia.model.user.Role;
@@ -32,7 +34,8 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 
 	private Training training;
 	private Trainer trainer1;
-
+	private Category category1;
+	
 	@BeforeClass
 	public static void onLaunch() {
 		log.info("************************************ STARTING TRAINING TEST ***************************************");
@@ -89,10 +92,11 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 		Video video = new Video("video1", "/d/eclipse/test", trainings);
 		videoService.createVideo(video);
 
-		String categoryName = "info";
-		categoryService.createCategory(categoryName);
+		category1 = new Category();
+		category1.setName("info");
+		category1 = categoryService.createCategory(category1.getName());
 
-		trainingService.createTraining(training, categoryRepository.findByName(categoryName), new LinkedList<>());
+		trainingService.createTraining(training, categoryRepository.findByName(category1.getName()), new LinkedList<>());
 	}
 
 	@After
@@ -187,14 +191,24 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 
 	@Test
 	public void getByTrainer() {
-
+		List<Training> trainingsOfTrainer1 = trainingService.getByTrainer(trainer1);
+		List<Training> all = trainingService.getAll();
+		for (Training training:all) {
+			if (training.getTrainer().equals(trainer1)) {
+				assertTrue(trainingsOfTrainer1.contains(training));
+			}
+		}
 	}
 
 	@Test
 	public void getByCategory() {
-
-		// TODO
-
+		List<Training> trainingsOfCategory1 = trainingService.getByCategory(category1);
+		List<Training> all = trainingService.getAll();
+		for (Training training:all) {
+			if (training.getCategory().equals(category1)) {
+				assertTrue(trainingsOfCategory1.contains(training));
+			}
+		}
 	}
-
+	
 }
