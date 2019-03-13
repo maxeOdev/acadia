@@ -1,5 +1,7 @@
 package com.hb.acadia.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +66,8 @@ public class VideoService {
 	/**
 	 * Get all video existing in the database.
 	 */
-	public void getAllVideos() {
-		videoRepo.findAll();
+	public List<Video> getAllVideos() {
+		return videoRepo.findAll();
 	}
 	
 	/**

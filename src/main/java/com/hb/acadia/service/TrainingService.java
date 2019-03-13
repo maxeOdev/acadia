@@ -171,7 +171,7 @@ public class TrainingService {
 	 * 
 	 * @return Every training saved in the database.
 	 */
-	public List<Training> getAll() {
+	public List<Training> getAllTrainings() {
 		return trainingRepo.findAll();
 	}
 
