@@ -48,9 +48,7 @@ public class AcadiaApplication {
 		address.setRoad("Du chateau");
 		address.setCp("35876");
 		address.setRoadType("Avenue");
-
-
-
+		
 		User simone = new User();
 		simone.setEmail("sim.aliotti@gmail.com");
 		simone.setFirstName("simon");

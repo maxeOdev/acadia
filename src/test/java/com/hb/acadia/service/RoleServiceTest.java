@@ -31,6 +31,12 @@ public class RoleServiceTest extends AbstractApplicationTest {
 	@Before
 	public void createData() {
 
+		try {
+			roleService.deleteAll();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
 		log.info("");
 		log.info(
 				"********************************************************* CREATING DATAS ***************************************");
