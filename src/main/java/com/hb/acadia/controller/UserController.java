@@ -1,5 +1,6 @@
 package com.hb.acadia.controller;
 
+import com.hb.acadia.constante.Mode;
 import com.hb.acadia.model.user.User;
 import com.hb.acadia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userDetail");
         User user = userService.getUserByUuid(uuid);
         modelAndView.addObject("user", user);
-        modelAndView.addObject("mode", "1");
+        modelAndView.addObject("mode", Mode.DISPLAY_DETAIL.getName());
         return modelAndView;
     }
 
@@ -62,6 +63,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userDetail");
         User user = userService.getUserByUuid(uuid);
         modelAndView.addObject("userUpdated", user);
+        modelAndView.addObject("mode", Mode.UPDATE.getName());
         return modelAndView;
     }
 
