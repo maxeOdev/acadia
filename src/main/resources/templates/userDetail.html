@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Utilisateur</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!-- barre de recherche -->
+<div class="searchBar">
+
+    <form class="form-inline" action="/admin/user/" method="POST">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search" class="sr-only">Password</label>
+            <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+    </form>
+</div>
+
+<!-- Détail de l'utilisateur -->
+<div th:if="${mode == '1'}">
+<div class="card
+" style="width: 18rem;">
+    <div class="card-body">
+        <div th:if="${user.actif}"> <h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' ACTIF' " class="card-title"></h5></div>
+        <div th:unless="${user.actif}"> <h5 th:text="${user.firstName}+ ' '+ ${user.name} + 'DESACTIVÉ' " class="card-title"></h5></div>
+
+        <h6 th:text="${user.email}" class="card-subtitle mb-2 text-muted"></h6>
+        <p class="card-text" th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} +' '+${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
+        <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
+        <a href="#" class="card-link">Supprimer</a>
+    </div>
+</div>
+</div>
+
+<!-- Modification de l'utilisateur -->
+
+
+
+<!-- Supprimer l'utilisateur -->
+
+</body>
+
+
+</html>
+

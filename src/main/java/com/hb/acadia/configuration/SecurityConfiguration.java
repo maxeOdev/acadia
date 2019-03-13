@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/trainer/**").hasAuthority("ROLE_TRAINER").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/app/home", true)
+				.defaultSuccessUrl("/admin/temp", true)
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()
