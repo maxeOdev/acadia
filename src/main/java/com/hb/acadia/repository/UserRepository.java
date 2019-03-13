@@ -51,4 +51,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 * @return the given User
 	 */
 	User findByAddress(Address address);
+
+
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Utilisateur</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!-- barre de recherche -->
+<div class="searchBar">
+
+    <form class="form-inline" action="/admin/user/" method="POST">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search" class="sr-only">Password</label>
+            <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+    </form>
+</div>
+
+<!-- Liste des utilisateurs -->
+<div class="displayResult">
+    <div th:if="${not #lists.isEmpty(users)}">
+        <div class="list-group">
+        <span th:each="user: ${users}">
+            <a th:href="@{/admin/userDetail(uuid=${user.uuid})}" class="list-group-item list-group-item-action list-group-item-primary">
+                <span> PRÉNON: <span th:text="${user.firstName}">   </span></span>
+                <span> NOM:<span th:text="${user.name}">   </span></span>
+                <span> EMAIL:<span th:text="${user.email}">   </span></span>
+                 <span> UUID:<span th:text="${user.uuid}">   </span></span>
+            </a>
+        </span>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+
+</html>
+
