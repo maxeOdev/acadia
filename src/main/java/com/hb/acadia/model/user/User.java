@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.Address;
@@ -46,6 +47,7 @@ public class User {
 	@NotNull
 	protected String firstName;
 
+	@Email
 	@Column(unique = true)
 	protected String email;
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.hb.acadia.configuration.CustombCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,7 +37,10 @@ public class UserService {
 	@Autowired
 	private AddressRepository addressRepository;
 	@Autowired
+	private CustombCryptPasswordEncoder custombCryptPasswordEncoder;
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 	@Value("${saltkey}")
 	private String saltKey;
@@ -110,7 +114,7 @@ public class UserService {
 
 		// salt and hash password
 		String password = saltKey + user.getPassword() + saltKey;
-		user.setPassword(bCryptPasswordEncoder.encode(password));
+		user.setPassword(custombCryptPasswordEncoder.encode(password));
 
 		// save the address in database before saving the user
 		user.setAddress(addressService.createAddress(user.getAddress()));
@@ -170,7 +174,7 @@ public class UserService {
 	@Transactional 
 	public User updatePasswordUser(User user) {
 		String password = saltKey + user.getPassword() + saltKey;
-		user.setPassword(bCryptPasswordEncoder.encode(password));
+		user.setPassword(custombCryptPasswordEncoder.encode(password));
 		return updateUser(user);
 	}
 }
