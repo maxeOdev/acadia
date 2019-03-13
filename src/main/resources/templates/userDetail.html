@@ -26,7 +26,7 @@
 </div>
 
 <!-- Détail de l'utilisateur -->
-<div th:if="${mode == '1'}">
+<div th:if="${mode == 'detail'}">
 <div class="card
 " style="width: 18rem;">
     <div class="card-body">
@@ -42,7 +42,9 @@
 </div>
 
 <!-- Modification de l'utilisateur -->
-
+<div th:if="${mode == 'update'}">
+test modif
+</div>
 
 
 <!-- Supprimer l'utilisateur -->
