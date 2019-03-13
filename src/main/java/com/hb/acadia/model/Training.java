@@ -88,6 +88,7 @@ public class Training {
 	}
 
 	/**
+	 * @param title
 	 * @param trainer
 	 * @param category
 	 * @param videos
@@ -98,6 +99,7 @@ public class Training {
 	 * @param price
 	 * @param isActive
 	 */
+<<<<<<< HEAD
 	public Training(@NotNull @NotEmpty String title, 
 			@NotNull @NotEmpty Trainer trainer, 
 			@NotNull @NotEmpty Category category,
@@ -107,6 +109,11 @@ public class Training {
 			@NotNull @NotEmpty Level difficulty,
 			@NotNull @NotEmpty int duration, 
 			@NotNull @NotEmpty double price, boolean isActive) {
+=======
+	public Training(@NotNull String title, @NotNull Trainer trainer, @NotNull Category category,
+			@NotNull Set<Video> videos, Set<Comment> comments, @NotNull String description, @NotNull Level difficulty,
+			@NotNull int duration, @NotNull double price, boolean isActive) {
+>>>>>>> fix title field on Training
 		this.title = title;
 		this.trainer = trainer;
 		this.category = category;
@@ -118,7 +125,7 @@ public class Training {
 		this.price = price;
 		this.isActive = isActive;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
