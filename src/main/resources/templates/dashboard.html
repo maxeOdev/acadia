@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{page.dashboard.title}"></title>
+</head>
+<body>
+  
+  <h1>Dashboard</h1>
+  <div>
+    <ul>
+      <li th:each="domain : ${domains}">
+        <a th:href="@{/dashboard(fragment=${domain})}" th:text="${domain.value}"></a>
+      </li>
+    </ul>
+  </div>
+  
+</body>
+</html>
