@@ -78,6 +78,7 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 		trainerService.createTrainer(trainer1);
 
 		training = new Training();
+		training.setTitle("Titre test");
 		training.setDescription("je suis la description");
 		training.setDifficulty(Training.Level.CONFIRMED);
 		training.setDuration(300);
@@ -192,7 +193,7 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 	@Test
 	public void getByTrainer() {
 		List<Training> trainingsOfTrainer1 = trainingService.getByTrainer(trainer1);
-		List<Training> all = trainingService.getAll();
+		List<Training> all = trainingService.getAllTrainings();
 		for (Training training:all) {
 			if (training.getTrainer().equals(trainer1)) {
 				assertTrue(trainingsOfTrainer1.contains(training));
@@ -203,7 +204,7 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 	@Test
 	public void getByCategory() {
 		List<Training> trainingsOfCategory1 = trainingService.getByCategory(category1);
-		List<Training> all = trainingService.getAll();
+		List<Training> all = trainingService.getAllTrainings();
 		for (Training training:all) {
 			if (training.getCategory().equals(category1)) {
 				assertTrue(trainingsOfCategory1.contains(training));

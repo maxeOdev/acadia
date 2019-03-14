@@ -42,6 +42,9 @@ public class RoleServiceTest extends AbstractApplicationTest {
 				"********************************************************* CREATING DATAS ***************************************");
 		log.info("");
 
+		/* Delete every roles */
+		roleRepository.deleteAll();
+		
 		/* Create roles in db */
 		Role role1 = new Role();
 		role1.setRoleName("ROLE_CUSTOMER");
