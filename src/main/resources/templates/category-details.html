@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title th:text="Détails"></title>
+</head>
+<body>
+  
+  <div th:if="${category != null}">
+    <form th:object="${category}" method="POST" th:action="@{/admin/update-category}">
+      Identifiant : <input th:field="*{id}" type="text" th:value="*{id}" /><br/>
+      Nom : <input th:field="*{name}" type="text" th:value="*{name}" /><br/>
+      <input type="submit" value="Mettre à jour" />
+    </form>
+    <form th:object="${category}" method="POST" th:action="@{/admin/delete-category}">
+      <input th:field="*{id}" type="hidden" th:value="*{id}" /><br/>
+      <input th:field="*{name}" type="hidden" th:value="*{name}" /><br/>
+      <input type="submit" value="Supprimer" />
+    </form>
+  </div>
+  <div th:if="${category == null}">
+    <font color="red">Erreur de récupération de la catégorie.</font>
+  </div>
+  <div th:if="${error}">
+    <font color="red" th:text="${error}"></font>
+  </div>  
+</body>
+</html>
