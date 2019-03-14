@@ -53,6 +53,15 @@ public class CategoryService {
 	public Category getByName(String name) {
 		return categoryRepository.findByName(name);
 	}
+	
+	/**
+	 * Search the Category which's corresponding to a given id.
+	 * @param id of the Category.
+	 * @return The corresponding Category.
+	 */
+	public Category getById(long id) {
+		return categoryRepository.findById(id);
+	}
 
 	/**
 	 * Count categories stored in the database.
