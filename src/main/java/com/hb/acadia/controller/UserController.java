@@ -62,7 +62,7 @@ public class UserController {
     public ModelAndView userUpdate(@RequestParam("uuid")String uuid){
         ModelAndView modelAndView = new ModelAndView("userDetail");
         User user = userService.getUserByUuid(uuid);
-        modelAndView.addObject("userUpdated", user);
+        modelAndView.addObject("user", user);
         modelAndView.addObject("mode", Mode.UPDATE.getName());
         return modelAndView;
     }
