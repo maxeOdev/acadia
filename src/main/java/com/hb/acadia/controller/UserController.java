@@ -92,10 +92,5 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/userDelete")
-    public ModelAndView deleteUser(@RequestParam("uuid") String uuid){
-        User user = userService.getUserByUuid(uuid);
-        userService.deleteUser(user);
-        return new ModelAndView("redirect:/admin/users");
-    }
+
 }

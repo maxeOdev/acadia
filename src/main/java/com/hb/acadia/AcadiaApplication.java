@@ -1,5 +1,7 @@
 package com.hb.acadia;
 
+import com.hb.acadia.model.Address;
+import com.hb.acadia.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +16,6 @@ import com.hb.acadia.service.CategoryService;
 import com.hb.acadia.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 
 @SpringBootApplication
