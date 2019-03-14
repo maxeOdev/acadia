@@ -36,7 +36,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	@Before
 	public void onLaunch() {
 		
-		category = categoryService.createCategory("Informatique");
+		category = categoryService.createCategory(new Category("Informatique"));
 		
 	}
 	
@@ -51,7 +51,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	public void create() {
 		
 		String name = "Bricolage";
-		Category cat = categoryService.createCategory(name);
+		Category cat = categoryService.createCategory(new Category(name));
 		
 		assertThat(name.toLowerCase(), equalTo(cat.getName()));
 		assertThat(cat.getId(), notNullValue());
@@ -62,7 +62,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	@Test
 	public void allCategories() {
 		
-		Category cat1 = categoryService.createCategory("testName");
+		Category cat1 = categoryService.createCategory(new Category("testName"));
 		List<Category> cats = categoryService.getAllCategories();
 		
 		assertThat(cats.size(), equalTo(2));
@@ -82,7 +82,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	public void count() {
 	
 		assertThat(categoryService.countCategories(), equalTo(1L));
-		Category cat1 = categoryService.createCategory("testName");
+		Category cat1 = categoryService.createCategory(new Category("testName"));
 		assertThat(categoryService.countCategories(), equalTo(2L));
 		
 	}
@@ -112,7 +112,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	@Test
 	public void deleteAllCategories() {
 		
-		categoryService.createCategory("testCategory");
+		categoryService.createCategory(new Category("testCategory"));
 		assertThat(categoryService.countCategories(), equalTo(2L));
 		categoryService.deleteAllCategories();
 		assertThat(categoryService.countCategories(), equalTo(0L));
