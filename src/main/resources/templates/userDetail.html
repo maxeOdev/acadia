@@ -33,7 +33,12 @@
             <p class="card-text"
                th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} + ' ' +${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
             <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
-            <a href="#" class="card-link">Supprimer</a>
+            <!--
+           <form  th:action="@{/admin/userDelete}" method="POST">
+               <input type="hidden" th:field="${user.uuid}" th:value="${user.uuid}">
+           </form>
+-->
+            <a th:href="@{/admin/userDelete(uuid=${user.uuid})}" class="card-link">Supprimer</a>
         </div>
     </div>
 </div>
@@ -41,8 +46,9 @@
 <!-- Modification de l'utilisateur -->
 <div th:if="${mode == 'update'}">
 
-    <form th:object="${user}">
+    <form th:object="${user}" th:action="@{/admin/userUpdate}" method="POST">
         <!-- infos utilisateur -->
+        <input type="hidden" th:field="*{uuid}" th:value="*{uuid}">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
@@ -58,13 +64,22 @@
             </div>
         </div>
         <!-- infos adresse -->
-        <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-group">
-            <label for="inputAddress2">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="addressNumber">Numéro de voie</label>
+                <input type="text" class="form-control" id="addressNumber" th:field="*{address.number}"
+                       th:value="*{address.number}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="addressRoad">Voie</label>
+                <input type="text" class="form-control" id="addressRoad" th:field="*{address.road}"
+                       th:value="*{address.road}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="addressRoadType">Type de voie</label>
+                <input type="text" class="form-control" id="addressRoadType" th:field="*{address.roadType}"
+                       th:value="*{address.roadType}">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -77,7 +92,7 @@
                 <select id="inputState" class="form-control" th:field="*{address.country}">
                     <option th:value="France" th:selected="*{address.country =='France'}">France</option>
                     <option th:value="Canada" th:selected="*{address.country =='France'}">Canada</option>
-                    <option th:value="Belgique"th:selected="*{address.country =='France'}">Belgique</option>
+                    <option th:value="Belgique" th:selected="*{address.country =='France'}">Belgique</option>
                 </select>
             </div>
             <div class="form-group col-md-2">
@@ -85,17 +100,8 @@
                 <input type="text" class="form-control" id="inputZip" th:field="*{address.cp}" th:value="*{address.cp}">
             </div>
         </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
     </form>
-
 
 </div>
 

@@ -1,18 +1,19 @@
 package com.hb.acadia.controller;
 
+import com.hb.acadia.DTO.AddressDTO;
+import com.hb.acadia.DTO.UserDTO;
 import com.hb.acadia.constante.Mode;
 import com.hb.acadia.model.user.User;
 import com.hb.acadia.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
 import java.util.List;
+
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -62,10 +63,39 @@ public class UserController {
     public ModelAndView userUpdate(@RequestParam("uuid")String uuid){
         ModelAndView modelAndView = new ModelAndView("userDetail");
         User user = userService.getUserByUuid(uuid);
-        modelAndView.addObject("user", user);
+
+        UserDTO userDTO = new UserDTO();
+        AddressDTO addressDTO = new AddressDTO();
+        BeanUtils.copyProperties(user.getAddress(), addressDTO);
+        userDTO.setAddress(addressDTO);
+        BeanUtils.copyProperties(user, userDTO);
+
+
+        modelAndView.addObject("user", userDTO);
         modelAndView.addObject("mode", Mode.UPDATE.getName());
+        return modelAndView;
+
+
+    }
+    @PostMapping(value = "/userUpdate")
+    public ModelAndView userUpdatePost(UserDTO userDTO){
+       ModelAndView modelAndView = new ModelAndView("userDetail");
+       User user = userService.getUserByUuid(userDTO.getUuid());
+
+        //Copy properties
+        BeanUtils.copyProperties(userDTO.getAddress(), user.getAddress());
+        BeanUtils.copyProperties(userDTO, user);
+       //Update user
+        userService.updateUser(user);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("mode", Mode.DISPLAY_DETAIL.getName());
         return modelAndView;
     }
 
-
+    @PostMapping(value = "/userDelete")
+    public ModelAndView deleteUser(@RequestParam("uuid") String uuid){
+        User user = userService.getUserByUuid(uuid);
+        userService.deleteUser(user);
+        return new ModelAndView("redirect:/admin/users");
+    }
 }
