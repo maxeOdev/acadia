@@ -9,41 +9,94 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/perso.css"/>
 </head>
 
 <body>
 
-<!-- barre de recherche -->
-<div class="searchBar">
-
-    <form class="form-inline" action="/admin/user/" method="POST">
-        <div class="form-group mx-sm-3 mb-2">
-            <label for="search" class="sr-only">Password</label>
-            <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
-    </form>
-</div>
+<!-- nav bar -->
+<nav th:replace="navbar.html :: navbarUser"></nav>
 
 <!-- Détail de l'utilisateur -->
 <div th:if="${mode == 'detail'}">
-<div class="card
-" style="width: 18rem;">
-    <div class="card-body">
-        <div th:if="${user.actif}"> <h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' ACTIF' " class="card-title"></h5></div>
-        <div th:unless="${user.actif}"> <h5 th:text="${user.firstName}+ ' '+ ${user.name} + 'DESACTIVÉ' " class="card-title"></h5></div>
 
-        <h6 th:text="${user.email}" class="card-subtitle mb-2 text-muted"></h6>
-        <p class="card-text" th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} +' '+${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
-        <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
-        <a href="#" class="card-link">Supprimer</a>
+
+    <div class="card
+" style="width: 18rem;">
+        <div class="card-body">
+            <div th:if="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' ACTIF' "
+                                           class="card-title"></h5></div>
+            <div th:unless="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + 'DESACTIVÉ' "
+                                               class="card-title"></h5></div>
+
+            <h6 th:text="${user.email}" class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text"
+               th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} + ' ' +${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
+            <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
+            <a href="#" class="card-link">Supprimer</a>
+        </div>
     </div>
-</div>
 </div>
 
 <!-- Modification de l'utilisateur -->
 <div th:if="${mode == 'update'}">
-test modif
+
+    <form th:object="${user}">
+        <!-- infos utilisateur -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="*{email}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputNom4">Nom</label>
+                <input type="text" class="form-control" id="inputNom4" th:field="*{name}" th:value="*{name}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="prenom">Prénom</label>
+                <input type="text" class="form-control" id="prenom" th:field="*{firstName}" th:value="*{firstName}">
+            </div>
+        </div>
+        <!-- infos adresse -->
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Address 2</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Ville</label>
+                <input type="text" class="form-control" id="inputCity" th:field="*{address.city}"
+                       th:value="*{address.city}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Pays</label>
+                <select id="inputState" class="form-control" th:field="*{address.country}">
+                    <option th:value="France" th:selected="*{address.country =='France'}">France</option>
+                    <option th:value="Canada" th:selected="*{address.country =='France'}">Canada</option>
+                    <option th:value="Belgique"th:selected="*{address.country =='France'}">Belgique</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">CP</label>
+                <input type="text" class="form-control" id="inputZip" th:field="*{address.cp}" th:value="*{address.cp}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                    Check me out
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+
+
 </div>
 
 

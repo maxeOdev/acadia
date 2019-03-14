@@ -13,17 +13,8 @@
 
 <body>
 
-<!-- barre de recherche -->
-<div class="searchBar">
-
-    <form class="form-inline" action="/admin/user/" method="POST">
-        <div class="form-group mx-sm-3 mb-2">
-            <label for="search" class="sr-only">Password</label>
-            <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
-    </form>
-</div>
+<!-- nav bar -->
+<nav th:replace="navbar.html :: navbarUser"></nav>
 
 <!-- Liste des utilisateurs -->
 <div class="displayResult">
