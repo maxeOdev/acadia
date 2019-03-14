@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -28,6 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
+	
+	@Value("${spring.profiles.active}")
+	private String profile;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
@@ -43,24 +45,47 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.
+		if (profile.equals("local")) {
+			http.
 			authorizeRequests()
 				.antMatchers("/trainings/**").permitAll()
 				.antMatchers("/training/**").permitAll()
 				.antMatchers("/categories").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/register").permitAll()
+				.antMatchers("/admin/**").permitAll() // FOR DEVs, DO NOT KEEP IT ENABLE !!!Q
 				.antMatchers("/app/**").hasAuthority("ROLE_CUSTOMER")
 				.antMatchers("/trainer/**").hasAuthority("ROLE_TRAINER").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/temp", true)
+				.defaultSuccessUrl("/admin/dashboard", true)
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/").and().exceptionHandling()
 				.accessDeniedPage("/access-denied");
+		} else {
+			http.
+			authorizeRequests()
+				.antMatchers("/trainings/**").permitAll()
+				.antMatchers("/training/**").permitAll()
+				.antMatchers("/categories").permitAll()
+				.antMatchers("/login").permitAll()
+				.antMatchers("/register").permitAll()
+				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/app/**").hasAuthority("ROLE_CUSTOMER")
+				.antMatchers("/trainer/**").hasAuthority("ROLE_TRAINER").anyRequest()
+				.authenticated().and().csrf().disable().formLogin()
+				.loginPage("/login").failureUrl("/login?error=true")
+				.defaultSuccessUrl("/admin/dashboard", true)
+				.usernameParameter("email")
+				.passwordParameter("password")
+				.and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/").and().exceptionHandling()
+				.accessDeniedPage("/access-denied");
+		}
 	}
 	
 	@Override
