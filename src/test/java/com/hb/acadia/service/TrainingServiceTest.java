@@ -95,7 +95,7 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 
 		category1 = new Category();
 		category1.setName("info");
-		category1 = categoryService.createCategory(category1.getName());
+		category1 = categoryService.createCategory(category1);
 
 		trainingService.createTraining(training, categoryRepository.findByName(category1.getName()), new LinkedList<>());
 	}
@@ -149,7 +149,7 @@ public class TrainingServiceTest extends AbstractApplicationTest {
 		videoService.createVideo(video);
 
 		String categoryName = "tuto";
-		categoryService.createCategory(categoryName);
+		categoryService.createCategory(new Category(categoryName));
 
 		trainingService.createTraining(training, categoryRepository.findByName(categoryName), new LinkedList<>());
 

@@ -54,31 +54,39 @@ public class CategoryController {
 		mav.addObject("category", category);
 		return mav;
 	}
+	
+	@GetMapping("/create-category")
+	public ModelAndView createCategory() {
+		ModelAndView mav = new ModelAndView("create-category");
+		mav.addObject("category", new Category());
+		return mav;
+	}
 
 	@PostMapping("/create-category")
 	public ModelAndView createCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("categories");
+		ModelAndView mav = new ModelAndView("generic");
 		
 		if (bindingResult.hasErrors()) {
 			mav.addObject("error", "Erreur lors de l'envois des données.");
+			mav.setViewName("create-category");
 			return mav;
 		}
 		
-		if (categoryService.getById(category.getId()) == null) {
+		if (categoryService.getById(category.getId()) != null) {
 			mav.addObject("error", "La categorie '" + category.getName() + "' existe déjà.");
+			mav.setViewName("create-category");
 			return mav;
 		}
 		
-		category = categoryService.createCategory(category.getName());
-		mav.addObject("category", category);
-		return mav;
+		category = categoryService.createCategory(category);
+		return categories();
 	}
 
 	@PostMapping("/delete-category")
 	public ModelAndView deleteCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("categories");
 		
 		if (bindingResult.hasErrors()) {
+			ModelAndView mav = new ModelAndView("generic");
 			mav.addObject("error", "Erreur lors de l'envois des données.");
 			return mav;
 		}

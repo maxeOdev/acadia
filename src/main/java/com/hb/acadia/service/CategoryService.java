@@ -30,8 +30,8 @@ public class CategoryService {
 	 * @return la catégorie crée
 	 */
 	@Transactional
-	public Category createCategory(String categoryName) {
-		Category category = new Category(categoryName.toLowerCase(), null);
+	public Category createCategory(Category category) {
+		category.setName(category.getName().toLowerCase());
 		return categoryRepository.save(category);
 	}
 
