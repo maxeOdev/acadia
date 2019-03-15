@@ -18,31 +18,31 @@ public class DashboardController {
 	public ModelAndView dashboard(@RequestParam(required = false) String domain) {
 		ModelAndView mav = new ModelAndView();
 
-		/* according to the selected domain */
-		if (null != domain) {
-			switch (domain) {
-			case DomainConst.CATEGORIES:
+		// /* according to the selected domain */
+		// if (null != domain) {
+		// 	switch (domain) {
+		// 	case DomainConst.CATEGORIES:
 				
-				break;
-			case DomainConst.FORMATEURS:
+		// 		break;
+		// 	case DomainConst.FORMATEURS:
 
-				break;
-			case DomainConst.FORMATIONS:
+		// 		break;
+		// 	case DomainConst.FORMATIONS:
 
-				break;
-			case DomainConst.UTILISATEURS:
+		// 		break;
+		// 	case DomainConst.UTILISATEURS:
 
-				break;
-			case DomainConst.VIDEOS:
+		// 		break;
+		// 	case DomainConst.VIDEOS:
 
-				break;
-			default:
-				;
-			}
-		} /* else for simple dashboard menu page */
+		// 		break;
+		// 	default:
+		// 		;
+		// 	}
+		// } /* else for simple dashboard menu page */
 
 		mav.addObject("domains", Arrays.asList(DomainConst.getValues()));
-		mav.setViewName("/dashboard");
+		mav.setViewName("dashboard");
 		return mav;
 	}
 

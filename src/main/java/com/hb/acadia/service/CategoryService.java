@@ -55,6 +55,15 @@ public class CategoryService {
 	}
 	
 	/**
+	 * Search the List of Categories which contain a given part of their name.
+	 * @param part of name of the Categories.
+	 * @return The corresponding Categories.
+	 */
+	public Category getByNameLike(String part) {
+		return categoryRepository.findByName(part);
+	}
+	
+	/**
 	 * Search the Category which's corresponding to a given id.
 	 * @param id of the Category.
 	 * @return The corresponding Category.
