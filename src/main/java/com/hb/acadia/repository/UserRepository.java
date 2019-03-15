@@ -2,6 +2,8 @@ package com.hb.acadia.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hb.acadia.model.Address;
@@ -52,5 +54,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 */
 	User findByAddress(Address address);
 
-
+	/**
+	 * Pagination
+	 * @param pageable
+	 * @return
+	 */
+	@Override
+	Page<User> findAll(Pageable pageable);
 }

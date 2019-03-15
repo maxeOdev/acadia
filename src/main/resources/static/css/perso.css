@@ -1,9 +1,10 @@
 /*---------------------------------------------*/
-.centerCard {
-
+.center{
 margin: 0 auto;
+}
 
-
+.margeTop{
+margin: 50px auto !important;
 }
 
 

@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/perso.css"/>
 </head>
 
 <body>
@@ -17,20 +18,23 @@
 <nav th:replace="navbar.html :: navbarUser"></nav>
 
 <!-- Liste des utilisateurs -->
-<div class="displayResult">
-    <div th:if="${not #lists.isEmpty(users)}">
-        <div class="list-group">
+<div class="container margeTop">
+    <div class="displayResult">
+        <div th:if="${not #lists.isEmpty(users)}">
+            <div class="list-group">
         <span th:each="user: ${users}">
-            <a th:href="@{/admin/userDetail(uuid=${user.uuid})}" class="list-group-item list-group-item-action list-group-item-primary">
-                <span> PRÉNON: <span th:text="${user.firstName}">   </span></span>
+            <a th:href="@{/admin/userDetail(uuid=${user.uuid})}"
+               class="list-group-item list-group-item-action list-group-item-primary">
+                <span> PRÉNOM: <span th:text="${user.firstName}">   </span></span>
                 <span> NOM:<span th:text="${user.name}">   </span></span>
                 <span> EMAIL:<span th:text="${user.email}">   </span></span>
                  <span> UUID:<span th:text="${user.uuid}">   </span></span>
             </a>
         </span>
+            </div>
         </div>
+        <div th:replace="pagination.html :: pagination"></div>
     </div>
-
 
 </div>
 
@@ -38,4 +42,3 @@
 
 
 </html>
-

@@ -48,6 +48,7 @@ public class User {
 	protected String firstName;
 
 	@Email
+	@NotNull
 	@Column(unique = true)
 	protected String email;
 	

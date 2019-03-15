@@ -1,8 +1,8 @@
-package com.hb.acadia.constante;
+package com.hb.acadia.constant;
 
 public enum Mode {
 
-    DISPLAY_DETAIL("detail"), UPDATE("update");
+    CREATE("create"), DISPLAY_DETAIL("detail"), UPDATE("update");
 
     private String name;
 

@@ -18,11 +18,11 @@
 <nav th:replace="navbar.html :: navbarUser"></nav>
 
 <!-- Détail de l'utilisateur -->
+<div class="container margeTop">
 <div th:if="${mode == 'detail'}">
 
-
-    <div class="card
-" style="width: 18rem;">
+    <div class="card center
+" style="width: 18rem;" >
         <div class="card-body">
             <div th:if="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' ACTIF' "
                                            class="card-title"></h5></div>
@@ -33,17 +33,19 @@
             <p class="card-text"
                th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} + ' ' +${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
             <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
-            <!--
-           <form  th:action="@{/admin/userDelete}" method="POST">
-               <input type="hidden" th:field="${user.uuid}" th:value="${user.uuid}">
-           </form>
--->
-            <a th:href="@{/admin/userDelete(uuid=${user.uuid})}" class="card-link">Supprimer</a>
+
+            <form th:action="@{/admin/userDelete}" method="POST">
+                <button class="card-link">Supprimer</button>
+                <input type="hidden" name="uuid" th:value="${user.uuid}">
+            </form>
+
+            <!-- <a th:href="@{/admin/userDelete(uuid=${user.uuid})}" class="card-link">Supprimer</a> -->
         </div>
     </div>
 </div>
-
+</div>
 <!-- Modification de l'utilisateur -->
+<div class="container margeTop">
 <div th:if="${mode == 'update'}">
 
     <form th:object="${user}" th:action="@{/admin/userUpdate}" method="POST">
@@ -52,7 +54,8 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="*{email}">
+                <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="*{email}"
+                       required/>
             </div>
             <div class="form-group col-md-6">
                 <label for="inputNom4">Nom</label>
@@ -104,9 +107,74 @@
     </form>
 
 </div>
+</div>
+<!-- Création d'un utilisateur -->
+<div class="container margeTop">
+<div th:if="${mode == 'create'}">
 
+    <form th:object="${user}" th:action="@{/admin/userCreate}" method="POST">
+        <!-- infos utilisateur -->
+        <input type="hidden" th:field="*{uuid}" th:value="*{uuid}">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" th:value="*{email}"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="name">Nom</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" th:value="*{name}"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="firstName">Prénom</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" th:value="*{firstName}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" th:value="*{password}">
+            </div>
+        </div>
+        <!-- infos adresse -->
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="addNumber">Numéro de voie</label>
+                <input type="text" class="form-control" id="addNumber" th:field="*{address.number}"
+                       th:value="*{address.number}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="addRoad">Voie</label>
+                <input type="text" class="form-control" id="addRoad" th:field="*{address.road}"
+                       th:value="*{address.road}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="addRoadType">Type de voie</label>
+                <input type="text" class="form-control" id="addRoadType" th:field="*{address.roadType}"
+                       th:value="*{address.roadType}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="city">Ville</label>
+                <input type="text" class="form-control" id="city" th:field="*{address.city}"
+                       th:value="*{address.city}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="state">Pays</label>
+                <select id="state" class="form-control" th:field="*{address.country}">
+                    <option th:value="France" th:selected="*{address.country =='France'}">France</option>
+                    <option th:value="Canada" th:selected="*{address.country =='France'}">Canada</option>
+                    <option th:value="Belgique" th:selected="*{address.country =='France'}">Belgique</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="cp">CP</label>
+                <input type="text" class="form-control" id="cp" th:field="*{address.cp}" th:value="*{address.cp}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
 
-<!-- Supprimer l'utilisateur -->
+</div>
+</div>
 
 </body>
 
