@@ -32,6 +32,13 @@ public class CategoryController {
 		mav.addObject("categories", categoryService.getAllCategories());
 		return mav;
 	}
+	
+	// @GetMapping("/search-categories")
+	// public ModelAndView categories(String part) {
+	// 	ModelAndView mav = new ModelAndView("generic");
+	// 	mav.addObject("categories", categoryService.getByNameLike(part));
+	// 	return mav;
+	// }
 
 	@GetMapping("/category-details")
 	public ModelAndView categoryDetails(@RequestParam String name) {
@@ -43,9 +50,9 @@ public class CategoryController {
 
 	@PostMapping("/update-category")
 	public ModelAndView updateCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("categories");
+		ModelAndView mav = new ModelAndView("category-details");
 		
-		if (null == category) {
+		if (bindingResult.hasErrors()) {
 			mav.addObject("error", "Erreur lors de l'envois des données.");
 			return mav;
 		}
@@ -64,7 +71,7 @@ public class CategoryController {
 
 	@PostMapping("/create-category")
 	public ModelAndView createCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("generic");
+		ModelAndView mav = new ModelAndView("redirect:/admin/categories");
 		
 		if (bindingResult.hasErrors()) {
 			mav.addObject("error", "Erreur lors de l'envois des données.");
@@ -79,20 +86,21 @@ public class CategoryController {
 		}
 		
 		category = categoryService.createCategory(category);
-		return categories();
+		return mav;
 	}
 
 	@PostMapping("/delete-category")
 	public ModelAndView deleteCategory(@Valid Category category, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/categories");
 		
 		if (bindingResult.hasErrors()) {
-			ModelAndView mav = new ModelAndView("generic");
+			mav.setViewName("generic");
 			mav.addObject("error", "Erreur lors de l'envois des données.");
 			return mav;
 		}
 		
 		categoryService.deleteCategory(category);
-		return categories();
+		return mav;
 	}
 	
 }
