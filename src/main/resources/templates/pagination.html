@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Utilisateur</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!-- Pagination user -->
+<div class="row justify-content-md-center margeTop" aria-label="Page navigation example" th:fragment="pagination">
+    <ul class="pagination">
+        <li th:unless=${actualPage==0} class="page-item">
+            <a class="page-link" th:href="@{/admin/users(page=${actualPage-1})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <div th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+            <li class="page-item"><a class="page-link" th:href="@{/admin/users(page=${i})}" th:text="${i+1}"></a></li>
+        </div>
+
+        <li th:unless=${actualPage==(numberOfPages-1)} class="page-item">
+            <a class="page-link" th:href="@{/admin/users(page=${actualPage+1})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+</body>
+
+
+</html>

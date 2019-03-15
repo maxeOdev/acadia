@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import com.hb.acadia.configuration.CustombCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import com.hb.acadia.repository.AddressRepository;
 import com.hb.acadia.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * Service class allowing many operations on User
@@ -176,5 +179,15 @@ public class UserService {
 		String password = saltKey + user.getPassword() + saltKey;
 		user.setPassword(custombCryptPasswordEncoder.encode(password));
 		return updateUser(user);
+	}
+
+	/**
+	 *
+	 * @param pageable
+	 * @return
+	 */
+	@Transactional
+	public Page<User> findAll(Pageable pageable){
+		return userRepository.findAll(pageable);
 	}
 }
