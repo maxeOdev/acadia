@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="#{page.dashboard.title}"></title>
+  <meta charset="UTF-8">
+  <title th:text="Accueil"></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="/css/perso.css">
 </head>
+
 <body>
+
+  <div id="dashboard">
   
-  <h1>Dashboard</h1>
-  <div>
-    <ul>
-      <li th:each="domain : ${domains}">
-        <a th:href="@{/dashboard(fragment=${domain})}" th:text="${domain.value}"></a>
-      </li>
-    </ul>
+    <div th:if="${domains}" >
+    
+      <div class="container">
+
+        <div class="row justify-content-md-center">
+          <a th:href="@{/admin/categories}"><button th:text="${domains[0]}" type="button" class="btn btn-outline-primary"></button></a>
+          <a th:href="@{/admin/trainer}"><button th:text="${domains[1]}" type="button" class="btn btn-outline-primary"></button></a>
+        </div>
+        <div class="row justify-content-md-center">
+          <a th:href="@{/admin/trainings}"><button th:text="${domains[2]}" type="button" class="btn btn-outline-primary"></button></a>
+          <a th:href="@{/admin/customers}"><button th:text="${domains[3]}" type="button" class="btn btn-outline-primary"></button></a>
+          <a th:href="@{/admin/videos}"><button th:text="${domains[4]}" type="button" class="btn btn-outline-primary"></button></a>
+        </div>
+        
+      </div>
+
+    </div>
+    <div th:unless="${domains}">
+
+      <p>
+        <font color="red">Erreur de transmission des données.</font>
+      </p>
+
+    </div>
   </div>
-  
+
 </body>
+
 </html>
