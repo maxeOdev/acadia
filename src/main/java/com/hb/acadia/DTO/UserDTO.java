@@ -29,6 +29,8 @@ public class UserDTO {
 
     protected AddressDTO address;
 
+    protected boolean isActif;
+
     public UserDTO() {
     }
 
