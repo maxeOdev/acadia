@@ -2,7 +2,8 @@ package com.hb.acadia.constant;
 
 public enum Mode {
 
-    CREATE("create"), DISPLAY_DETAIL("detail"), UPDATE("update");
+    CREATE("create"), DISPLAY_DETAIL("detail"), UPDATE("update"), DISPLAY_ALL_USERS("display-all"),
+    DISPLAY_SEARCH_RESULT("display-research-result");
 
     private String name;
 

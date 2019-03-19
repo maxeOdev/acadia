@@ -33,7 +33,12 @@
         </span>
             </div>
         </div>
-        <div th:replace="pagination.html :: pagination"></div>
+        <div th:if="${mode == 'display-all'}">
+            <div th:replace="pagination.html :: pagination-users"></div>
+        </div>
+        <div th:if="${mode == 'display-research-result'}">
+            <div th:replace="pagination.html :: pagination-users-research"></div>
+        </div>
     </div>
 
 </div>
