@@ -265,10 +265,10 @@ public class UserController {
      * @param uuid
      * @return
      */
-    @PostMapping(value = "/userDelete")
-    public ModelAndView userDelete(@RequestParam("uuid") String uuid) {
+    @DeleteMapping (value = "/user-delete")
+    public void userDelete(@RequestParam("uuid") String uuid) {
         userService.deleteUser(userService.getUserByUuid(uuid));
-        return new ModelAndView("redirect:/admin/users");
+
 
     }
 

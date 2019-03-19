@@ -32,12 +32,11 @@
                 <h6 th:text="${user.email}" class="card-subtitle mb-2 text-muted"></h6>
                 <p class="card-text"
                    th:text="${user.address.number} +' '+ ${user.address.roadType} + ' '+${user.address.road} + ' ' +${user.address.cp}+ ' '+${user.address.city}+ ' ' +${user.address.country} "></p>
-                <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a>
+                <button class="btn btn-outline-primary"> <a th:href="@{/admin/userUpdate(uuid=${user.uuid})}" class="card-link">Modifier</a></button>
 
-                <form th:action="@{/admin/userDelete}" method="POST">
-                    <button class="card-link">Supprimer</button>
-                    <input type="hidden" name="uuid" th:value="${user.uuid}">
-                </form>
+
+                <span id="uuidUser" style="display:none" th:text="${user.uuid}"></span>
+                <button class="btn btn-outline-primary" id="deleteButton">Supprimer</button>
 
                 <!-- <a th:href="@{/admin/userDelete(uuid=${user.uuid})}" class="card-link">Supprimer</a> -->
             </div>
@@ -56,17 +55,19 @@
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="*{email}"
-                    required/>
+                           required/>
                     <div th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputNom4">Nom</label>
-                    <input type="text" class="form-control" id="inputNom4" th:field="*{name}" th:value="*{name}" required/>
+                    <input type="text" class="form-control" id="inputNom4" th:field="*{name}" th:value="*{name}"
+                           required/>
                     <div th:each="err : ${#fields.errors('name')}" th:text="${'Ne peux pas être vide'}"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prenom">Prénom</label>
-                    <input type="text" class="form-control" id="prenom" th:field="*{firstName}" th:value="*{firstName}" required/>
+                    <input type="text" class="form-control" id="prenom" th:field="*{firstName}" th:value="*{firstName}"
+                           required/>
                     <div th:each="err : ${#fields.errors('firstName')}" th:text="${'Ne peux pas être vide'}"/>
                 </div>
             </div>
@@ -189,6 +190,12 @@
 
     </div>
 </div>
+
+
+<!-- Import JS -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/javascript/pop-up.js"></script>
 
 </body>
 
