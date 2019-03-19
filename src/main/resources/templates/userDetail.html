@@ -133,20 +133,20 @@
             <!-- infos utilisateur -->
             <input type="hidden" th:field="*{uuid}" th:value="*{uuid}">
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" th:field="*{email}" th:value="*{email}"/>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="name">Nom</label>
                     <input type="text" class="form-control" id="name" th:field="*{name}" th:value="*{name}"/>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="firstName">Prénom</label>
                     <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
                            th:value="*{firstName}">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="password">Mot de passe</label>
                     <input type="password" class="form-control" id="password" th:field="*{password}"
                            th:value="*{password}">
@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="city">Ville</label>
                     <input type="text" class="form-control" id="city" th:field="*{address.city}"
                            th:value="*{address.city}">
@@ -187,6 +187,11 @@
                 <div class="form-group col-md-2">
                     <label for="cp">CP</label>
                     <input type="text" class="form-control" id="cp" th:field="*{address.cp}" th:value="*{address.cp}">
+                </div>
+                <div class="custom-control custom-switch">
+                    <input th:if="${user.actif}" type="checkbox" class="custom-control-input" id="customSwitch1" th:field="${user.actif}" th:value="${true}" checked />
+                    <input th:unless="${user.actif}" type="checkbox" class="custom-control-input" id="customSwitch1" th:field="${user.actif}" th:value="${true}" />
+                    <label class="custom-control-label" for="customSwitch1">Activer utilisateur</label>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Créer</button>
