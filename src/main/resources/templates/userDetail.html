@@ -18,15 +18,15 @@
 <nav th:replace="navbar.html :: navbarUser"></nav>
 
 <!-- Détail de l'utilisateur -->
-<div class="container margeTop">
+<div class="container center margeTop">
     <div th:if="${mode == 'detail'}">
 
-        <div class="card center
+        <div class="card border-primary mb-3
 " style="width: 18rem;">
             <div class="card-body">
                 <div th:if="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' ACTIF' "
                                                class="card-title"></h5></div>
-                <div th:unless="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + 'DESACTIVÉ' "
+                <div th:unless="${user.actif}"><h5 th:text="${user.firstName}+ ' '+ ${user.name} + ' DESACTIVÉ' "
                                                    class="card-title"></h5></div>
 
                 <h6 th:text="${user.email}" class="card-subtitle mb-2 text-muted"></h6>
@@ -53,18 +53,18 @@
             <!-- infos utilisateur -->
             <input type="hidden" th:field="*{uuid}" th:value="*{uuid}">
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="*{email}"
                     required/>
                     <div th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputNom4">Nom</label>
                     <input type="text" class="form-control" id="inputNom4" th:field="*{name}" th:value="*{name}" required/>
                     <div th:each="err : ${#fields.errors('name')}" th:text="${'Ne peux pas être vide'}"/>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="prenom">Prénom</label>
                     <input type="text" class="form-control" id="prenom" th:field="*{firstName}" th:value="*{firstName}" required/>
                     <div th:each="err : ${#fields.errors('firstName')}" th:text="${'Ne peux pas être vide'}"/>
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputCity">Ville</label>
                     <input type="text" class="form-control" id="inputCity" th:field="*{address.city}"
                            th:value="*{address.city}" required/>
@@ -112,6 +112,11 @@
                     <input type="text" class="form-control" id="inputZip" th:field="*{address.cp}"
                            th:value="*{address.cp}" required/>
                     <div th:each="err : ${#fields.errors('address.cp')}" th:text="${'Ne peux pas être vide'}"/>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input th:if="${user.actif}" type="checkbox" class="custom-control-input" id="customSwitch1" th:field="${user.actif}" th:value="${true}" checked />
+                    <input th:unless="${user.actif}" type="checkbox" class="custom-control-input" id="customSwitch1" th:field="${user.actif}" th:value="${true}" />
+                    <label class="custom-control-label" for="customSwitch1">Activer utilisateur</label>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
