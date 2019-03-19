@@ -2,15 +2,18 @@ package com.hb.acadia.controller;
 
 import com.hb.acadia.DTO.AddressDTO;
 import com.hb.acadia.DTO.UserDTO;
+import com.hb.acadia.constant.MessageError;
 import com.hb.acadia.constant.Mode;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.User;
 import com.hb.acadia.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +25,8 @@ import java.util.List;
 /**
  * Controller user fonctions
  */
+
+@Slf4j
 @Controller
 @RequestMapping(value = "/admin")
 public class UserController {
@@ -31,52 +36,96 @@ public class UserController {
 
 
     @GetMapping(value = "/users")
-    public ModelAndView listUsers(@RequestParam(value = "page", required = false) String page) {
+    public ModelAndView users(@RequestParam(value = "page", required = false) String page) {
+
         ModelAndView modelAndView = new ModelAndView("users");
+
         //Default value
         int pageNumber = 0;
+
         if (page != null) {
-            pageNumber = Integer.parseInt(page);
+            try {
+                pageNumber = Integer.parseInt(page);
+            } catch (NumberFormatException e) {
+                return new ModelAndView("redirect:/admin/users");
+            }
         }
         //Default value
         int pageSize = 1;
 
-        Page<User> pageUser = userService.findAll(new PageRequest(pageNumber, pageSize));
+        //Get page from db
+        Page<User> pageUser = null;
+        try {
+            pageUser = userService.findAll(new PageRequest(pageNumber, pageSize));
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/admin/users");
+        }
+
         List<User> users = pageUser.getContent();
 
         modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
         modelAndView.addObject("actualPage", pageNumber);
         modelAndView.addObject("users", users);
+        modelAndView.addObject("mode", Mode.DISPLAY_ALL_USERS.getName());
         return modelAndView;
     }
 
     /**
      * Search a user by email, nom or firstname
      */
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ModelAndView users(@RequestParam("search") String search) {
-        List<User> users = users = new LinkedList<>();
+    @RequestMapping(value = "/users-research", method = RequestMethod.GET)
+    public ModelAndView searchUsers(@RequestParam(value = "search", required = false) String search, @RequestParam(value = "page", required = false) String page) {
+        List<User> users = new LinkedList<>();
+        Page pageUser = null;
         ModelAndView modelAndView = new ModelAndView();
 
+        //Check if search content is null
         if (search == null) {
             return new ModelAndView("redirect:/admin/users");
         }
+
+        //Default value
+        int pageNumber = 0;
+
+        if (page != null) {
+            try {
+                pageNumber = Integer.parseInt(page);
+            } catch (NumberFormatException e) {
+                return new ModelAndView("redirect:/admin/users");
+            }
+        }
+        //Default value
+        int pageSize = 1;
 
         //Check if research is an email or a name or a firstname
         if (search.contains("@")) {
             User user = userService.getUserByEmail(search);
             users.add(user);
+            modelAndView.addObject("numberOfPages", 1);
+            modelAndView.addObject("actualPage", 0);
             modelAndView.addObject("users", users);
 
-        } else if (!(users = userService.getUserByName(search)).isEmpty()) {
+
+        } else if (!(pageUser=userService.findByName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
+            users = pageUser.getContent();
+            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
+            modelAndView.addObject("actualPage", pageNumber);
             modelAndView.addObject("users", users);
 
-        } else if (!(users = userService.getUserByFirstName(search)).isEmpty()) {
+
+        } else if (!(pageUser=userService.findByFirstName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
+            users = pageUser.getContent();
+            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
+            modelAndView.addObject("actualPage", pageNumber);
             modelAndView.addObject("users", users);
+
         } else {
-            modelAndView.addObject("users", users);
+            return new ModelAndView("redirect:/admin/users");
         }
+
         modelAndView.setViewName("users");
+        modelAndView.addObject("search", search);
+        modelAndView.addObject("mode", Mode.DISPLAY_SEARCH_RESULT.getName());
         return modelAndView;
     }
 
@@ -99,12 +148,20 @@ public class UserController {
     @RequestMapping(value = "/userDetail", method = RequestMethod.GET)
     public ModelAndView user(@RequestParam("uuid") String uuid) {
 
+        ModelAndView modelAndView = new ModelAndView("userDetail");
+
         if (uuid == null) {
             return new ModelAndView("redirect:/admin/users");
         }
 
-        ModelAndView modelAndView = new ModelAndView("userDetail");
-        User user = userService.getUserByUuid(uuid);
+        User user = null;
+        try {
+            user = userService.getUserByUuid(uuid);
+        } catch (Exception e) {
+            log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+        }
+
+
         if (user == null) {
             return new ModelAndView("redirect:/admin/users");
         }
@@ -121,19 +178,30 @@ public class UserController {
      */
     @GetMapping(value = "/userUpdate")
     public ModelAndView userUpdate(@RequestParam("uuid") String uuid) {
+
         ModelAndView modelAndView = new ModelAndView("userDetail");
-        User user = userService.getUserByUuid(uuid);
+        User user = null;
 
-        UserDTO userDTO = new UserDTO();
-        AddressDTO addressDTO = new AddressDTO();
-        BeanUtils.copyProperties(user.getAddress(), addressDTO);
-        userDTO.setAddress(addressDTO);
-        BeanUtils.copyProperties(user, userDTO);
+        try {
+            user = userService.getUserByUuid(uuid);
+        } catch (Exception e) {
+            log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+        }
+        if (user != null) {
+            UserDTO userDTO = new UserDTO();
+            AddressDTO addressDTO = new AddressDTO();
+            BeanUtils.copyProperties(user.getAddress(), addressDTO);
+            userDTO.setAddress(addressDTO);
+            BeanUtils.copyProperties(user, userDTO);
 
+            modelAndView.addObject("user", userDTO);
+            modelAndView.addObject("mode", Mode.UPDATE.getName());
+            return modelAndView;
+        } else {
+            modelAndView.setViewName("redirect:/admin/users");
+            return modelAndView;
+        }
 
-        modelAndView.addObject("user", userDTO);
-        modelAndView.addObject("mode", Mode.UPDATE.getName());
-        return modelAndView;
 
     }
 
@@ -144,18 +212,51 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/userUpdate")
-    public ModelAndView userUpdatePost(@Valid UserDTO userDTO) {
+    public ModelAndView userUpdatePost(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult errors) {
+
         ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUserByUuid(userDTO.getUuid());
+        //Verifications
+        if (errors.hasErrors()) {
+            modelAndView.addObject("mode", Mode.UPDATE.getName());
+            modelAndView.setViewName("userDetail");
+            return modelAndView;
+        }
 
-        //Copy properties
-        BeanUtils.copyProperties(userDTO.getAddress(), user.getAddress());
-        BeanUtils.copyProperties(userDTO, user);
-        //Update user
-        userService.updateUser(user);
+        //Check if email is available
+        User userSearch = null;
+        try {
+            userSearch = userService.getUserByEmail(userDTO.getEmail());
+        } catch (Exception e) {
+            log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+            modelAndView.setViewName("redirect:/admin/users");
+        }
 
-        modelAndView.setViewName("redirect:/admin/userDetail?uuid=" + user.getUuid());
-        return modelAndView;
+        if (userSearch == null || userSearch.getEmail().equals(userDTO.getEmail())) {
+            User user = null;
+
+            try {
+                user = userService.getUserByUuid(userDTO.getUuid());
+            } catch (Exception e) {
+                log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+                modelAndView.setViewName("redirect:/admin/users");
+            }
+
+            BeanUtils.copyProperties(userDTO.getAddress(), user.getAddress());
+            BeanUtils.copyProperties(userDTO, user);
+
+            //Update user
+            userService.updateUser(user);
+
+            modelAndView.setViewName("redirect:/admin/userDetail?uuid=" + user.getUuid());
+            return modelAndView;
+
+        } else {
+            modelAndView.addObject("mode", Mode.UPDATE.getName());
+            modelAndView.setViewName("userDetail");
+            errors.rejectValue("email", "error.user", "Cette adresse e-mail n'est pas " +
+                    "disponilbe");
+            return modelAndView;
+        }
     }
 
     /**
@@ -192,8 +293,8 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/userCreate")
-    public ModelAndView userCreatePost(@Valid User user) {
-ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView userCreatePost(@Valid User user, BindingResult errors) {
+        ModelAndView modelAndView = new ModelAndView();
 
         User userVerification = userService.getUserByEmail(user.getEmail());
         if (userVerification == null) {

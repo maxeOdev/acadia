@@ -13,8 +13,8 @@
 
 <body>
 
-<!-- Pagination user -->
-<div class="row justify-content-md-center margeTop" aria-label="Page navigation example" th:fragment="pagination">
+<!-- Pagination users -->
+<div class="row justify-content-md-center margeTop" aria-label="Page navigation example" th:fragment="pagination-users">
     <ul class="pagination">
         <li th:unless=${actualPage==0} class="page-item">
             <a class="page-link" th:href="@{/admin/users(page=${actualPage-1})}" aria-label="Previous">
@@ -27,6 +27,26 @@
 
         <li th:unless=${actualPage==(numberOfPages-1)} class="page-item">
             <a class="page-link" th:href="@{/admin/users(page=${actualPage+1})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Pagination users search -->
+<div class="row justify-content-md-center margeTop" aria-label="Page navigation example" th:fragment="pagination-users-research">
+    <ul class="pagination">
+        <li th:unless=${actualPage==0} class="page-item">
+            <a class="page-link" th:href="@{/admin/users-research(search=${search},page=${i})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <div th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+            <li class="page-item"><a class="page-link" th:href="@{/admin/users-research(search=${search},page=${i})}" th:text="${i+1}"></a></li>
+        </div>
+
+        <li th:unless=${actualPage==(numberOfPages-1)} class="page-item">
+            <a class="page-link" th:href="@{/admin/users-research(search=${search},page=${i})}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
