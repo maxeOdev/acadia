@@ -12,6 +12,8 @@ import com.hb.acadia.repository.RoleRepository;
 import com.hb.acadia.repository.TrainerRepository;
 import com.hb.acadia.utils.Utils;
 
+import java.util.List;
+
 /**
  * Service class allowing operations on trainer
  * 
@@ -95,4 +97,12 @@ public class TrainerService {
 		return trainerRepository.findByIdStripe(idStripe);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@Transactional
+	public List<Trainer> findAll(){
+		return trainerRepository.findAll();
+	}
 }

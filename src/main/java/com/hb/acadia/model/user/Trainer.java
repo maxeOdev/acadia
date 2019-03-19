@@ -41,7 +41,11 @@ public class Trainer extends User {
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	private Set<Training> trainings;
 
-	public Trainer() {}
+	public Trainer() {
+		this.isCertified=false;
+	}
+
+
 
 	/**
 	 *
@@ -56,6 +60,8 @@ public class Trainer extends User {
 	 * @param qualifications
 	 * @param trainings
 	 */
+
+
 	public Trainer(@NotNull String password, @NotNull String name, @NotNull String firstName, String mail,
 			@NotNull Address address, Set<Comment> comments, boolean isActif,
 			@NotNull int experience, @NotNull String qualifications,
