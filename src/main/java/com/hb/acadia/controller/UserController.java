@@ -23,7 +23,7 @@ import java.util.List;
 
 
 /**
- * Controller user fonctions
+ * Controller user functions
  */
 
 @Slf4j
