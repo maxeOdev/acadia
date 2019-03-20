@@ -7,5 +7,27 @@ margin: 0 auto;
 margin: 50px auto !important;
 }
 
+* {
+  margin: 0px;
+  padding: 0px;
+}
 
+div {
+  border: 0px solid black;
+}
 
+#dashboard .dashboard-button {
+  width: 8em;
+  height: 5em;
+  font-size: 2em;
+  margin: 1em;
+  border-radius: 5%;
+}
+
+#dashboard .container {
+    margin-top: 15vh;
+}
+
+#content {
+  padding-top: 10vh;
+}

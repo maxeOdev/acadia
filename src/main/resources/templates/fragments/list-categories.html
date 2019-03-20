@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <script id="handlebars-categories-template" type="text/x-handlebars-template">
+    <div class="col-8">
+      <table class="table table-striped table-bordered">
+        <tr class="thead">
+          <th th:text="Identifiant"></th>
+          <th th:text="Nom"></th>
+          <th></th>
+        </tr>
+        {{#each categories}}
+        <tr class="category-item">
+          <td>{{id}}</td>
+          <td>{{name}}</td>
+          <td><button id="load-category-details-tab" class="btn btn-outline-primary" onclick="categoryDetails('{{name}}')">Détails</button></td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+    </script>
+</body>
+
+</html>
