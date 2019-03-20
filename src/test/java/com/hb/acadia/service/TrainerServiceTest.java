@@ -48,6 +48,13 @@ public class TrainerServiceTest extends AbstractApplicationTest {
 				"********************************************************* CREATING DATAS ***************************************");
 		log.info("");
 
+		/* Delete users */
+		userService.deleteAll();
+
+		/* Delete every roles */
+		roleRepository.deleteAll();
+
+
 		/* Create Role in db */
 		Role role = new Role();
 		role.setRoleName("ROLE_TRAINER");
