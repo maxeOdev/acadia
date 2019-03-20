@@ -11,7 +11,9 @@ let confirmation = confirm('Confirmez vous la suppression de l\'utilisateur ?');
                 url: '/admin/user-delete',
                 type: 'DELETE',
                 data: { uuid: $('#uuidUser').text() },
-               success: window.location.pathname='/admin/users'
+               success: function(){
+               window.location.assign('http://localhost:8080/admin/users');
+               }
             });   
 
 }

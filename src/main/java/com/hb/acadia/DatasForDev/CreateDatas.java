@@ -98,10 +98,10 @@ public class CreateDatas {
 
 
         User simone2 = new User();
-        simone2.setEmail("claude.aliotti@gmail.com");
-        simone2.setFirstName("claude");
-        simone2.setName("Aliotti");
-        simone2.setPassword("toto");
+        simone2.setEmail("anis@gmail.com");
+        simone2.setFirstName("Anis");
+        simone2.setName("Lalami");
+        simone2.setPassword("anis");
         simone2.setActif(true);
         simone2.setAddress(address2);
         userService.createUser(simone2);
