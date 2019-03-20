@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title th:text="Détails"></title>
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous">
+</head>
+<body>
+  <h1>Nouvelle catégorie</h1>
+  <div>
+    <form th:object="${category}" method="POST" th:action="@{/admin/create-category}">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="name">Nom : </label>
+          <input class="form-control" th:field="*{name}" type="text" placeholder="Nom de la catégorie" />
+        </div>
+        <div class="form-group">
+          <input class="btn-primary form-control" type="submit" value="Créer" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div th:if="${error}">
+    <font color="red" th:text="${error}"></font>
+  </div>
+</body>
+</html>

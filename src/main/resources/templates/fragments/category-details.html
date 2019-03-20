@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <script id="handlebars-category-details-template" type="text/x-handlebars-template">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-6">
+        <form id="form-update">
+          <div class="row ">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Identifiant</span>
+                </div>
+                <input id="id" name="id" class="form-control" type="text" value="{{id}}" readonly />
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Nom</span>
+                </div>
+                <input id="name" name="name" class="form-control" type="text" value="{{name}}" />
+            </div>
+            <div class="input-group">
+              <button id="submit-update" class="btn-primary form-control" onclick="updateCategory()">Mettre à jour</button>
+            </div>
+            <div class="input-group">
+              <button id="submit-delete" class="btn-danger form-control" onclick="deleteCategory()">Supprimer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </script>
+</body>
+
+</html>

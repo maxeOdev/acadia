@@ -1,14 +1,19 @@
 package com.hb.acadia.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hb.acadia.model.Category;
@@ -28,9 +33,7 @@ public class CategoryController {
 
 	@GetMapping("/categories")
 	public ModelAndView categories() {
-		ModelAndView mav = new ModelAndView("generic");
-		mav.addObject("categories", categoryService.getAllCategories());
-		return mav;
+		return new ModelAndView("category");
 	}
 	
 	// @GetMapping("/search-categories")
@@ -40,7 +43,7 @@ public class CategoryController {
 	// 	return mav;
 	// }
 
-	@GetMapping("/category-details")
+	@GetMapping("/category-details") 
 	public ModelAndView categoryDetails(@RequestParam String name) {
 		ModelAndView mav = new ModelAndView("category-details");
 		Category category = categoryService.getByName(name);
@@ -48,7 +51,7 @@ public class CategoryController {
 		return mav;
 	}
 
-	@PostMapping("/update-category")
+	@PutMapping("/update-category")
 	public ModelAndView updateCategory(@Valid Category category, BindingResult bindingResult) {
 		ModelAndView mav = new ModelAndView("category-details");
 		
@@ -70,37 +73,48 @@ public class CategoryController {
 	}
 
 	@PostMapping("/create-category")
-	public ModelAndView createCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/categories");
-		
-		if (bindingResult.hasErrors()) {
-			mav.addObject("error", "Erreur lors de l'envois des données.");
-			mav.setViewName("create-category");
-			return mav;
-		}
-		
-		if (categoryService.getById(category.getId()) != null) {
-			mav.addObject("error", "La categorie '" + category.getName() + "' existe déjà.");
-			mav.setViewName("create-category");
-			return mav;
-		}
-		
+	@ResponseBody
+	public void createCategory(Category category) {
 		category = categoryService.createCategory(category);
-		return mav;
 	}
 
-	@PostMapping("/delete-category")
-	public ModelAndView deleteCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/categories");
-		
-		if (bindingResult.hasErrors()) {
-			mav.setViewName("generic");
-			mav.addObject("error", "Erreur lors de l'envois des données.");
-			return mav;
-		}
-		
+	@DeleteMapping("/delete-category")
+	@ResponseBody
+	public void deleteCategory(Category category) {
 		categoryService.deleteCategory(category);
-		return mav;
 	}
 	
+	
+	/*******
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	@GetMapping("/every-categories")
+	@ResponseBody
+	public List<Category> everyCategories() { 
+		return categoryService.getAllCategories();
+	}
+	
+	@GetMapping("/list-categories-template")
+	public ModelAndView getCategoriesTemplate() { return new ModelAndView("fragments/list-categories"); }
+
+	@GetMapping("/by-category-name")
+	@ResponseBody
+	public Category byCategoryName(String name) { 
+		return categoryService.getByName(name);
+	}
+
+	@GetMapping("/category-details-template")
+	public ModelAndView getCategoryDetailsTemplate() { return new ModelAndView("fragments/category-details"); }
+
+	@GetMapping("/create-category-template")
+	public ModelAndView getCreateCategoryTemplate() { return new ModelAndView("fragments/create-category"); }
+
 }
