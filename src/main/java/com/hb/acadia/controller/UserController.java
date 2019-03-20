@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -265,10 +266,11 @@ public class UserController {
      * @param uuid
      * @return
      */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping (value = "/user-delete")
     public void userDelete(@RequestParam("uuid") String uuid) {
         userService.deleteUser(userService.getUserByUuid(uuid));
-
 
     }
 

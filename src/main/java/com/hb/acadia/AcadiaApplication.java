@@ -43,7 +43,6 @@ public class AcadiaApplication {
             //Create trainer
             createDatas.createTrainers();
 
-
         }
     }
 }
