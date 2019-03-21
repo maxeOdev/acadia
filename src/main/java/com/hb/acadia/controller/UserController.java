@@ -71,6 +71,7 @@ public class UserController {
         return modelAndView;
     }
 
+
     /**
      * Search a user by email, nom or firstname
      */
@@ -98,37 +99,82 @@ public class UserController {
         //Default value
         int pageSize = 1;
 
-        //Check if research is an email or a name or a firstname
-        if (search.contains("@")) {
-            User user = userService.getUserByEmail(search);
-            users.add(user);
-            modelAndView.addObject("numberOfPages", 1);
-            modelAndView.addObject("actualPage", 0);
-            modelAndView.addObject("users", users);
-
-
-        } else if (!(pageUser=userService.findByName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
+        try {
+            pageUser = userService.findUsersByResearch(search, new PageRequest(pageNumber, pageSize));
             users = pageUser.getContent();
-            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
-            modelAndView.addObject("actualPage", pageNumber);
-            modelAndView.addObject("users", users);
-
-
-        } else if (!(pageUser=userService.findByFirstName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
-            users = pageUser.getContent();
-            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
-            modelAndView.addObject("actualPage", pageNumber);
-            modelAndView.addObject("users", users);
-
-        } else {
-            return new ModelAndView("redirect:/admin/users");
+        } catch (Exception e) {
+            log.error("Impossible de récupérer les informations - search = " + search);
         }
+
+        modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
+        modelAndView.addObject("actualPage", pageNumber);
+        modelAndView.addObject("users", users);
+
 
         modelAndView.setViewName("users");
         modelAndView.addObject("search", search);
         modelAndView.addObject("mode", Mode.DISPLAY_SEARCH_RESULT.getName());
         return modelAndView;
     }
+
+//    /**
+//     * Search a user by email, nom or firstname
+//     */
+//    @RequestMapping(value = "/users-research", method = RequestMethod.GET)
+//    public ModelAndView searchUsers(@RequestParam(value = "search", required = false) String search, @RequestParam(value = "page", required = false) String page) {
+//        List<User> users = new LinkedList<>();
+//        Page pageUser = null;
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        //Check if search content is null
+//        if (search == null) {
+//            return new ModelAndView("redirect:/admin/users");
+//        }
+//
+//        //Default value
+//        int pageNumber = 0;
+//
+//        if (page != null) {
+//            try {
+//                pageNumber = Integer.parseInt(page);
+//            } catch (NumberFormatException e) {
+//                return new ModelAndView("redirect:/admin/users");
+//            }
+//        }
+//        //Default value
+//        int pageSize = 1;
+//
+//        //Check if research is an email or a name or a firstname
+//        if (search.contains("@")) {
+//            User user = userService.getUserByEmail(search);
+//            users.add(user);
+//            modelAndView.addObject("numberOfPages", 1);
+//            modelAndView.addObject("actualPage", 0);
+//            modelAndView.addObject("users", users);
+//
+//
+//        } else if (!(pageUser=userService.findByName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
+//            users = pageUser.getContent();
+//            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
+//            modelAndView.addObject("actualPage", pageNumber);
+//            modelAndView.addObject("users", users);
+//
+//
+//        } else if (!(pageUser=userService.findByFirstName(search, new PageRequest(pageNumber, pageSize))).isEmpty()) {
+//            users = pageUser.getContent();
+//            modelAndView.addObject("numberOfPages", pageUser.getTotalPages());
+//            modelAndView.addObject("actualPage", pageNumber);
+//            modelAndView.addObject("users", users);
+//
+//        } else {
+//            return new ModelAndView("redirect:/admin/users");
+//        }
+//
+//        modelAndView.setViewName("users");
+//        modelAndView.addObject("search", search);
+//        modelAndView.addObject("mode", Mode.DISPLAY_SEARCH_RESULT.getName());
+//        return modelAndView;
+//    }
 
     /**
      * Temporary controller for developpement
@@ -268,7 +314,7 @@ public class UserController {
      */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping (value = "/user-delete")
+    @DeleteMapping(value = "/user-delete")
     public void userDelete(@RequestParam("uuid") String uuid) {
         userService.deleteUser(userService.getUserByUuid(uuid));
 
