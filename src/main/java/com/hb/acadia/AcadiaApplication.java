@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AcadiaApplication {
 
-    private CategoryService categoryService;
     @Autowired
     private CreateDatas createDatas;
 
@@ -42,6 +41,9 @@ public class AcadiaApplication {
 
             //Create trainer
             createDatas.createTrainers();
+
+            //Create category
+            createDatas.createCategory();
 
         }
     }
