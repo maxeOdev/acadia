@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -214,4 +215,10 @@ public class UserService {
     public Page<User> findByFirstName(String firstName, Pageable pageable) {
         return userRepository.findByFirstName(firstName, pageable);
     }
+
+    @Transactional
+    public Page<User> findUsersByResearch(String search, Pageable pageable){
+        return userRepository.findUsersByResearch(search, pageable);
+    }
+
 }

@@ -39,7 +39,7 @@ public class User {
 	@NotNull
 	protected String uuid;
 
-	@NotNull
+	@NotNull(message = "Le mot de passe ne doit pas être vide")
 	protected String password;
 
 	@NotNull

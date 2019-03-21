@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.User;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -66,18 +68,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Paginations
 
     /**
-     *
      * @param pageable
      * @return
      */
-Page<User> findByName(String name, Pageable pageable);
+    Page<User> findByName(String name, Pageable pageable);
 
     /**
-     *
      * @param pageable
      * @return
      */
     Page<User> findByFirstName(String firstName, Pageable pageable);
 
-    }
+    @Query("select u from User u where u.email like CONCAT('%',:search,'%') or u.firstName like CONCAT('%',:search,'%') or u.name like CONCAT('%',:search,'%')")
+    Page<User> findUsersByResearch(@Param("search") String search, Pageable pageable);
+
+
+}
 
