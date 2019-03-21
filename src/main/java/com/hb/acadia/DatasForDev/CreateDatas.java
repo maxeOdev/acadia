@@ -1,10 +1,12 @@
 package com.hb.acadia.DatasForDev;
 
 import com.hb.acadia.model.Address;
+import com.hb.acadia.model.Category;
 import com.hb.acadia.model.user.Role;
 import com.hb.acadia.model.user.Trainer;
 import com.hb.acadia.model.user.User;
 import com.hb.acadia.repository.RoleRepository;
+import com.hb.acadia.service.CategoryService;
 import com.hb.acadia.service.TrainerService;
 import com.hb.acadia.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +25,12 @@ public class CreateDatas {
 
     @Autowired
     private UserService userService;
+    
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     public void createRoles(){
         Role customerRole = new Role();
@@ -107,6 +113,11 @@ public class CreateDatas {
         userService.createUser(simone2);
     }
 
+    public void createCategory() {
+        categoryService.createCategory(new Category("informatique"));
+        categoryService.createCategory(new Category("gestion"));
+        categoryService.createCategory(new Category("bricolage"));
+    }
 
 }
 
