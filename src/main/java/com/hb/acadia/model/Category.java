@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class Category {
 	private long id;
 
 	@Column(nullable = false, unique = true)
+	@NotEmpty(message = "Le nom de la catégorie ne peut pas être vide.")
 	private String name;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
