@@ -1,5 +1,5 @@
 
-
+// Dial on delete User
 $(document).on('click', '#deleteButton', popup);
 
 

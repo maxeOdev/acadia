@@ -83,6 +83,31 @@ public class CreateDatas {
         t1.setQualifications("master");
 
         trainerService.createTrainer(t1);
+
+
+        Trainer t2 = new Trainer();
+
+        Address addressTrainer2 = new Address();
+        addressTrainer2.setCity("Adresse trainer");
+        addressTrainer2.setCountry("France");
+        addressTrainer2.setNumber(34);
+        addressTrainer2.setRoad("Du chateau");
+        addressTrainer2.setCp("35876");
+        addressTrainer2.setRoadType("Avenue");
+
+
+        t2.setEmail("trainer2@gmail.com");
+        t2.setFirstName("Bob");
+        t2.setName("Dylan");
+        t2.setPassword("max");
+        t2.setActif(false);
+        t2.setAddress(addressTrainer2);
+
+        t2.setExperience(8);
+        t2.setIdStripe("11111");
+        t2.setQualifications("master");
+
+        trainerService.createTrainer(t2);
     }
 
     public void createUsers() {
