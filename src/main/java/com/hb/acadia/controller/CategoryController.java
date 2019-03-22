@@ -1,18 +1,21 @@
 package com.hb.acadia.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,39 +46,53 @@ public class CategoryController {
 	// 	return mav;
 	// }
 
-	@GetMapping("/category-details") 
-	public ModelAndView categoryDetails(@RequestParam String name) {
-		ModelAndView mav = new ModelAndView("category-details");
-		Category category = categoryService.getByName(name);
-		mav.addObject("category", category);
-		return mav;
-	}
+//	@GetMapping("/category-details") 
+//	public ModelAndView categoryDetails(@RequestParam String name) {
+//		ModelAndView mav = new ModelAndView("category-details");
+//		Category category = categoryService.getByName(name);
+//		mav.addObject("category", category);
+//		return mav;
+//	}
 
 	@PutMapping("/update-category")
-	public ModelAndView updateCategory(@Valid Category category, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView("category-details");
+	@ResponseBody
+	public ResponseEntity<List<ObjectError>> updateCategory(@Valid Category category, BindingResult result) {
 		
-		if (bindingResult.hasErrors()) {
-			mav.addObject("error", "Erreur lors de l'envois des données.");
-			return mav;
+		if (result.hasErrors()) {
+			return new ResponseEntity<List<ObjectError>>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		
 		categoryService.updateCategory(category);
-		mav.addObject("category", category);
-		return mav;
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/create-category")
-	public ModelAndView createCategory() {
-		ModelAndView mav = new ModelAndView("create-category");
-		mav.addObject("category", new Category());
-		return mav;
-	}
+//	@GetMapping("/create-category")
+//	public ModelAndView createCategory() {
+//		ModelAndView mav = new ModelAndView("create-category");
+//		mav.addObject("category", new Category());
+//		return mav;
+//	}
 
 	@PostMapping("/create-category")
 	@ResponseBody
-	public void createCategory(Category category) {
-		category = categoryService.createCategory(category);
+	public ResponseEntity<List<ObjectError>> createCategory(@Valid Category category, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return new ResponseEntity<List<ObjectError>>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+		
+		if (categoryService.getByName(category.getName()) != null) {
+			
+			List<ObjectError> listError = new LinkedList<>();
+			listError.add(new ObjectError("already-exists", "La catégorie " + category.getName() + " existe déjà."));
+			
+			return new ResponseEntity<List<ObjectError>>(listError, HttpStatus.BAD_REQUEST);
+		}
+		
+		categoryService.createCategory(category);
+		
+		return new ResponseEntity<>(HttpStatus.OK);	
 	}
 
 	@DeleteMapping("/delete-category")

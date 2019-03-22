@@ -2,7 +2,6 @@ package com.hb.acadia.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -54,7 +53,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 		Category cat = categoryService.createCategory(new Category(name));
 		
 		assertThat(name.toLowerCase(), equalTo(cat.getName()));
-		assertThat(cat.getId(), notNullValue());
+		assertThat(cat.getId(), not(0));
 		assertThat(cat.getTrainings(), nullValue());
 		
 	}
@@ -82,7 +81,7 @@ public class CategoryServiceTest extends AbstractApplicationTest {
 	public void count() {
 	
 		assertThat(categoryService.countCategories(), equalTo(1L));
-		Category cat1 = categoryService.createCategory(new Category("testName"));
+		categoryService.createCategory(new Category("testName"));
 		assertThat(categoryService.countCategories(), equalTo(2L));
 		
 	}

@@ -1,7 +1,8 @@
-
 $(document).ready(function() {
 	listCategories();
 });
+
+let isLoading = false;
 
 $(document).on("click", "#link-list-categories", function() {
 	listCategories();	
@@ -76,6 +77,12 @@ function updateCategory() {
 			data: $(this).serialize(),
 			success: function () {
 				listCategories();
+			},
+			error: function (jqxhr, textStatus, errorThrown) {
+				let errors = JSON.parse(jqxhr.responseText);
+				for (let e of errors) {
+					$('#input-error-'+e.field).html(e.defaultMessage);
+				}
 			}
 		});
 	});
@@ -102,6 +109,10 @@ function createCategory() {
 			data: $(this).serialize(),
 			success: function () {
 				listCategories();
+			},
+			error: function (jqxhr, textStatus, errorThrown) {
+				let errors = JSON.parse(jqxhr.responseText);
+				$('#input-error-already-exists').html(errors[0].defaultMessage);
 			}
 		});
 	});
@@ -111,7 +122,6 @@ function createCategory() {
  * Category delete.
  */
 
- 
 function deleteCategory() {
 	
 	$("#form-update").submit( function(e) {
