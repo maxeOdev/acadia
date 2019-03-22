@@ -3,6 +3,8 @@ package com.hb.acadia.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hb.acadia.model.user.Role;
@@ -11,6 +13,7 @@ import com.hb.acadia.repository.AddressRepository;
 import com.hb.acadia.repository.RoleRepository;
 import com.hb.acadia.repository.TrainerRepository;
 import com.hb.acadia.utils.Utils;
+
 
 import java.util.List;
 
@@ -32,9 +35,8 @@ public class TrainerService {
 
 	/**
 	 * Method to create a trainer
-	 * 
-	 * @param the trainer to create
-	 * @return the created trainer
+	 * @param trainer
+	 * @return
 	 */
 	@Transactional
 	public Trainer createTrainer(Trainer trainer) {
@@ -65,8 +67,7 @@ public class TrainerService {
 
 	/**
 	 * This method disable a trainer. Training and address not deleted
-	 * 
-	 * @param the trainer to delete
+	 * @param trainer
 	 */
 	@Transactional
 	public void deleteTrainer(Trainer trainer) {
@@ -104,5 +105,10 @@ public class TrainerService {
 	@Transactional
 	public List<Trainer> findAll(){
 		return trainerRepository.findAll();
+	}
+
+	@Transactional
+	public Page<Trainer> findAllPage(Pageable pageable){
+		return trainerRepository.findAll(pageable);
 	}
 }

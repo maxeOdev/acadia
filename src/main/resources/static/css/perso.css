@@ -34,3 +34,14 @@ div {
 #content {
   padding-top: 10vh;
 }
+
+.text-center{
+text-align: center;
+}
+
+.list-category{
+background: none;
+border-style: none;
+cursor: pointer;
+}
+
