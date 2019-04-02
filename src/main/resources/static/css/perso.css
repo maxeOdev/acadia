@@ -39,9 +39,17 @@ div {
 text-align: center;
 }
 
-.list-category{
+.list-trainer{
 background: none;
 border-style: none;
 cursor: pointer;
+}
+
+.spinner-grow {
+
+  margin: auto;
+  width: 300px;
+  height: 300px;
+  
 }
 
