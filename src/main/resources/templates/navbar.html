@@ -1,176 +1,186 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Utilisateur</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 
-<!-- NavBar user -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarUser">
-    <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/users}">Lister les utilisateurs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/userCreate}">Création utilisateur</a>
-            </li>
-        </ul>
-        <form class="form-inline" action="/admin/users-research/" method="GET">
-            <button type="submit" class="btn btn-outline-primary mb-2">Rechercher</button>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="search" class="sr-only">Password</label>
-                <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
-            </div>
-        </form>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary mb-2" id="click-logout" data-toggle="modal" data-target="#exampleModal" >Déconnecter</button>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Déconnection</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input id="form-delete" type="text"></form>
-                    <label for="form-delete">Veuillez saisir le mot clé 'logout' pour confirmer</label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary valid-logout">Valider</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</nav>
-
-<!-- NavBar category -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarCategory">
-    <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" id="link-list-categories">Lister les catégories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="link-create-category">Créer une catégorie</a>
-            </li>
-        </ul>
-        <form class="form-inline" action="/admin/search-categories/" method="get">
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="text" name="search" class="form-control" id="search" placeholder="Catégorie">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
-        </form>
-    </div>
-</nav>
-
-
-<!-- NavBar video -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarVideo">
-    <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" id="link-list-videos">Lister les vidéos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="link-create-video">Créer une vidéo</a>
-            </li>
-        </ul>
-        <form class="form-inline" action="/admin/search-video/" method="get">
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="text" name="search" class="form-control" id="search" placeholder="Tapez ici">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
-        </form>
-    </div>
-</nav>
-
-<!-- NavBar trainer -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarTrainer">
-
+    <!-- NavBar user -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarUser">
         <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">                
-<div class="nav-link list-category">Lister les formateurs</div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/...}">Créer un formateur</a>
-            </li>
-        </ul>
-        <form class="form-inline" action="/admin/users-research/" method="GET">
-            <button type="submit" class="btn btn-outline-primary mb-2">Rechercher</button>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="search" class="sr-only">Password</label>
-                <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
-            </div>
-        </form>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary mb-2" id="click-logout" data-toggle="modal" data-target="#exampleModal" >Déconnecter</button>
-    </div>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/users}">Lister les utilisateurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/userCreate}">Création utilisateur</a>
+                </li>
+            </ul>
+            <form class="form-inline" action="/admin/users-research/" method="GET">
+                <button type="submit" class="btn btn-outline-primary mb-2">Rechercher</button>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search" class="sr-only">Password</label>
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
+                </div>
+            </form>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-primary mb-2" id="click-logout" data-toggle="modal"
+                data-target="#exampleModal">Déconnecter</button>
+        </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Déconnection</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input id="form-delete" type="text"></form>
-                    <label for="form-delete">Veuillez saisir le mot clé 'logout' pour confirmer</label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary valid-logout">Valider</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Déconnection</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="form-delete" type="text"></form>
+                        <label for="form-delete">Veuillez saisir le mot clé 'logout' pour confirmer</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary valid-logout">Valider</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</nav>
+    </nav>
+
+    <!-- NavBar category -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarCategory">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" id="link-list-categories">Lister les catégories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="link-create-category">Créer une catégorie</a>
+                </li>
+            </ul>
+            <form class="form-inline" action="/admin/search-categories/" method="get">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Catégorie">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!-- NavBar video -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarVideo">
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" id="link-list-videos">Lister les vidéos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="link-create-video">Créer une vidéo</a>
+                </li>
+            </ul>
+            <form class="form-inline" action="/admin/search-video/" method="get">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Tapez ici">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- NavBar trainer -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarTrainer">
+
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <div class="nav-link list-category">Lister les formateurs</div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/...}">Créer un formateur</a>
+                </li>
+            </ul>
+            <form class="form-inline" action="/admin/users-research/" method="GET">
+                <button type="submit" class="btn btn-outline-primary mb-2">Rechercher</button>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search" class="sr-only">Password</label>
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Utilisateur">
+                </div>
+            </form>
+            <!-- Button trigger modal-logout -->
+            <button type="button" class="btn btn-outline-primary mb-2" id="click-logout" data-toggle="modal"
+                data-target="#exampleModal">Déconnecter</button>
+        </div>
+
+        <!-- Modal-logout -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Déconnection</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="form-delete" type="text"></form>
+                        <label for="form-delete">Veuillez saisir le mot clé 'logout' pour confirmer</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary valid-logout">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-loading" tabindex="-1" role="dialog" aria-labelledby="spinner-loader"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
 </body>
 
 
 </html>
-

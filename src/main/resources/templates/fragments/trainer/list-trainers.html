@@ -1,7 +1,5 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html>
 
 <head></head>
 
@@ -19,7 +17,6 @@
                 <th scope="col">ACTIF</th>
             </tr>
             </thead>
-
             {{#each trainers}}
             <tbody>
             <tr>
@@ -31,20 +28,15 @@
                 {{else}}
                 <td>non</td>
                 {{/if}}
-
-
             </tr>
             </tbody>
             {{/each}}
         </table>
     </div>
-
 </script>
-
-
 </body>
 
 </html>
 
 
-<table class="table table-striped">
+
