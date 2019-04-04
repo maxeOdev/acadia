@@ -30,17 +30,17 @@ public class Video {
 	@Column(unique = true, nullable = false)
 	private String uuid;
 	
-	@NotNull
-	@NotEmpty
+	//@NotNull(message = "La video doit avoir un titre.")
+	@NotEmpty(message = "La video doit avoir un titre.")
 	@Column(length=255)
 	private String name;
 	
-	@NotNull(message = "Le chemin d'accès à la vidéo doit être renseigné.")
+	//@NotNull(message = "Le chemin d'accès à la vidéo doit être renseigné.")
 	@NotEmpty(message = "Le chemin d'accès à la vidéo doit être renseigné.")
 	@Column(unique = true)
 	private String path;
 	
-	@NotNull(message = "Au moins une formation doit être associée.")
+	//@NotNull(message = "Au moins une formation doit être associée.")
 	@NotEmpty(message = "Au moins une formation doit être associée.")
 	@ManyToMany(mappedBy = "videos", fetch = FetchType.LAZY)
 	private Set<Training> trainings;

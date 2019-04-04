@@ -90,6 +90,30 @@
     </div>
 </nav>
 
+<!-- NavBar video -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarVideo">
+    <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="link-list-videos">Lister les vidéos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="link-create-video">Créer une vidéo</a>
+            </li>
+        </ul>
+        <form class="form-inline" action="/admin/search-video/" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="search" class="form-control" id="search" placeholder="Tapez ici">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+        </form>
+    </div>
+</nav>
 </body>
 
 
