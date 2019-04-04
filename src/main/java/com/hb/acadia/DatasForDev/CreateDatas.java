@@ -9,9 +9,17 @@ import com.hb.acadia.repository.RoleRepository;
 import com.hb.acadia.service.CategoryService;
 import com.hb.acadia.service.TrainerService;
 import com.hb.acadia.service.UserService;
+import com.hb.acadia.service.VideoService;
+
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  * Classe permettant de créer des jeux de données pour le développement
@@ -31,6 +39,9 @@ public class CreateDatas {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private VideoService videoService;
 
     public void createRoles(){
         Role customerRole = new Role();
@@ -119,5 +130,9 @@ public class CreateDatas {
         categoryService.createCategory(new Category("bricolage"));
     }
 
+    public void createVideos() {
+    	
+    }
+    
 }
 

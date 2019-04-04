@@ -1,10 +1,18 @@
 package com.hb.acadia.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hb.acadia.model.Training;
 import com.hb.acadia.model.Video;
 import com.hb.acadia.repository.VideoRepository;
 
@@ -21,22 +29,54 @@ public class VideoService {
 	@Autowired
 	private VideoRepository videoRepo;
 	
+	@Value("${application.videos.upload-folder}")
+	private String uploadFolder;
+	
 	/**
 	 * Make a video saved in the database.
-	 * @param video to save.
+	 * @param file to save.
 	 * @return Video saved with its id set.
+	 * @throws IOException 
 	 */
-	public Video createVideo(Video video) {
-		return videoRepo.saveAndFlush(video);
+	public Video createVideo(MultipartFile file) throws IOException {
+		
+		byte[] data = file.getBytes();
+		Video video = new Video(file.getOriginalFilename(), null, new HashSet<Training>());
+		
+		Video savedVideo = videoRepo.save(video);
+		
+		String sPath = uploadFolder+"/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
+//		String sPath = "/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
+		Path path = Paths.get(sPath);
+		
+		Files.write(path, data);
+		
+		savedVideo.setPath(sPath);
+		
+		return videoRepo.save(savedVideo);
 	}
 	
 	/**
 	 * Update a video saved in the database.
-	 * @param video to update.
+	 * @param file to update.
 	 * @return Video saved with its id set.
+	 * @throws IOException 
 	 */
-	public Video updateVideo(Video video) {
-		return videoRepo.saveAndFlush(video);
+	public Video updateVideo(MultipartFile file) throws IOException {
+		byte[] data = file.getBytes();
+		Video video = new Video(file.getOriginalFilename(), null, new HashSet<Training>());
+		
+		Video savedVideo = videoRepo.save(video);
+		
+		String sPath = uploadFolder+"/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
+//		String sPath = "/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
+		Path path = Paths.get(sPath);
+		
+		Files.write(path, data);
+		
+		savedVideo.setPath(sPath);
+		
+		return videoRepo.save(savedVideo);
 	}
 	
 	/**
@@ -75,5 +115,13 @@ public class VideoService {
 	 */
 	public void deleteAllVideos() {
 		videoRepo.deleteAll();
+	}
+
+	/**
+	 * Delete the video matching with the given uuid
+	 * @param uuid
+	 */
+	public void deleteVideo(String uuid) {
+		videoRepo.delete(videoRepo.findByUuid(uuid));
 	}
 }
