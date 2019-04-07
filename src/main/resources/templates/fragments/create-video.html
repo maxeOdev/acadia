@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <div id="handlebars-create-video-template" class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-6">
+        <form th:action="@{/admin/create-video}" method="post" enctype="multipart/form-data">
+          <div class="row ">
+            <div class="input-group">
+                <input id="name" name="video" class="form-control" type="file" accept=".mp4" placeHolder="Vidéo" required/>
+            </div>
+            <div class="input-group">
+              <input type="submit" class="btn-primary form-control" value="Créer" />
+            </div>
+            <div class="input-group">
+              <font id="input-error-already-exists" color="red"></font>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

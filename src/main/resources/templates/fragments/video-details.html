@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <script id="handlebars-video-details-template" type="text/x-handlebars-template">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-8">
+        <form id="form-update" method="post" enctype="multipart/form-data" th:action="@{/admin/update-video}">
+          <div class="row ">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Identifiant</span>
+                </div>
+                <input id="id" class="form-control" type="text" value="{{uuid}}" readonly />
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Titre</span>
+                </div>
+                <input id="name" class="form-control" type="text" value="{{name}}" readonly/>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Chemin</span>
+                </div>
+                <input id="name" name="video" class="form-control" type="file" value="{{path}}" />
+            </div>
+            <div class="input-group">
+              <button id="submit-update" class="btn-primary form-control" onclick="updateVideo()">Mettre à jour</button>
+            </div>
+            <div class="input-group">
+              <button id="submit-delete" class="btn-danger form-control" onclick="deleteVideo()">Supprimer</button>
+            </div>
+            <div class="input-group">
+              <font id="input-error-name" color="red"></font>
+            </div> 
+         </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </script>
+</body>
+
+</html>

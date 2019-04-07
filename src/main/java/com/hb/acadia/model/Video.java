@@ -30,12 +30,12 @@ public class Video {
 	@Column(unique = true, nullable = false)
 	private String uuid;
 	
-	@NotNull
-	@NotEmpty
+	@NotNull(message = "La video doit avoir un titre.")
+	@NotEmpty(message = "La video doit avoir un titre.")
 	@Column(length=255)
 	private String name;
 	
-	@Column(unique = false, nullable = false)
+	@Column(unique = true)
 	private String path;
 	
 	@ManyToMany(mappedBy = "videos", fetch = FetchType.LAZY)

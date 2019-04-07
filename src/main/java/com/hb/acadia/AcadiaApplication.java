@@ -42,8 +42,11 @@ public class AcadiaApplication {
             //Create trainer
             createDatas.createTrainers();
 
-            //Create category
+          //Create category
             createDatas.createCategory();
+
+          //Create videos
+            createDatas.createVideos();
 
         }
     }

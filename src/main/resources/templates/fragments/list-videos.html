@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <script id="handlebars-videos-template" type="text/x-handlebars-template">
+    <div class="col-8">
+      <table class="table table-striped table-bordered">
+        <tr class="thead">
+          <th th:text="Identifiant"></th>
+          <th th:text="Titre"></th>
+          <th th:text="Chemin"></th>
+          <th></th>
+        </tr>
+        {{#each videos}}
+        <tr class="video-item">
+          <td>{{uuid}}</td>
+          <td>{{name}}</td>
+          <td>{{path}}</td>
+          <td><button id="load-video-details-tab" class="btn btn-outline-primary" onclick="videoDetails('{{uuid}}')">Détails</button></td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+    </script>
+</body>
+
+</html>
