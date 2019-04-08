@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head></head>
+
+<body>
+  <script id="handlebars-trainings-template" type="text/x-handlebars-template">
+    <div class="col-10">
+      <table class="table table-striped table-bordered">
+        <tr class="thead">
+          <th th:text="Identifiant"></th>
+          <th th:text="Titre"></th>
+          <th th:text="Categorie"></th>
+          <th></th>
+        </tr>
+        {{#each trainings}}
+        <tr class="training-item">
+          <td>{{uuid}}</td>
+          <td>{{title}}</td>
+          <td>{{category.name}}</td>
+          <td><button id="load-training-details-tab" class="btn btn-outline-primary" onclick="trainingDetails('{{uuid}}')">Détails</button></td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+    </script>
+</body>
+
+</html>

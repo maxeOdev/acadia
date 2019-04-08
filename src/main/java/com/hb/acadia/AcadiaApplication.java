@@ -9,48 +9,46 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import com.hb.acadia.service.CategoryService;
 
-
 import lombok.extern.slf4j.Slf4j;
-
 
 @SpringBootApplication
 @Slf4j
 public class AcadiaApplication {
 
-    @Autowired
-    private CreateDatas createDatas;
+	@Autowired
+	private CreateDatas createDatas;
 
-    @Value("${application.profile}")
-    private String profile;
+	@Value("${application.profile}")
+	private String profile;
 
-    public static void main(String[] args) {
-        SpringApplication.run(AcadiaApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(AcadiaApplication.class, args);
+	}
 
-    //save Roles in db
-    @EventListener(ApplicationReadyEvent.class)
-    public void saveRolesAfterStartup() {
+	// save Roles in db
+	@EventListener(ApplicationReadyEvent.class)
+	public void saveRolesAfterStartup() {
 
-        if (profile.equals("local")) {
+		if (profile.equals("local")) {
 
-            //Create Roles
-            createDatas.createRoles();
+			// Create Roles
+			createDatas.createRoles();
 
-            //Create Users
-            createDatas.createUsers();
+			// Create Users
+			createDatas.createUsers();
 
-            //Create trainer
-            createDatas.createTrainers();
+			// Create trainer
+			createDatas.createTrainers();
 
-          //Create category
-            createDatas.createCategory();
+			// Create category
+			createDatas.createCategory();
 
-          //Create videos
-            createDatas.createVideos();
+			// Create videos
+			createDatas.createVideos();
 
-        }
-    }
+			// Create trainings
+			createDatas.createTrainings();
+
+		}
+	}
 }
-
-
-

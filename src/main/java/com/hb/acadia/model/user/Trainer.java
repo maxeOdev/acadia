@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Comment;
 import com.hb.acadia.model.Training;
@@ -39,6 +41,7 @@ public class Trainer extends User {
 	private boolean isCertified;
 
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private Set<Training> trainings;
 
 	public Trainer() {

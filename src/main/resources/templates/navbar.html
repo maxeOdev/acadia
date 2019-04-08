@@ -114,6 +114,31 @@
         </form>
     </div>
 </nav>
+
+<!-- NavBar training -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbarTraining">
+    <a class="navbar-brand" th:href="@{/admin/dashboard}">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="link-list-trainings">Lister les formations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="link-create-training">Créer une formation</a>
+            </li>
+        </ul>
+        <form class="form-inline" action="/admin/search-training/" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="search" class="form-control" id="search" placeholder="Tapez ici">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+        </form>
+    </div>
+</nav>
 </body>
 
 

@@ -59,7 +59,7 @@ public class TrainingService {
 			throw new IllegalStateException("None Category corresponding to '" + category.getName() + "'");
 
 		if (videos == null)
-			throw new IllegalStateException("None videos to save'" + category.getName() + "'");
+			throw new IllegalStateException("None videos to save 'null' reference");
 
 		categoryRepo.save(category);
 		videoRepo.saveAll(videos);

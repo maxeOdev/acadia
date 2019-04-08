@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hb.acadia.model.user.Trainer;
 
 import lombok.Getter;
@@ -37,6 +39,7 @@ public class Training {
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Trainer trainer;
 	
 	@NotNull
@@ -95,6 +98,7 @@ public class Training {
 	public Training(@NotNull String title, @NotNull Trainer trainer, @NotNull Category category,
 			@NotNull Set<Video> videos, Set<Comment> comments, @NotNull String description, @NotNull Level difficulty,
 			@NotNull int duration, @NotNull double price, boolean isActive) {
+		this();
 		this.title = title;
 		this.trainer = trainer;
 		this.category = category;
