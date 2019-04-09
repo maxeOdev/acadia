@@ -12,6 +12,13 @@ $(document).on("click", "#link-create-video", function() {
 	createVideoTemplate();	
 });
 
+let $fileUpload = $('#form-create').fileupload({
+        url: '/admin/create-video',
+        sequentialUploads: true,
+        multipart: true,
+        autoUpload: true
+    });
+
 /**
  * Videos on dashboard.
  */
@@ -122,27 +129,27 @@ function createVideoTemplate() {
 /**
  * Video create dynamic.
  */
-$(document).on('submit','#form-create', function(e){
-    e.preventDefault();
-    console.log(document.getElementById('form-create'));
-    console.log('test serialize',$(this).serialize());
-    	$.ajax({
-    			url: "/admin/create-video",
-    			enctype: 'multipart/form-data',
-                processData: false,  // Important!
-                contentType: false,
-                cache: false,
-    			type: "post",
-    			data: new FormData(document.getElementById('form-create')),
-    			success: function () {
-    				listVideos();
-    			},
-    			error: function () {
-    				listVideos();
-    				console.log('erreur de la requete Ajax');
-    			}
-    		});
-})
+//$(document).on('submit','#form-create', function(e){
+//    e.preventDefault();
+//    console.log(document.getElementById('form-create'));
+//    console.log('test serialize',$(this).serialize());
+//    	$.ajax({
+//    			url: "/admin/create-video",
+//    			enctype: 'multipart/form-data',
+//                processData: false,  // Important!
+//                contentType: false,
+//                cache: false,
+//    			type: "post",
+//    			data: new FormData(document.getElementById('form-create')),
+//    			success: function () {
+//    				listVideos();
+//    			},
+//    			error: function () {
+//    				listVideos();
+//    				console.log('erreur de la requete Ajax');
+//    			}
+//    		});
+//})
 
 /**
  * Video delete.

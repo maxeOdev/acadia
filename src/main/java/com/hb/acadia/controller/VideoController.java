@@ -184,51 +184,51 @@ public class VideoController {
 		return new ModelAndView("video");
 	}
 	
-//	/**
-//	 * @param video
-//	 * @param bindingResult
-//	 * @return the result of the operation w/ or w/o errors
-//	 */
-//	@PostMapping("/create-video")
-//	public ModelAndView create(@RequestParam("video") MultipartFile file) {
-//
-//		log.info("Well done.");
-//		// in case of not video existing
-//		if (file.isEmpty()) {
-//			return new ModelAndView("video");
-//		}
-//
-//		// else
-//		try {
-//			videoService.createVideo(file);
-//		} catch (IOException e) {
-//			log.error("Erreur lors du téléversement du fichier. "+e.getMessage());
-//			e.printStackTrace();
-//		}
-//
-//		return new ModelAndView("video");
-//	}
-
 	/**
 	 * @param video
 	 * @param bindingResult
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@PostMapping("/create-video")
-	public ModelAndView create(@RequestParam("video") List<MultipartFile> files) {
+	public ModelAndView create(@RequestParam("video") MultipartFile file) {
 
-		for (MultipartFile file : files) {
-			try {
-				videoService.createVideo(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		log.info("Well done.");
+		// in case of not video existing
+		if (file.isEmpty()) {
+			return new ModelAndView("video");
 		}
-			
 
+		// else
+		try {
+			videoService.createVideo(file);
+		} catch (IOException e) {
+			log.error("Erreur lors du téléversement du fichier. "+e.getMessage());
+			e.printStackTrace();
+		}
 
 		return new ModelAndView("video");
 	}
+
+//	/**
+//	 * @param video
+//	 * @param bindingResult
+//	 * @return the result of the operation w/ or w/o errors
+//	 */
+//	@PostMapping("/create-video")
+//	public ModelAndView create(@RequestParam("video") List<MultipartFile> files) {
+//
+//		for (MultipartFile file : files) {
+//			try {
+//				videoService.createVideo(file);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//
+//
+//		return new ModelAndView("video");
+//	}
 	/**
 	 * @param uuid
 	 * @return the result of the operation w/ or w/o errors
