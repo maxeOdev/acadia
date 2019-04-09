@@ -97,27 +97,52 @@ function createVideoTemplate() {
 }
 
 
-function createVideo() {
-	
-	$("#form-create").submit( function(e) {
-		
-		e.preventDefault();
-
-		$.ajax({
-			url: "/admin/create-video",
-			enctype: "multipart/form-data",
-			type: "post",
-			data: $(this).serialize(),
-			success: function () {
-				listVideos();
-			},
-			error: function (jqxhr, textStatus, errorThrown) {
+//function createVideo() {
+//
+//	$("#form-create").submit( function(e) {
+//
+//		e.preventDefault();
+//
+//		$.ajax({
+//			url: "/admin/create-video",
+//			enctype: "multipart/form-data",
+//			type: "post",
+//			data: $(this).serialize(),
+//			success: function () {
+//				listVideos();
+//			},
+//			error: function (jqxhr, textStatus, errorThrown) {
 //				let errors = JSON.parse(jqxhr.responseText);
 //				$('#input-error-already-exists').html(errors[0].defaultMessage);
-			}
-		});
-	});
-}
+//			}
+//		});
+//	});
+//}
+
+/**
+ * Video create dynamic.
+ */
+$(document).on('submit','#form-create', function(e){
+    e.preventDefault();
+    console.log(document.getElementById('form-create'));
+    console.log('test serialize',$(this).serialize());
+    	$.ajax({
+    			url: "/admin/create-video",
+    			enctype: 'multipart/form-data',
+                processData: false,  // Important!
+                contentType: false,
+                cache: false,
+    			type: "post",
+    			data: new FormData(document.getElementById('form-create')),
+    			success: function () {
+    				listVideos();
+    			},
+    			error: function () {
+    				listVideos();
+    				console.log('erreur de la requete Ajax');
+    			}
+    		});
+})
 
 /**
  * Video delete.
