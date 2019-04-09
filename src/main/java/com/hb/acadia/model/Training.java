@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.hb.acadia.model.user.Trainer;
@@ -29,60 +28,54 @@ public class Training {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@NotNull
 	private String uuid;
-	
-	@NotNull(message = "Aucun titre renseigné.")
-	@NotEmpty(message = "Aucun titre renseigné.")
+
+	@NotNull
 	private String title;
-	
-	@NotNull(message = "Aucune description renseignée.")
-	@NotEmpty(message = "Aucune description renseignée.")
-	private String description;
-	
-	@NotNull(message = "Aucune difficulté renseignée.")
-	@NotEmpty(message = "Aucune difficulté renseignée.")
-	private Level difficulty;
-	
-	@NotNull(message = "Aucune durée renseignée.")
-	@NotEmpty(message = "Aucune durée renseignée.")
-	private int duration;
-	
-	@NotNull(message = "Aucun prix renseigné.")
-	@NotEmpty(message = "Aucun prix renseigné.")
-	private double price;
-	
-	private boolean isActive;
-	
-	@NotNull(message = "Aucun formateur associé.")
-	@NotEmpty(message = "Aucun formateur associé.")
+
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Trainer trainer;
-	
-	@NotEmpty(message = "Aucune catégorie associé.")
+
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
-	
-	@NotNull(message = "Aucune vidéo associée.")
-	@NotEmpty(message = "Aucune vidéo associée.")
+
+	@NotNull
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Video> videos;
-	
+
 	@OneToMany(mappedBy="training",fetch=FetchType.EAGER)
 	private Set<Comment> comments;
-	
+
+	@NotNull
+	private String description;
+
+	@NotNull
+	private Level difficulty;
+
+	@NotNull
+	private int duration;
+
+	@NotNull
+	private double price;
+
+	private boolean isActive;
+
+
 	/**
-	 * 
+	 *
 	 * @author anis
-	 * 
+	 *
 	 * Level of training difficulty.
 	 *
 	 */
 	public static enum Level {
 		BEGINNER, INTERMEDIATE, CONFIRMED
 	}
-	
+
 	public Training() {
 		this.uuid = UUID.randomUUID().toString();
 	}
@@ -99,21 +92,9 @@ public class Training {
 	 * @param price
 	 * @param isActive
 	 */
-<<<<<<< HEAD
-	public Training(@NotNull @NotEmpty String title, 
-			@NotNull @NotEmpty Trainer trainer, 
-			@NotNull @NotEmpty Category category,
-			@NotNull @NotEmpty Set<Video> videos, 
-			Set<Comment> comments, 
-			@NotNull @NotEmpty String description, 
-			@NotNull @NotEmpty Level difficulty,
-			@NotNull @NotEmpty int duration, 
-			@NotNull @NotEmpty double price, boolean isActive) {
-=======
 	public Training(@NotNull String title, @NotNull Trainer trainer, @NotNull Category category,
-			@NotNull Set<Video> videos, Set<Comment> comments, @NotNull String description, @NotNull Level difficulty,
-			@NotNull int duration, @NotNull double price, boolean isActive) {
->>>>>>> fix title field on Training
+					@NotNull Set<Video> videos, Set<Comment> comments, @NotNull String description, @NotNull Level difficulty,
+					@NotNull int duration, @NotNull double price, boolean isActive) {
 		this.title = title;
 		this.trainer = trainer;
 		this.category = category;
@@ -125,7 +106,7 @@ public class Training {
 		this.price = price;
 		this.isActive = isActive;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -176,5 +157,6 @@ public class Training {
 			return false;
 		return true;
 	}
-	
+
 }
+
