@@ -23,7 +23,7 @@ $('#content').load('/admin/trainers-template-list',
 
 function (){
 //console.log($('#modal-loading'));
-    $('#modal-loading').modal('show');
+   // $('#modal-loading').modal('show');
     $.ajax({
         url: "/admin/trainers-list",
         type: "GET",
@@ -38,7 +38,7 @@ function (){
             console.log('error');
             }
     });
-$('#modal-loading').modal('show');
+//$('#modal-loading').modal('hide');
   });
 }
 
