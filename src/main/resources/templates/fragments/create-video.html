@@ -10,7 +10,7 @@
         <form th:action="@{/admin/create-evideo}" id="form-create" method="post" enctype="multipart/form-data">
           <div class="row ">
             <div class="input-group">
-                <input id="name" name="video" class="form-control" type="file" accept=".mp4" placeHolder="Vidéo" required/>
+                <input id="name" multiple="multiple" name="video" class="form-control" type="file" accept=".mp4" placeHolder="Vidéo" required/>
             </div>
             <div class="input-group">
               <input type="submit" class="btn-primary form-control" value="Créer" />
