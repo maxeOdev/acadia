@@ -1,26 +1,19 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.hb.Model.Category;
+import com.hb.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hb.acadia.model.Category;
-import com.hb.acadia.service.CategoryService;
+import javax.validation.Valid;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 

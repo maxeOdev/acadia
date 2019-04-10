@@ -1,8 +1,8 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
 
 import com.hb.Model.user.Trainer;
-import com.hb.acadia.service.TrainerService;
+import com.hb.Service.TrainerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

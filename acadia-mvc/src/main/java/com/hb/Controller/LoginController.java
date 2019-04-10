@@ -1,7 +1,6 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
-import com.hb.Model.user.User;
-import com.hb.acadia.service.UserService;
+import com.hb.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

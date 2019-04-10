@@ -1,13 +1,12 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
-import java.util.Arrays;
-
-import com.hb.acadia.utils.DomainConst;
-
+import com.hb.Utils.DomainConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/admin")

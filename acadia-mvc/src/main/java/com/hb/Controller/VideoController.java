@@ -1,32 +1,24 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
+import com.hb.Model.Video;
+import com.hb.Service.VideoService;
+import com.hb.Utils.StreamHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hb.acadia.model.Video;
-import com.hb.acadia.service.VideoService;
-import com.hb.acadia.utils.StreamHelper;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 
@@ -154,10 +146,10 @@ public class VideoController {
 	public Video getByIdRespBody(@RequestParam String uuid) {
 		return videoService.getByUuid(uuid);
 	}
-	
+
 	/**
-	 * @param video
-	 * @param bindingResult
+	 *
+	 * @param file
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@PostMapping("/update-video")
@@ -179,10 +171,10 @@ public class VideoController {
 		
 		return new ModelAndView("video");
 	}
-	
+
 	/**
-	 * @param video
-	 * @param bindingResult
+	 *
+	 * @param file
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@PostMapping("/create-video")

@@ -1,17 +1,16 @@
-package com.hb.acadia.controller;
+package com.hb.Controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.hb.Model.Training;
+import com.hb.Service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hb.acadia.model.Training;
-import com.hb.acadia.service.TrainingService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
