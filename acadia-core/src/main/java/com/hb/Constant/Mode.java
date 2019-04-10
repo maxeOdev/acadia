@@ -1,4 +1,4 @@
-package com.hb.acadia.constant;
+package com.hb.Constant;
 
 public enum Mode {
 

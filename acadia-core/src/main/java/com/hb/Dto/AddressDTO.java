@@ -1,4 +1,4 @@
-package com.hb.acadia.DTO;
+package com.hb.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
