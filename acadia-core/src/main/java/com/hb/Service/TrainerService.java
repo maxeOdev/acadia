@@ -1,0 +1,111 @@
+package com.hb.Service;
+
+import com.hb.Model.user.Role;
+import com.hb.Model.user.Trainer;
+import com.hb.Repository.AddressRepository;
+import com.hb.Repository.RoleRepository;
+import com.hb.Repository.TrainerRepository;
+import com.hb.acadia.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+/**
+ * Service class allowing operations on trainer
+ * 
+ * @author simonaliotti
+ *
+ */
+@Service
+public class TrainerService {
+
+	@Autowired
+	private TrainerRepository trainerRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+
+	/**
+	 * Method to create a trainer
+	 * @param trainer
+	 * @return
+	 */
+	@Transactional
+	public Trainer createTrainer(Trainer trainer) {
+		// salt and hash password
+		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
+		// save the address in database before saving the trainer
+		trainer.setAddress(addressRepository.save(trainer.getAddress()));
+		// set role on trainer
+		Role role = roleRepository.findRoleByRoleName("ROLE_TRAINER");
+		trainer.setRole(role);
+		return trainerRepository.save(trainer);
+	}
+
+	/**
+	 * Update a trainer/ *** WARNING *** Do no use for update password *** WARNING
+	 * ***
+	 * 
+	 * @param trainer to update
+	 * @return the updated trainer
+	 */
+	@Transactional
+	public Trainer updateTrainer(Trainer trainer) {
+		// save the address in database before saving the tainer
+		trainer.setAddress(addressRepository.save(trainer.getAddress()));
+		return trainerRepository.save(trainer);
+
+	}
+
+	/**
+	 * This method disable a trainer. Training and address not deleted
+	 * @param trainer
+	 */
+	@Transactional
+	public void deleteTrainer(Trainer trainer) {
+		trainer.setActif(false);
+		trainerRepository.save(trainer);
+
+	}
+
+	/**
+	 * Update a trainer's password
+	 * 
+	 * @param trainer
+	 * @return the updated trainer
+	 */
+	@Transactional
+	public Trainer updatePasswordTrainer(Trainer trainer) {
+		trainer.setPassword(Utils.encryptAndSalt(trainer.getPassword()));
+		return trainer;
+	}
+
+	/**
+	 * Get a trainer by idStripe
+	 * 
+	 * @param idStripe
+	 * @return the given trainer
+	 */
+	public Trainer getTrainerByIdStripe(String idStripe) {
+		return trainerRepository.findByIdStripe(idStripe);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Transactional
+	public List<Trainer> findAll(){
+		return trainerRepository.findAll();
+	}
+
+	@Transactional
+	public Page<Trainer> findAllPage(Pageable pageable){
+		return trainerRepository.findAll(pageable);
+	}
+}

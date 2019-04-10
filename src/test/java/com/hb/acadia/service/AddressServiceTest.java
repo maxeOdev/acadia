@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

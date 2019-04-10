@@ -5,7 +5,7 @@ import com.hb.acadia.DTO.UserDTO;
 import com.hb.acadia.constant.MessageError;
 import com.hb.acadia.constant.Mode;
 import com.hb.acadia.model.Address;
-import com.hb.acadia.model.user.User;
+import com.hb.Model.user.User;
 import com.hb.acadia.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

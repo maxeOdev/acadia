@@ -17,8 +17,8 @@ import org.springframework.beans.BeanUtils;
 
 import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Comment;
-import com.hb.acadia.model.user.Role;
-import com.hb.acadia.model.user.Trainer;
+import com.hb.Model.user.Role;
+import com.hb.Model.user.Trainer;
 import com.hb.acadia.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;

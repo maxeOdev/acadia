@@ -20,8 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.hb.acadia.model.Address;
-import com.hb.acadia.model.user.Role;
-import com.hb.acadia.model.user.User;
+import com.hb.Model.user.Role;
+import com.hb.Model.user.User;
 
 import lombok.extern.slf4j.Slf4j;
 

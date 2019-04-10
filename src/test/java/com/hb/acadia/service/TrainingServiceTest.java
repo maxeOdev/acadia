@@ -3,9 +3,7 @@ package com.hb.acadia.service;
 import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,8 +16,8 @@ import com.hb.acadia.model.Address;
 import com.hb.acadia.model.Category;
 import com.hb.acadia.model.Training;
 import com.hb.acadia.model.Video;
-import com.hb.acadia.model.user.Role;
-import com.hb.acadia.model.user.Trainer;
+import com.hb.Model.user.Role;
+import com.hb.Model.user.Trainer;
 
 import lombok.extern.slf4j.Slf4j;
 
