@@ -1,5 +1,4 @@
-package com.hb.acadia;
-
+package com.hb;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

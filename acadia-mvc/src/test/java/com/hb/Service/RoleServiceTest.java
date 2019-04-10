@@ -1,21 +1,17 @@
-package com.hb.acadia.service;
+package com.hb.Service;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
+import com.hb.Model.Address;
+import com.hb.Model.user.Role;
+import com.hb.Model.user.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hb.acadia.model.Address;
-import com.hb.Model.user.Role;
-import com.hb.Model.user.User;
-
-import lombok.extern.slf4j.Slf4j;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.*;
 
 @Slf4j
 public class RoleServiceTest extends AbstractApplicationTest {

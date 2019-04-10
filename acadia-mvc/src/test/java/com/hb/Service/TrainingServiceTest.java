@@ -1,25 +1,15 @@
-package com.hb.acadia.service;
+package com.hb.Service;
 
-import static org.junit.Assert.assertTrue;
+import com.hb.Model.Category;
+import com.hb.Model.Training;
+import com.hb.Model.user.Trainer;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.*;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import com.hb.acadia.model.Address;
-import com.hb.acadia.model.Category;
-import com.hb.acadia.model.Training;
-import com.hb.acadia.model.Video;
-import com.hb.Model.user.Role;
-import com.hb.Model.user.Trainer;
-
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertTrue;
 
 /**
  * 

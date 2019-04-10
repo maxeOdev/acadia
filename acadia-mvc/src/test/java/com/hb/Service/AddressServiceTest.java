@@ -1,14 +1,14 @@
-package com.hb.acadia.service;
+package com.hb.Service;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
+import com.hb.Model.Address;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hb.acadia.model.Address;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @Slf4j
 public class AddressServiceTest extends AbstractApplicationTest {

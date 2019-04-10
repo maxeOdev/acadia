@@ -1,19 +1,8 @@
-package com.hb.acadia.service;
+package com.hb.Service;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.hb.acadia.model.Video;
-
+import com.hb.Model.Video;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.*;
 
 @Slf4j
 public class VideoServiceTest extends AbstractApplicationTest {

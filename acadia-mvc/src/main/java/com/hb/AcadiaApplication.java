@@ -1,16 +1,13 @@
-package com.hb.acadia;
+package com.hb;
 
-import com.hb.acadia.DatasForDev.CreateDatas;
+import com.hb.DatasForDev.CreateDatas;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import com.hb.acadia.service.CategoryService;
-
-
-import lombok.extern.slf4j.Slf4j;
 
 
 @SpringBootApplication

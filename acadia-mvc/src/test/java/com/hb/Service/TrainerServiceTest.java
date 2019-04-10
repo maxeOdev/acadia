@@ -1,4 +1,18 @@
-package com.hb.acadia.service;
+package com.hb.Service;
+
+import com.hb.Model.Address;
+import com.hb.Model.Comment;
+import com.hb.Model.user.Role;
+import com.hb.Model.user.Trainer;
+import com.hb.Utils.Utils;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.beans.BeanUtils;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -6,22 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.beans.BeanUtils;
-
-import com.hb.acadia.model.Address;
-import com.hb.acadia.model.Comment;
-import com.hb.Model.user.Role;
-import com.hb.Model.user.Trainer;
-import com.hb.acadia.utils.Utils;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TrainerServiceTest extends AbstractApplicationTest {
