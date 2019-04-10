@@ -1,4 +1,4 @@
-package com.hb.acadia.utils;
+package com.hb.Utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

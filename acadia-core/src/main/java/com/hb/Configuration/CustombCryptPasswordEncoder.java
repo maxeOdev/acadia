@@ -1,4 +1,4 @@
-package com.hb.acadia.configuration;
+package com.hb.Configuration;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

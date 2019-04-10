@@ -5,7 +5,7 @@ import com.hb.Model.user.Trainer;
 import com.hb.Repository.AddressRepository;
 import com.hb.Repository.RoleRepository;
 import com.hb.Repository.TrainerRepository;
-import com.hb.acadia.utils.Utils;
+import com.hb.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
