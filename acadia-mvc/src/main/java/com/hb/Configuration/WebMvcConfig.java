@@ -1,4 +1,4 @@
-package com.hb.acadia.configuration;
+package com.hb.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,18 +1,16 @@
-package com.hb.acadia.DatasForDev;
+package com.hb.DatasForDev;
 
-import com.hb.acadia.model.Address;
-import com.hb.acadia.model.Category;
+import com.hb.Model.Address;
+import com.hb.Model.Category;
 import com.hb.Model.user.Role;
 import com.hb.Model.user.Trainer;
 import com.hb.Model.user.User;
-import com.hb.acadia.repository.RoleRepository;
-import com.hb.acadia.service.CategoryService;
-import com.hb.acadia.service.TrainerService;
-import com.hb.acadia.service.UserService;
-import com.hb.acadia.service.VideoService;
-
+import com.hb.Repository.RoleRepository;
+import com.hb.Service.CategoryService;
+import com.hb.Service.TrainerService;
+import com.hb.Service.UserService;
+import com.hb.Service.VideoService;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
