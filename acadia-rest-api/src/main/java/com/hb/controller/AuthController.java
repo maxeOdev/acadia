@@ -1,9 +1,12 @@
 package com.hb.controller;
 
 
-import com.hb.Payload.JwtAuthenticationResponse;
-import com.hb.Payload.LoginRequest;
-import com.hb.Security.JwtTokenProvider;
+import com.hb.configuration.CustombCryptPasswordEncoder;
+import com.hb.payload.JwtAuthenticationResponse;
+import com.hb.payload.LoginRequest;
+import com.hb.repository.RoleRepository;
+import com.hb.repository.UserRepository;
+import com.hb.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,15 @@ public class AuthController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    private CustombCryptPasswordEncoder custombCryptPasswordEncoder;
+
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ResponseEntity<?> signin(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -54,5 +66,30 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-
+//    @PostMapping("/signup")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+//        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+//            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//
+//        // Creating user's account
+//        User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(),
+//                signUpRequest.getEmail(), signUpRequest.getPassword());
+//
+//        user.setPassword(custombCryptPasswordEncoder.encode(user.getPassword()));
+//
+//        Role userRole = roleRepository.findByRole("ROLE_USER")
+//                .orElseThrow(() -> new AppException("User Role not set."));
+//
+//        user.setRoles(Collections.singleton(userRole));
+//
+//        User result = userRepository.save(user);
+//
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath().path("/users/{userId}")
+//                .buildAndExpand(result.getId()).toUri();
+//
+//        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+//    }
 }

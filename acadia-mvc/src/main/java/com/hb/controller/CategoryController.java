@@ -1,7 +1,7 @@
 package com.hb.controller;
 
-import com.hb.Model.Category;
-import com.hb.Service.CategoryService;
+import com.hb.model.Category;
+import com.hb.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

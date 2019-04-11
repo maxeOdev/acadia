@@ -1,6 +1,6 @@
 package com.hb.controller;
 
-import com.hb.Utils.DomainConst;
+import com.hb.utils.DomainConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

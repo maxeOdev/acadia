@@ -1,15 +1,15 @@
 package com.hb.datasForDev;
 
-import com.hb.Model.Address;
-import com.hb.Model.Category;
-import com.hb.Model.user.Role;
-import com.hb.Model.user.Trainer;
-import com.hb.Model.user.User;
-import com.hb.Repository.RoleRepository;
-import com.hb.Service.CategoryService;
-import com.hb.Service.TrainerService;
-import com.hb.Service.UserService;
-import com.hb.Service.VideoService;
+import com.hb.model.Address;
+import com.hb.model.Category;
+import com.hb.model.user.Role;
+import com.hb.model.user.Trainer;
+import com.hb.model.user.User;
+import com.hb.repository.RoleRepository;
+import com.hb.service.CategoryService;
+import com.hb.service.TrainerService;
+import com.hb.service.UserService;
+import com.hb.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.hb.controller;
 
-import com.hb.Model.Video;
-import com.hb.Service.VideoService;
-import com.hb.Utils.StreamHelper;
+import com.hb.model.Video;
+import com.hb.service.VideoService;
+import com.hb.utils.StreamHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

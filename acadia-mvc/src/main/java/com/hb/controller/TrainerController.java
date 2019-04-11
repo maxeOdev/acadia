@@ -1,8 +1,8 @@
 package com.hb.controller;
 
 
-import com.hb.Model.user.Trainer;
-import com.hb.Service.TrainerService;
+import com.hb.model.user.Trainer;
+import com.hb.service.TrainerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

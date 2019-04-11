@@ -1,12 +1,12 @@
 package com.hb.controller;
 
-import com.hb.Constant.MessageError;
-import com.hb.Constant.Mode;
-import com.hb.Dto.AddressDTO;
-import com.hb.Dto.UserDTO;
-import com.hb.Model.Address;
-import com.hb.Model.user.User;
-import com.hb.Service.UserService;
+import com.hb.constant.MessageError;
+import com.hb.constant.Mode;
+import com.hb.dto.AddressDTO;
+import com.hb.dto.UserDTO;
+import com.hb.model.Address;
+import com.hb.model.user.User;
+import com.hb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
