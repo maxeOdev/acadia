@@ -1,4 +1,4 @@
-package com.hb.Controller;
+package com.hb.controller;
 
 import com.hb.Utils.DomainConst;
 import org.springframework.stereotype.Controller;

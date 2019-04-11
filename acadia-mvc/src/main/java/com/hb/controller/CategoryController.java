@@ -1,4 +1,4 @@
-package com.hb.Controller;
+package com.hb.controller;
 
 import com.hb.Model.Category;
 import com.hb.Service.CategoryService;

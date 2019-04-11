@@ -1,6 +1,6 @@
 package com.hb.Service;
 
-import com.hb.Configuration.CustombCryptPasswordEncoder;
+import com.hb.configuration.CustombCryptPasswordEncoder;
 import com.hb.Model.Address;
 import com.hb.Model.user.Role;
 import com.hb.Model.user.User;

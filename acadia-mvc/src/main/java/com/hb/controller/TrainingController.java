@@ -1,4 +1,4 @@
-package com.hb.Controller;
+package com.hb.controller;
 
 import com.hb.Model.Training;
 import com.hb.Service.TrainingService;

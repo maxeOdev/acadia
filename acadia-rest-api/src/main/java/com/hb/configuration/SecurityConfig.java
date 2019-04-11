@@ -1,4 +1,4 @@
-package com.hb.Configuration;
+package com.hb.configuration;
 
 import com.hb.Security.CustomUserDetailsService;
 import com.hb.Security.JwtAuthenticationEntryPoint;

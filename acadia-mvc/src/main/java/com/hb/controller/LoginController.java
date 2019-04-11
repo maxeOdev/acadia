@@ -1,4 +1,4 @@
-package com.hb.Controller;
+package com.hb.controller;
 
 import com.hb.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

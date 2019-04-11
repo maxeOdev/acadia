@@ -1,4 +1,4 @@
-package com.hb.DatasForDev;
+package com.hb.datasForDev;
 
 import com.hb.Model.Address;
 import com.hb.Model.Category;

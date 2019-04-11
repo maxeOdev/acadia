@@ -1,4 +1,4 @@
-package com.hb.Controller;
+package com.hb.controller;
 
 import com.hb.Model.Video;
 import com.hb.Service.VideoService;

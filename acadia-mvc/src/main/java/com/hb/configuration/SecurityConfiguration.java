@@ -1,6 +1,5 @@
-package com.hb.Configuration;
+package com.hb.configuration;
 
-import com.hb.Configuration.CustombCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

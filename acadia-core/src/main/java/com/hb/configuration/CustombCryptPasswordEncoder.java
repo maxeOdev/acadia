@@ -1,4 +1,4 @@
-package com.hb.Configuration;
+package com.hb.configuration;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
