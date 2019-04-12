@@ -119,7 +119,10 @@ public class UserService {
         user.setPassword(custombCryptPasswordEncoder.encode(password));
 
         // save the address in database before saving the user
-        user.setAddress(addressService.createAddress(user.getAddress()));
+        if(!(user.getAddress()==null)){
+           user.setAddress(addressService.createAddress(user.getAddress()));
+        }
+
 
         // set role on user
         for (Role role : roleService.getRoles()) {
