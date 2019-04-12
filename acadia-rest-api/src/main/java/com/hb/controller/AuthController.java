@@ -76,18 +76,16 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         User userVerification = userService.getUserByEmail(signUpRequest.getEmail());
-        User user = new User();
-        user.setEmail(signUpRequest.getEmail());
-        user.setName(signUpRequest.getLastName());
-        user.setFirstName(signUpRequest.getFirstName());
-        user.setPassword(signUpRequest.getPassword());
-
         if (userVerification == null) {
+            User user = new User();
+            user.setEmail(signUpRequest.getEmail());
+            user.setName(signUpRequest.getLastName());
+            user.setFirstName(signUpRequest.getFirstName());
+            user.setPassword(signUpRequest.getPassword());
             userService.createUser(user);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentContextPath().path("/users/{userId}")
-                    .buildAndExpand(user.getId()).toUri();
-
+                    .buildAndExpand(user.getUuid()).toUri();
             return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
         } else {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
