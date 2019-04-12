@@ -2,8 +2,13 @@ package com.hb.controller;
 
 
 import com.hb.configuration.CustombCryptPasswordEncoder;
+import com.hb.exception.AppException;
+import com.hb.model.user.Role;
+import com.hb.model.user.User;
+import com.hb.payload.ApiResponse;
 import com.hb.payload.JwtAuthenticationResponse;
 import com.hb.payload.LoginRequest;
+import com.hb.payload.SignUpRequest;
 import com.hb.repository.RoleRepository;
 import com.hb.repository.UserRepository;
 import com.hb.security.JwtTokenProvider;
@@ -17,12 +22,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -66,30 +70,35 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-//        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-//            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//
-//        // Creating user's account
-//        User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(),
-//                signUpRequest.getEmail(), signUpRequest.getPassword());
-//
-//        user.setPassword(custombCryptPasswordEncoder.encode(user.getPassword()));
-//
-//        Role userRole = roleRepository.findByRole("ROLE_USER")
-//                .orElseThrow(() -> new AppException("User Role not set."));
-//
-//        user.setRoles(Collections.singleton(userRole));
-//
-//        User result = userRepository.save(user);
-//
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentContextPath().path("/users/{userId}")
-//                .buildAndExpand(result.getId()).toUri();
-//
-//        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
-//    }
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        // Creating user's account
+        User user = new User();
+        user.setFirstName(signUpRequest.getFirstName());
+        user.setName(signUpRequest.getLastName());
+        user.setEmail(signUpRequest.getEmail());
+        user.setPassword(signUpRequest.getPassword());
+
+        user.setPassword(custombCryptPasswordEncoder.encode(user.getPassword()));
+
+        Role userRole = roleRepository.findRoleByRoleName("ROLE_USER");
+              if(userRole==null){
+                  new AppException("User Role not set.");
+              }
+
+        user.setRole(userRole);
+
+        User result = userRepository.save(user);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/users/{userId}")
+                .buildAndExpand(result.getId()).toUri();
+
+        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
 }
