@@ -51,6 +51,11 @@ public class AuthController {
     @Autowired
     private CustombCryptPasswordEncoder custombCryptPasswordEncoder;
 
+    /**
+     * Signin controller
+     * @param loginRequest
+     * @return
+     */
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ResponseEntity<?> signin(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -72,6 +77,11 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+    /**
+     * Sign up controller : to register a new user
+     * @param signUpRequest
+     * @return
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
@@ -92,4 +102,6 @@ public class AuthController {
                     HttpStatus.BAD_REQUEST);
         }
     }
+
+
 }

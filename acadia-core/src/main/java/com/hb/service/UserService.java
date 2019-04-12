@@ -219,4 +219,7 @@ public class UserService {
         return userRepository.findUsersByResearch(search, pageable);
     }
 
+    public List<User> findAll(){
+       return userRepository.findAll();
+    }
 }
