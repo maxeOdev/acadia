@@ -84,7 +84,9 @@ public class UserController {
                 UserDTO userDTO = new UserDTO();
                 userDTO.setAddress(new AddressDTO());
                 BeanUtils.copyProperties(user, userDTO);
-                BeanUtils.copyProperties(user.getAddress(), userDTO.getAddress());
+                if (!(user.getAddress() == null)) {
+                    BeanUtils.copyProperties(user.getAddress(), userDTO.getAddress());
+                }
                 usersDTO.add(userDTO);
             });
         }
@@ -96,7 +98,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
 
         //The connected user
-       UserPrincipal userPrincipal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         //Check if email is available
         User userVerification = null;
@@ -109,7 +111,7 @@ public class UserController {
         }
 
 
-        if (userVerification == null || userVerification.getEmail().equals(userUpdateRequest.getEmail())) {
+        if (userVerification == null || userPrincipal.getEmail().equals(userUpdateRequest.getEmail())) {
             User user = null;
 
             try {
