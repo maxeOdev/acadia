@@ -51,7 +51,7 @@ public class UserController {
      * Get a user by uuid
      *
      * @param userUuid
-     * @return return a userDto from the uuid given
+     * @return return a userDto
      */
     @GetMapping("/users/{userUuid}")
     public UserDTO getUserProfile(@PathVariable(value = "userUuid") String userUuid) {
@@ -70,10 +70,10 @@ public class UserController {
     /**
      * Get all users
      *
-     * @return a list of user
+     * @return a list of userDto
      */
     @GetMapping("/users")
-    //@PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public List<UserDTO> getUsersProfile() {
 
         List<User> users = userService.findAll();
@@ -93,6 +93,12 @@ public class UserController {
         return usersDTO;
     }
 
+    /**
+     * Update a user
+     *
+     * @param userUpdateRequest
+     * @return a response entity
+     */
     @PutMapping("/users")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
@@ -135,6 +141,28 @@ public class UserController {
         } else {
             return new ResponseEntity(new ApiResponse(false, "User already exist"),
                     HttpStatus.NOT_ACCEPTABLE);
+        }
+
+    }
+
+
+    /**
+     * Delete User
+     *
+     * @param userUuid
+     * @return EntityResponse
+     */
+    @DeleteMapping("/users/{userUuid}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "userUuid") String userUuid) {
+        
+        //The connected user
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUserByEmail(userPrincipal.getEmail());
+        if (user.getUuid().equals(userUuid)) {
+            userService.deleteUser(userService.getUserByUuid(userUuid));
+            return new ResponseEntity(new ApiResponse(true, "User delete success"), HttpStatus.ACCEPTED);
+        } else{
+            return  new ResponseEntity(new ApiResponse(false, "User delete forbidden. Wrong token"), HttpStatus.FORBIDDEN);
         }
 
     }
