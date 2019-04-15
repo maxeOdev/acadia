@@ -73,7 +73,7 @@ public class UserController {
      * @return a list of userDto
      */
     @GetMapping("/users")
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDTO> getUsersProfile() {
 
         List<User> users = userService.findAll();
