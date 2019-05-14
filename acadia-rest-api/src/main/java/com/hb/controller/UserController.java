@@ -213,6 +213,28 @@ public class UserController {
         }
 
     }
+
+    @PostMapping("/users")
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO){
+
+        User user = new User();
+        Address address = new Address();
+        String uuid = user.getUuid();
+
+        BeanUtils.copyProperties(userDTO, user);
+        BeanUtils.copyProperties(userDTO.getAddress(), address);
+        user.setAddress(address);
+        user.setUuid(uuid);
+        userService.createUser(user);
+
+        UserDTO userDtoToSend = new UserDTO();
+        AddressDTO addressDTO = new AddressDTO();
+
+        BeanUtils.copyProperties(user, userDtoToSend);
+        BeanUtils.copyProperties(user.getAddress(), addressDTO);
+        userDtoToSend.setAddress(addressDTO);
+        return new ResponseEntity(userDtoToSend, HttpStatus.CREATED);
+    }
 }
 
 
