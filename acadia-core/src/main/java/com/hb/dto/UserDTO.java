@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 public class UserDTO {
 
     @NotNull
+    @NotEmpty
     protected String uuid;
     @NotNull
     @NotEmpty
