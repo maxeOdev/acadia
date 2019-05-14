@@ -73,7 +73,7 @@ public class UserController {
      * @return a list of userDto
      */
     @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('CUSTOMER')")
     public List<UserDTO> getUsersProfile() {
 
         List<User> users = userService.findAll();
@@ -93,23 +93,73 @@ public class UserController {
         return usersDTO;
     }
 
+//    /**
+//     * Update a user
+//     *
+//     * @param userUpdateRequest
+//     * @return a response entity
+//     */
+//    @PutMapping("/users")
+//    @PreAuthorize("hasRole('CUSTOMER')")
+//    public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
+//
+//        //The connected user
+//        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        //Check if email is available
+//        User userVerification = null;
+//        try {
+//            userVerification = userService.getUserByEmail(userUpdateRequest.getEmail());
+//        } catch (Exception e) {
+//            log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+//            return new ResponseEntity(new ApiResponse(false, "DB connection error"),
+//                    HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//
+//        if (userVerification == null || userPrincipal.getEmail().equals(userUpdateRequest.getEmail())) {
+//            User user = null;
+//
+//            try {
+//                user = userService.getUserByEmail(userPrincipal.getEmail());
+//            } catch (Exception e) {
+//                log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
+//                return new ResponseEntity(new ApiResponse(false, "DB connection error"),
+//                        HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+//
+//            //Get address
+//            Address address = user.getAddress();
+//            BeanUtils.copyProperties(userUpdateRequest, address);
+//            BeanUtils.copyProperties(userUpdateRequest, user);
+//            //Set address into user
+//            user.setAddress(address);
+//
+//            //Update user
+//            userService.updateUser(user);
+//            return new ResponseEntity(new ApiResponse(true, "User update success"), HttpStatus.CREATED);
+//        } else {
+//            return new ResponseEntity(new ApiResponse(false, "User already exist"),
+//                    HttpStatus.NOT_ACCEPTABLE);
+//        }
+//
+//    }
+
     /**
-     * Update a user
+     * Update a user méthode provisoire
      *
-     * @param userUpdateRequest
+     * @param userDto
      * @return a response entity
      */
     @PutMapping("/users")
-    @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO userDTO) {
 
-        //The connected user
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
         //Check if email is available
         User userVerification = null;
         try {
-            userVerification = userService.getUserByEmail(userUpdateRequest.getEmail());
+            userVerification = userService.getUserByEmail(userDTO.getEmail());
         } catch (Exception e) {
             log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
             return new ResponseEntity(new ApiResponse(false, "DB connection error"),
@@ -117,11 +167,11 @@ public class UserController {
         }
 
 
-        if (userVerification == null || userPrincipal.getEmail().equals(userUpdateRequest.getEmail())) {
+
             User user = null;
 
             try {
-                user = userService.getUserByEmail(userPrincipal.getEmail());
+                user = userService.getUserByEmail(userDTO.getEmail());
             } catch (Exception e) {
                 log.error(MessageError.ERROR_CONNECTION_DATABASE.getMessage());
                 return new ResponseEntity(new ApiResponse(false, "DB connection error"),
@@ -130,18 +180,15 @@ public class UserController {
 
             //Get address
             Address address = user.getAddress();
-            BeanUtils.copyProperties(userUpdateRequest, address);
-            BeanUtils.copyProperties(userUpdateRequest, user);
+            BeanUtils.copyProperties(userDTO.getAddress(), address);
+            BeanUtils.copyProperties(userDTO, user);
             //Set address into user
             user.setAddress(address);
 
             //Update user
             userService.updateUser(user);
             return new ResponseEntity(new ApiResponse(true, "User update success"), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity(new ApiResponse(false, "User already exist"),
-                    HttpStatus.NOT_ACCEPTABLE);
-        }
+
 
     }
 
