@@ -62,7 +62,7 @@ public class VideoController {
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@PutMapping("/api/videos")
-	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
 	public List<ObjectError> update(@RequestParam("uuid") String uuid, @RequestParam("video") MultipartFile file) {
 		
 		if (file.isEmpty() || uuid == null || uuid == "") {	
@@ -85,7 +85,7 @@ public class VideoController {
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@PostMapping("/api/videos")
-	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
 	public List<ObjectError> create(@RequestParam("video") MultipartFile file) {
 		
 		if (file.isEmpty()) {
@@ -108,7 +108,7 @@ public class VideoController {
 	 * @return the result of the operation w/ or w/o errors
 	 */
 	@DeleteMapping("/api/videos")
-	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
 	public List<ObjectError> delete(@RequestParam("uuid") String uuid) {
 		
 		if (videoService.getByUuid(uuid) == null) {
@@ -127,7 +127,7 @@ public class VideoController {
 	 * @param uuid
 	 */
 	@GetMapping( "/api/download")
-	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
 	public void produceHome(HttpServletResponse response, @RequestParam(value = "uuid") String uuid) {
 		
 		Video video = videoService.getByUuid(uuid);

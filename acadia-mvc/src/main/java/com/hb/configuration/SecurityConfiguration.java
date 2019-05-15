@@ -47,15 +47,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		if (profile.equals("local")) {
 			http.
-			authorizeRequests()
-				.antMatchers("/trainings/**").permitAll()
-				.antMatchers("/training/**").permitAll()
-				.antMatchers("/categories").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/register").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ROLE_CUSTOMER") // FOR DEVs, DO NOT KEEP IT ENABLE !!!Q
-				.antMatchers("/app/**").hasAuthority("ROLE_CUSTOMER")
-				.antMatchers("/trainer/**").hasAuthority("ROLE_TRAINER").anyRequest()
+			authorizeRequests().antMatchers("/**").permitAll().anyRequest()
+//				.antMatchers("/trainings/**").permitAll()
+//				.antMatchers("/training/**").permitAll()
+//				.antMatchers("/categories").permitAll()
+//				.antMatchers("/login").permitAll()
+//				.antMatchers("/register").permitAll()
+//				.antMatchers("/admin/**").hasAuthority("ROLE_CUSTOMER") // FOR DEVs, DO NOT KEEP IT ENABLE !!!Q
+//				.antMatchers("/app/**").hasAuthority("ROLE_CUSTOMER")
+//				.antMatchers("/trainer/**").hasAuthority("ROLE_TRAINER").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
 				.defaultSuccessUrl("/admin/dashboard", true)

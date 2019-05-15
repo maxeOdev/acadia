@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -31,30 +32,34 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * @return every saved categories
 	 */
 	@GetMapping("/public/categories")
 	public List<Category> categories() {
+		log.debug("categories");
 		return categoryService.getAllCategories();
 	}
 	
-	/**
-	 * @param name
-	 * @return categories exactly matching with param name
-	 */
-	@GetMapping("/public/categories/{name}")
-	public Category byName(@PathVariable("name") String name) { 
-		return categoryService.getByName(name);
-	}
-	
+//	/**
+//	 * @param name
+//	 * @return categories exactly matching with param name
+//	 */
+//	@GetMapping("/public/categories/{name}")
+//	public Category byName(@PathVariable("name") String name) { 
+//		return categoryService.getByName(name);
+//	}
+//	
 	/**
 	 * @param id
 	 * @return categories matching with param id
 	 */
 	@GetMapping("/public/categories/{id}")
 	public Category byId(@PathVariable("id") long id) { 
+		log.debug("categoryById");
 		return categoryService.getById(id);
 	}
 	
@@ -65,6 +70,7 @@ public class CategoryController {
 	 */
 	@PostMapping("/api/categories")
 	public List<ObjectError> create(@Valid Category category, BindingResult result) {
+		log.debug("categoryCreation");
 		
 		if (result.hasErrors()) {
 			return result.getAllErrors();
@@ -90,8 +96,8 @@ public class CategoryController {
 	 * @return errors if there're some, else return null
 	 */
 	@PutMapping("/api/categories")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<ObjectError> update(@Valid Category category, BindingResult result) {
+		log.debug("categoryUpdate");
 		
 		if (result.hasErrors()) {	return result.getAllErrors();	}
 		
@@ -105,8 +111,8 @@ public class CategoryController {
 	 * @param id
 	 */
 	@DeleteMapping("/api/categories/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(@PathVariable("id") long id) {
+		log.debug("categoryDeletion");
 		categoryService.deleteCategory(
 				categoryService.getById(id));
 	}
