@@ -193,21 +193,40 @@ public class UserController {
     }
 
 
+//    /**
+//     * Delete User
+//     *
+//     * @param userUuid
+//     * @return EntityResponse
+//     */
+//    @DeleteMapping("/users/{userUuid}")
+//    public ResponseEntity<?> deleteUser(@PathVariable(value = "userUuid") String userUuid) {
+//
+//        //The connected user
+//        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userService.getUserByEmail(userPrincipal.getEmail());
+//        if (user.getUuid().equals(userUuid)) {
+//            userService.deleteUser(userService.getUserByUuid(userUuid));
+//            return new ResponseEntity(new ApiResponse(true, "User delete success"), HttpStatus.NO_CONTENT);
+//        } else{
+//            return  new ResponseEntity(new ApiResponse(false, "User delete forbidden. Wrong token"), HttpStatus.FORBIDDEN);
+//        }
+//
+//    }
+
     /**
-     * Delete User
+     * Delete User for auth (provisory)
      *
      * @param userUuid
      * @return EntityResponse
      */
     @DeleteMapping("/users/{userUuid}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "userUuid") String userUuid) {
-        
-        //The connected user
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByEmail(userPrincipal.getEmail());
+
+        User user = userService.getUserByUuid(userUuid);
         if (user.getUuid().equals(userUuid)) {
             userService.deleteUser(userService.getUserByUuid(userUuid));
-            return new ResponseEntity(new ApiResponse(true, "User delete success"), HttpStatus.ACCEPTED);
+            return new ResponseEntity(new ApiResponse(true, "User delete success"), HttpStatus.NO_CONTENT);
         } else{
             return  new ResponseEntity(new ApiResponse(false, "User delete forbidden. Wrong token"), HttpStatus.FORBIDDEN);
         }
