@@ -88,6 +88,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/users/**")
                // .hasAuthority("ROLE_CUSTOMER")
                 .permitAll()
+//                .antMatchers("/api/auth/**")
+//                .permitAll()
+//                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
+//                .permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/users/**")
+//                .hasAuthority("ROLE_CUSTOMER")
                 .anyRequest()
                 .authenticated();
 
