@@ -5,9 +5,15 @@ import com.hb.model.Video;
 import com.hb.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,7 +50,7 @@ public class VideoService {
 		
 		Video savedVideo = videoRepo.save(video);
 		
-		String sPath = uploadFolder+"/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
+		String sPath = "/Users/simonaliotti/" + uploadFolder+"/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
 //		String sPath = "/"+savedVideo.getUuid()+"_"+file.getOriginalFilename();
 		Path path = Paths.get(sPath);
 		
@@ -122,5 +128,27 @@ public class VideoService {
 	 */
 	public void deleteVideo(String uuid) {
 		videoRepo.delete(videoRepo.findByUuid(uuid));
+	}
+
+	public ResourceRegion getData(HttpHeaders headers){
+		File file = new File("/Users/simonaliotti/videos/544da70c-4348-4e98-9e7c-36ddf1506441_videoplayback.mp4");
+		return this.resourceRegion(file, headers);
+	}
+
+	private ResourceRegion resourceRegion(File video, HttpHeaders headers){
+		long contentLength = video.getTotalSpace();
+		List<HttpRange> ranges = headers.getRange();
+		if(ranges != null && ranges.size()>0) {
+			long start = ranges.get(0).getRangeStart(contentLength);
+			long end = ranges.get(0).getRangeEnd(contentLength);
+			long rangeLength = Math.min(1 * 1024 * 1024, end - start + 1);
+			Resource resource = new FileSystemResource(video);
+			return new ResourceRegion(resource, start, rangeLength);
+		} else {
+			long rangeLength = Math.min(1 * 1024 * 1024, contentLength);
+			Resource resource = new FileSystemResource(video);
+			return new ResourceRegion(resource, 0, rangeLength);
+
+		}
 	}
 }

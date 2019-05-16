@@ -6,17 +6,17 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hb.model.Video;
@@ -132,5 +132,14 @@ public class VideoController {
 		Video video = videoService.getByUuid(uuid);
 		File file = new File(video.getPath());
 		streamHelper.addStreamHelperToResponse(file.getPath(), "video/mp4", response);
+	}
+
+	@RequestMapping("/api/video/part")
+	public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers){
+	ResourceRegion region = this.videoService.getData(headers);
+
+	return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+			.contentType(MediaType.APPLICATION_OCTET_STREAM)
+			.body(region);
 	}
 }
