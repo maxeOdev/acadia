@@ -16,9 +16,9 @@
     <name>acadia-core</name>
     <url>http://maven.apache.org</url>
 <packaging>jar</packaging>
+
     <properties>
     </properties>
-
 
     <dependencies>
         <dependency>
@@ -58,5 +58,7 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
+
+
 
 </project>
