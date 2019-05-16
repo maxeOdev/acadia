@@ -134,9 +134,11 @@ public class VideoController {
 		streamHelper.addStreamHelperToResponse(file.getPath(), "video/mp4", response);
 	}
 
-	@RequestMapping("/api/video/part")
-	public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers){
-	ResourceRegion region = this.videoService.getData(headers);
+	@RequestMapping("/api/video/part/{uuid}")
+	public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers, @PathVariable(value = "uuid") String uuid){
+
+		Video video = this.videoService.getByUuid(uuid);
+		ResourceRegion region = this.videoService.getData(headers, video);
 
 	return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
 			.contentType(MediaType.APPLICATION_OCTET_STREAM)

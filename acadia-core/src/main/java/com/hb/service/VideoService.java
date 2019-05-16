@@ -130,8 +130,9 @@ public class VideoService {
 		videoRepo.delete(videoRepo.findByUuid(uuid));
 	}
 
-	public ResourceRegion getData(HttpHeaders headers){
-		File file = new File("/Users/simonaliotti/videos/544da70c-4348-4e98-9e7c-36ddf1506441_videoplayback.mp4");
+	public ResourceRegion getData(HttpHeaders headers, Video video){
+
+		File file = new File(video.getPath());
 		return this.resourceRegion(file, headers);
 	}
 
