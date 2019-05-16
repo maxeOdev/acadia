@@ -129,7 +129,6 @@ public class VideoController {
 	@GetMapping( "/api/download")
 //	@PreAuthorize("hasRole('ROLE_TRAINER') and hasRole('ROLE_ADMIN')")
 	public void produceHome(HttpServletResponse response, @RequestParam(value = "uuid") String uuid) {
-		
 		Video video = videoService.getByUuid(uuid);
 		File file = new File(video.getPath());
 		streamHelper.addStreamHelperToResponse(file.getPath(), "video/mp4", response);
