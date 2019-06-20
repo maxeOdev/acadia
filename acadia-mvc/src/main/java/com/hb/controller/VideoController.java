@@ -243,6 +243,6 @@ public class VideoController {
 	public void produceHome(HttpServletResponse response, @RequestParam(value = "uuid") String uuid) {
 		Video video = videoService.getByUuid(uuid);
 		File file = new File(video.getPath());
-		streamHelper.addStreamHelperToResponse(file.getPath(), "video/mp4", response);
+		streamHelper.addStreamHelperToResponse("stream", file.getPath(), "video/mp4", response);
 	}
 }
